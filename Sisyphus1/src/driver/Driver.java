@@ -4,5 +4,8 @@ package driver;
  * @author Todd Bennet, Sean Brown, Alex Madsen
  */
 public class Driver {
-
+	
+	public static void main(String[] args){
+		System.out.println("Hello, world!"); 
+	}
 }
