@@ -1,6 +1,7 @@
 package driver;
+
 /**
- * Empty Driver class for Sisyphus 1 Project
+ * Driver class for Sisyphus I project
  * @author Todd Bennet, Sean Brown, Alex Madsen
  */
 public class Driver {
