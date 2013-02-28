@@ -5,6 +5,10 @@ package driver;
  */
 public class Driver {
 	
+	/**
+	 * Driver for Sisyphus I project
+	 * @param args
+	 */
 	public static void main(String[] args){
 		System.out.println("Hello, world!"); 
 	}
