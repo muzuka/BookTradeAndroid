@@ -1,6 +1,8 @@
 package cpsc433;
 
 public class Environment extends PredicateReader {
+	private static Environment getEnv;
+	
 	public Environment(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
@@ -18,8 +20,8 @@ public class Environment extends PredicateReader {
 		
 	}
 	public static Environment get() {
-		// TODO Auto-generated method stub
-		return null;
+		getEnv = new Environment("getEnv");
+		return getEnv;
 	}
 	public static void reset() {
 		// TODO Auto-generated method stub
