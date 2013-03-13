@@ -29,7 +29,7 @@ public class Pair<K, V> implements Map.Entry<K,V>, Comparable {
 	/**
 	 * Member constructor.
 	 * @param key the key
-	 * @param value the value that coorosponds the the key
+	 * @param value the value that corresponds the the key
 	 */
 	public Pair(K key, V value) {
 		super();
@@ -88,7 +88,7 @@ public class Pair<K, V> implements Map.Entry<K,V>, Comparable {
      * Attempts to compare to objects: if the first is {@link Comparable} then
      * call it's {@link Comparable#compareTo(Object)} method, call 
      * {@link Comparable#compareTo(Object)} on it's 
-     * {@link String#compareTo(java.lang.String)} with tthe other object's
+     * {@link String#compareTo(java.lang.String)} with the other object's
      * <code>toString()</code> version. 
      * @param x the object to compare with y
      * @param y the object to be campared

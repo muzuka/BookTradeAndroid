@@ -12,8 +12,15 @@ public class Environment extends PredicateReader {
 		super(p);
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	 * No idea what these public fields are for... What da faq? 
+	 * Reimplement some stuffs, I suppose
+	 */
 	public Solution currentSolution;
 	public boolean fixedAssignments;
+	
+	
 	public int fromFile(String datafile) {
 		return 0;
 		// TODO Auto-generated method stub

@@ -87,7 +87,6 @@ public class Entity implements Comparable<Entity>{
 	@Override
 	public boolean equals(Object arg0) {
 		return (arg0 instanceof Entity) ? name.equals(((Entity)arg0).name) : false;
-		
 	}
 	
 	

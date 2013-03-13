@@ -6,7 +6,7 @@ package cpsc433;
 import java.util.Vector;
 import java.util.Iterator;
 import java.util.TreeSet;
-//import casa.util.CASAUtil;
+//import casa.util.CASAUtil; // What was this for? 
 import java.text.ParseException;
 
 /**
@@ -67,6 +67,10 @@ Predicate(String s) throws ParseException {
 	}
 }
 
+/**
+ * This is odd... Why is this here
+ * @author Kremer (?) 
+ */
 private class Int {
 	int value;
 	public Int(int i) {value=i;}
