@@ -1,0 +1,36 @@
+
+assign-to(Andy, C5113)
+assign-to(Angi, C5113)
+assign-to(Eva, C5114)
+assign-to(Hans, C5115)
+assign-to(Harry, C5116)
+assign-to(Joachim, C5117)
+assign-to(Jurgen, C5116)
+assign-to(Katharina, C5119)
+assign-to(Marc, C5120)
+assign-to(Michael, C5123)
+assign-to(Monika, C5121)
+assign-to(Thomas, C5122)
+assign-to(Ulrike, C5121)
+assign-to(Uwe, C5123)
+assign-to(Werner, C5120)
+// Attributes: complete, solved, utility=-407, 15/15 people assigned.
+// searched 229878 nodes, including 8070 solved leaves, 0 unsolved leaves, 5748 dead-end internal nodes.
+// seach time = 33s
+// Const      #        Pen      Total
+// -----      ---      ---      -----
+// 1        : 1      * -40    = -40
+// 2        : 9      * -2     = -18
+// 5        : 1      * -20    = -20
+// 6        : 1      * -20    = -20
+// 7        : 9      * -2     = -18
+// 8        : 1      * -5     = -5
+// 9        : 1      * -10    = -10
+// 10       : 1      * -10    = -10
+// 11       : 2      * -50    = -100
+// 12       : 2      * -7     = -14
+// 14       : 10     * -4     = -40
+// 15       : 4      * -3     = -12
+// 16       : 4      * -25    = -100
+//                              -----
+//                              -407
