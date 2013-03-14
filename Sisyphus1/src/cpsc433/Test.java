@@ -84,7 +84,9 @@ public class Test {
 						S_DATAFILE_MISSING				= -8,
 						S_UNEXPECTED_EXCEPTION			= -9;
 
-	static long max(long a, long b) {return a>b?a:b;}
+	static long max(long a, long b) {
+		return a>b?a:b;
+	}
 	
 	/**
 	 * Searches for a solution
