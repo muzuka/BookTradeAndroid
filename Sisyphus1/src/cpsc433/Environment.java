@@ -7,7 +7,7 @@ import cpsc433.Predicate.ParamType;
 
 
 /**
- * SisyphusI environment. Holds all 'facts'. Uses the singleton desgn pattern. 
+ * SisyphusI environment. Holds all 'facts'. Uses the singleton design pattern. 
  * 
  * @author Rob Kremer, Todd Bennett, Sean Brown, Alex Madsen
  */
