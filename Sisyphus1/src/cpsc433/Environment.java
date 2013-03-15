@@ -14,7 +14,7 @@ import cpsc433.Predicate.ParamType;
 public class Environment extends PredicateReader implements SisyphusPredicates {
 	
 	private static Environment getEnv;
-	private ArrayList<Predicate> facts; // FIXME: problem with instantiating list - it's an interface
+	private ArrayList<Predicate> facts;
 	public Solution currentSolution;
 	public boolean fixedAssignments; // TODO: What is this used for? 
 	
