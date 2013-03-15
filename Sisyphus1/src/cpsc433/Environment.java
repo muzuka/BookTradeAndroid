@@ -26,12 +26,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		this.fixedAssignments = false; 
 	}
 	
-	/**
-	 * No idea what these public fields are for... What da faq? 
-	 * Reimplement some stuffs, I suppose
-	 */
-	
-	
 	public int fromFile(String datafile) {
 		return 0;
 		// TODO Auto-generated method stub
