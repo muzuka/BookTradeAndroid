@@ -42,8 +42,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	 */
 	public int fromFile(String datafile) {
 		return super.fromFile(datafile); 
-		// FIXME: Can't we just delete this if we are using the PredicateReader? 
-		// FIXME: or do we need to do some of our own pre/post processing? 
+		// FIXME: Definitely need to do our own I/O
 	}
 	
 	public static Environment get() {
