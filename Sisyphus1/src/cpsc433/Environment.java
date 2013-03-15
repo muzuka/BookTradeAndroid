@@ -14,13 +14,16 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		
 	private Environment(String name) {
 		super(name);
-		facts = new ArrayList<Predicate>(); 
-		// TODO Auto-generated constructor stub
+		this.facts = new ArrayList<Predicate>(); 
+		this.currentSolution = null; 
+		this.fixedAssignments = false; 
 	}
 
 	private Environment(Environment p) {
 		super(p);
-		// TODO Auto-generated constructor stub
+		this.facts = new ArrayList<Predicate>(); 
+		this.currentSolution = null; 
+		this.fixedAssignments = false; 
 	}
 	
 	/**
