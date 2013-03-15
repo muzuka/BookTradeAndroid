@@ -14,9 +14,25 @@ import cpsc433.Predicate.ParamType;
 public class Environment extends PredicateReader implements SisyphusPredicates {
 	
 	private static Environment getEnv;
-	private ArrayList<Predicate> facts;
 	public Solution currentSolution;
 	public boolean fixedAssignments; // TODO: What is this used for? 
+	
+	// lists of the known 'nouns' within our system  
+	private ArrayList<Entity> people; 
+	private ArrayList<Entity> groups; 
+	private ArrayList<Entity> projects;
+	private ArrayList<Entity> rooms; 
+	
+	// list of the unary relations that are true within our system 
+	private ArrayList<Predicate> facts;
+	private ArrayList<Entity> smokers; 
+	private ArrayList<Entity> secretaries; 
+	private ArrayList<Entity> researchers; 
+	private ArrayList<Entity> hackers; 
+	private ArrayList<Entity> large_rooms; 
+	private ArrayList<Entity> medium_rooms; 
+	private ArrayList<Entity> small_rooms; 
+	// FIXME: these may be better as parts of the Entity sublcasses.
 	
 	private Environment(String name) {
 		super(name);
