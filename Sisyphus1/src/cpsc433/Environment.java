@@ -1,17 +1,20 @@
 package cpsc433;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 import cpsc433.Predicate.ParamType;
 
 public class Environment extends PredicateReader implements SisyphusPredicates {
+	
 	private static Environment getEnv;
-	
-	private List<Predicate> facts = new List<Predicate>();
-	
+	private ArrayList<Predicate> facts; // FIXME: problem with instantiating list - it's an interface
+	public Solution currentSolution;
+	public boolean fixedAssignments; // TODO: What is this used for? 
+		
 	private Environment(String name) {
 		super(name);
+		facts = new ArrayList<Predicate>(); 
 		// TODO Auto-generated constructor stub
 	}
 
@@ -24,8 +27,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	 * No idea what these public fields are for... What da faq? 
 	 * Reimplement some stuffs, I suppose
 	 */
-	public Solution currentSolution;
-	public boolean fixedAssignments; // TODO: What is this used for? 
 	
 	
 	public int fromFile(String datafile) {
@@ -40,8 +41,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	}
 	
 	public static void reset() {
-		// TODO Auto-generated method stub
-		
+		// TODO: resetting the environment needs to clear all the facts 
 	}
 	
 	public void a_person(String p) {
