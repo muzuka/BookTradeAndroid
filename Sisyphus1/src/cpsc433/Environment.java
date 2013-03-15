@@ -8,14 +8,14 @@ import cpsc433.Predicate.ParamType;
 public class Environment extends PredicateReader implements SisyphusPredicates {
 	private static Environment getEnv;
 	
-	public List<Predicate> facts = new List<Predicate>();
+	private List<Predicate> facts = new List<Predicate>();
 	
-	public Environment(String name) {
+	private Environment(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Environment(Environment p) {
+	private Environment(Environment p) {
 		super(p);
 		// TODO Auto-generated constructor stub
 	}
@@ -25,7 +25,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	 * Reimplement some stuffs, I suppose
 	 */
 	public Solution currentSolution;
-	public boolean fixedAssignments;
+	public boolean fixedAssignments; // TODO: What is this used for? 
 	
 	
 	public int fromFile(String datafile) {
