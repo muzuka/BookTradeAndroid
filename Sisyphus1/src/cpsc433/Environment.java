@@ -18,10 +18,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public boolean fixedAssignments; // TODO: What is this used for? 
 	
 	// lists of the known 'nouns' within our system  
-	private ArrayList<Entity> 	people; 
-	private ArrayList<Entity> 	groups; 
-	private ArrayList<Entity> 	projects;
-	private ArrayList<Entity> 	rooms; 
+	private ArrayList<Entity> people; 
+	private ArrayList<Entity> groups; 
+	private ArrayList<Entity> projects;
+	private ArrayList<Entity> rooms; 
 	
 	// list of the unary relations that are true within our system 
 	private ArrayList<Predicate> facts;
@@ -276,7 +276,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	@Override
 	public void a_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -288,7 +287,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	@Override
 	public void a_close(String room, TreeSet<Pair<ParamType, Object>> set) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -296,5 +294,4 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }
