@@ -5,13 +5,19 @@ import java.util.TreeSet;
 
 import cpsc433.Predicate.ParamType;
 
+
+/**
+ * SisyphusI environment. Holds all 'facts'. Uses the singleton desgn pattern. 
+ * 
+ * @author Rob Kremer, Todd Bennett, Sean Brown, Alex Madsen
+ */
 public class Environment extends PredicateReader implements SisyphusPredicates {
 	
 	private static Environment getEnv;
 	private ArrayList<Predicate> facts; // FIXME: problem with instantiating list - it's an interface
 	public Solution currentSolution;
 	public boolean fixedAssignments; // TODO: What is this used for? 
-		
+	
 	private Environment(String name) {
 		super(name);
 		this.facts = new ArrayList<Predicate>(); 
@@ -26,10 +32,18 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		this.fixedAssignments = false; 
 	}
 	
+	
+	/**
+	 * Reads SisyphusI predicates from a data file.
+	 * 
+	 * @param datafile
+	 *            the file path to read data from
+	 * @return the number of lines read from the file. -1 if there was an error.
+	 */
 	public int fromFile(String datafile) {
-		return 0;
-		// TODO Auto-generated method stub
-		
+		return super.fromFile(datafile); 
+		// FIXME: Can't we just delete this if we are using the PredicateReader? 
+		// FIXME: or do we need to do some of our own pre/post processing? 
 	}
 	
 	public static Environment get() {
