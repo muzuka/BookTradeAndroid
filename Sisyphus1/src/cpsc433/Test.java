@@ -1,6 +1,3 @@
-/**
- * 
- */
 package cpsc433;
 
 import java.io.File;
@@ -13,7 +10,7 @@ import java.util.zip.ZipFile;
 /**
  * main() for Testing a program in the CPSC 433 W06 assignment. The main()
  * method in the sisyphusI.Test class must comply to the following syntax:
- * 
+ *  
  * <pre>
  *     java -classpath sisyphus.jar sisyphusI.SisyphusI filename maxtime
  * </pre>
