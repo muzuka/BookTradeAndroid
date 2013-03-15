@@ -42,46 +42,74 @@ public interface SisyphusPredicates {
 
 	public boolean e_person(String p);
 
+		
+	
+	
 	public static String h_secretary = "query or assert person <id> is a secretary";
 
 	public void a_secretary(String p);
 
 	public boolean e_secretary(String p);
 
+	
+	
+	
 	public static String h_researcher = "query or assert person <id> is a researcher";
 
 	public void a_researcher(String p);
 
 	public boolean e_researcher(String p);
 
+	
+	
+	
+	
+	
 	public static String h_manager = "query or assert person <id> is a manager";
 
 	public void a_manager(String p);
 
 	public boolean e_manager(String p);
 
+	
+	
+	
+	
+	
+	
 	public static String h_smoker = "query or assert person <id> is a smoker";
 
 	public void a_smoker(String p);
 
 	public boolean e_smoker(String p);
 
+	
+	
+	
+	
 	public static String h_hacker = "query or assert person <id> is a hacker";
 
 	public void a_hacker(String p);
 
 	public boolean e_hacker(String p);
 
+	
+	
+	
+	
 	public static String h_in_group = "(syn: group) query or assert person <id1> is a member of group <id2>";
 
 	public void a_in_group(String p, String grp);
 
 	public boolean e_in_group(String p, String grp);
-
+	
 	public void a_group(String p, String grp);
 
 	public boolean e_group(String p, String grp);
 
+	
+	
+	
 	public static String h_in_project = "(syn: project) query or assert person <id1> is a member of project <id2>";
 
 	public void a_in_project(String p, String prj);
@@ -92,18 +120,30 @@ public interface SisyphusPredicates {
 
 	public boolean e_project(String p, String prj);
 
+	
+	
+	
+	
 	public static String h_heads_group = "query or assert person <id1> heads group <id2>";
 
 	public void a_heads_group(String p, String grp);
 
 	public boolean e_heads_group(String p, String grp);
 
+	
+	
+	
 	public static String h_heads_project = "query or assert person <id1> heads project <id2>";
 
 	public void a_heads_project(String p, String prj);
 
 	public boolean e_heads_project(String p, String prj);
 
+	
+	
+	
+	
+	
 	public static String h_works_with = "query or assert person <id> works with [the person <id2>/all the people in <set>] (reflexive)";
 
 	public void a_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s);
@@ -114,12 +154,21 @@ public interface SisyphusPredicates {
 
 	public boolean e_works_with(String p, String p2);
 
+	
+	
+	
+	
 	public static String h_assign_to = "query or assert person <id1> is assigned to <id2>";
 
 	public void a_assign_to(String p, String room) throws Exception;
 
 	public boolean e_assign_to(String p, String room);
 
+	
+	
+	
+	
+	
 	// ROOMS
 	public static String h_room = "query or assert <id> is a room";
 
@@ -127,6 +176,11 @@ public interface SisyphusPredicates {
 
 	public boolean e_room(String r);
 
+	
+	
+	
+	
+	
 	public static String h_close = "query or assert room <id> is close to [the room <id2>/all the rooms in <set>] (reflexive)";
 
 	public void a_close(String room, String room2);
@@ -137,24 +191,42 @@ public interface SisyphusPredicates {
 
 	public boolean e_close(String room, TreeSet<Pair<ParamType, Object>> set);
 
+	
+	
+	
+	
 	public static String h_large_room = "query or assert <id> is a large-sized room";
 
 	public void a_large_room(String r);
 
 	public boolean e_large_room(String r);
 
+	
+	
+	
+	
+	
 	public static String h_medium_room = "query or assert <id> is a medium-sized room";
 
 	public void a_medium_room(String r);
 
 	public boolean e_medium_room(String r);
 
+	
+	
+	
+	
+	
 	public static String h_small_room = "query or assert <id> is a small-sized room";
 
 	public void a_small_room(String r);
 
 	public boolean e_small_room(String r);
 
+	
+	
+	
+	
 	// GROUPS
 	public static String h_group = "query or assert <id> is a group";
 
@@ -162,6 +234,13 @@ public interface SisyphusPredicates {
 
 	public boolean e_group(String g);
 
+	
+	
+	
+	
+	
+	
+	
 	// PROJECTS
 	public static String h_project = "query or assert <id> is a project";
 
@@ -169,6 +248,12 @@ public interface SisyphusPredicates {
 
 	public boolean e_project(String p);
 
+	
+	
+	
+	
+	
+	
 	public static String h_large_project = "query or assert <id> is a large project";
 
 	public void a_large_project(String prj);
