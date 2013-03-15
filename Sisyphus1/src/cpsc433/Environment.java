@@ -27,12 +27,16 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	private ArrayList<Predicate> facts;
 	private ArrayList<Entity> smokers; 
 	private ArrayList<Entity> secretaries; 
+	private ArrayList<Entity> managers;
 	private ArrayList<Entity> researchers; 
 	private ArrayList<Entity> hackers; 
 	private ArrayList<Entity> large_rooms; 
 	private ArrayList<Entity> medium_rooms; 
 	private ArrayList<Entity> small_rooms; 
-	// FIXME: these may be better as parts of the Entity sublcasses.
+	private ArrayList<Pair<Entity, Entity>> works_with; 
+	private ArrayList<Pair<Entity, Entity>> assigned_to; // Format: <Person, Room> 
+	private ArrayList<Pair<Entity, Entity>> in_group; // Format: <Person, Group> 
+ 	// FIXME: these 'lists' seem to be filling in for what a predicate should do 
 	
 	private Environment(String name) {
 		super(name);
