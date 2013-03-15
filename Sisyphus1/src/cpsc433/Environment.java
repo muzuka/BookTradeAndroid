@@ -18,10 +18,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public boolean fixedAssignments; // TODO: What is this used for? 
 	
 	// lists of the known 'nouns' within our system  
-	private ArrayList<Person> 	people; 
-	private ArrayList<Group> 	groups; 
-	private ArrayList<Project> 	projects;
-	private ArrayList<Room> 	rooms; 
+	private ArrayList<Entity> 	people; 
+	private ArrayList<Entity> 	groups; 
+	private ArrayList<Entity> 	projects;
+	private ArrayList<Entity> 	rooms; 
 	
 	// list of the unary relations that are true within our system 
 	private ArrayList<Predicate> facts;
