@@ -3,9 +3,12 @@ package cpsc433;
 import java.util.List;
 import java.util.TreeSet;
 
+import cpsc433.Predicate.ParamType;
+
 public class Environment extends PredicateReader implements SisyphusPredicates {
 	private static Environment getEnv;
-	public List<Predicate> facts = new List();
+	
+	public List<Predicate> facts = new List<Predicate>();
 	
 	public Environment(String name) {
 		super(name);
@@ -231,6 +234,30 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	
 	public boolean e_large_project(String prj) {
 		
+	}
+
+	@Override
+	public void a_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean e_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void a_close(String room, TreeSet<Pair<ParamType, Object>> set) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean e_close(String room, TreeSet<Pair<ParamType, Object>> set) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
