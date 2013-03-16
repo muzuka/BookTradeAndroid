@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 public class SisyphusI {
-
+	
 	public static void main(String[] args) {
 		if (args.length != 2) {
 			System.exit(-1);
