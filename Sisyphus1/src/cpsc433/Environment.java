@@ -43,6 +43,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	private Environment(String name) {
 		super(name);
 		this.facts = new ArrayList<Predicate>(); 
+		this.people = new ArrayList<Entity>(); 
+		this.groups = new ArrayList<Entity>(); 
+		this.projects = new ArrayList<Entity>(); 
+		this.rooms = new ArrayList<Entity>(); 
 		this.smokers = new ArrayList<Entity>(); 
 		this.secretaries = new ArrayList<Entity>(); 
 		this.managers = new ArrayList<Entity>();
