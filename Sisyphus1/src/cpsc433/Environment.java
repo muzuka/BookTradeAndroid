@@ -82,19 +82,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		this.fixedAssignments = false; 
 	}
 
-
-	/**
-	 * Reads SisyphusI predicates from a data file.
-	 * 
-	 * @param datafile
-	 *            the file path to read data from
-	 * @return the number of lines read from the file. -1 if there was an error.
-	 */
-	public int fromFile(String datafile) {
-		return super.fromFile(datafile); 
-		// FIXME: Definitely need to do our own I/O
-	}
-
 	public static Environment get() {
 		getEnv = new Environment("getEnv");
 		return getEnv;
