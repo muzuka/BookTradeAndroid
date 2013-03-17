@@ -5,7 +5,6 @@ public class Solution {
 	public enum Verbosity {
 		SUMMARY;
 	}
-
 	public static Verbosity verbosity;
 
 	public Solution(String outfilename) {
