@@ -71,7 +71,14 @@ public class Entity implements Comparable<Entity>{
 	 */
 	public int compareTo(Entity arg0) {
 	    if (arg0 instanceof Entity) {
-			return name.compareTo(((Entity)arg0).name);
+	    	int val = name.compareTo(((Entity)arg0).getName());
+	    	if(val < 0){
+	    		return -1; 
+	    	} else if (val > 0) { 
+	    		return 1; 
+	    	} else {
+	    		return 0; 
+	    	}
 		}
 	    else throw new java.lang.ClassCastException();
 	}
