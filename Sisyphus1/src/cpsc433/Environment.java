@@ -43,6 +43,18 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	private Environment(String name) {
 		super(name);
 		this.facts = new ArrayList<Predicate>(); 
+		this.smokers = new ArrayList<Entity>(); 
+		this.secretaries = new ArrayList<Entity>(); 
+		this.managers = new ArrayList<Entity>();
+		this.researchers = new ArrayList<Entity>(); 
+		this.hackers = new ArrayList<Entity>(); 
+		this.large_rooms = new ArrayList<Entity>(); 
+		this.medium_rooms = new ArrayList<Entity>(); 
+		this.small_rooms = new ArrayList<Entity>(); 
+		this.works_with = new ArrayList<Pair<Entity, Entity>>(); 
+		this.assigned_to  = new ArrayList<Pair<Entity, Entity>>(); // Format: <Person, Room> 
+		this.in_group  = new ArrayList<Pair<Entity, Entity>>(); // Format: <Person, Group> 
+		this.in_project  = new ArrayList<Pair<Entity, Entity>>();
 		this.currentSolution = null; 
 		this.fixedAssignments = false; 
 	}
@@ -50,6 +62,18 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	private Environment(Environment p) {
 		super(p);
 		this.facts = new ArrayList<Predicate>(); 
+		this.smokers = new ArrayList<Entity>(); 
+		this.secretaries = new ArrayList<Entity>(); 
+		this.managers = new ArrayList<Entity>();
+		this.researchers = new ArrayList<Entity>(); 
+		this.hackers = new ArrayList<Entity>(); 
+		this.large_rooms = new ArrayList<Entity>(); 
+		this.medium_rooms = new ArrayList<Entity>(); 
+		this.small_rooms = new ArrayList<Entity>(); 
+		this.works_with = new ArrayList<Pair<Entity, Entity>>(); 
+		this.assigned_to  = new ArrayList<Pair<Entity, Entity>>(); // Format: <Person, Room> 
+		this.in_group  = new ArrayList<Pair<Entity, Entity>>(); // Format: <Person, Group> 
+		this.in_project  = new ArrayList<Pair<Entity, Entity>>();
 		this.currentSolution = null; 
 		this.fixedAssignments = false; 
 	}
