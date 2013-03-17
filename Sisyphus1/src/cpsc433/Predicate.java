@@ -371,5 +371,14 @@ public static void error(String msg) {
 	System.out.println(">>>>>> "+msg);
 }
 
+@Override
+public boolean equals(Object o) {
+	if (o.getClass().equals(this.getClass())) {
+		Predicate p = (Predicate) o;
+		return (p.toString().equals(this.toString()));
+	}
+	return false;
+}
+
 }
 
