@@ -45,6 +45,22 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		this.facts = new ArrayList<Predicate>(); 
 		this.currentSolution = null; 
 		this.fixedAssignments = false; 
+		people = new ArrayList<Entity>();
+		groups = new ArrayList<Entity>();
+		projects = new ArrayList<Entity>();
+		rooms = new ArrayList<Entity>();
+		smokers = new ArrayList<Entity>();
+		secretaries = new ArrayList<Entity>();
+		managers = new ArrayList<Entity>();
+		researchers = new ArrayList<Entity>();
+		hackers = new ArrayList<Entity>();
+		large_rooms = new ArrayList<Entity>();
+		medium_rooms = new ArrayList<Entity>();
+		small_rooms = new ArrayList<Entity>();
+		works_with = new ArrayList<Pair<Entity, Entity>>();
+		assigned_to = new ArrayList<Pair<Entity, Entity>>();
+		in_group = new ArrayList<Pair<Entity, Entity>>();
+		in_project = new ArrayList<Pair<Entity, Entity>>();
 	}
 
 	private Environment(Environment p) {
