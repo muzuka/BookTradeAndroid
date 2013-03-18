@@ -92,5 +92,7 @@ public class Entity implements Comparable<Entity>{
 		return (arg0 instanceof Entity) ? name.equals(((Entity)arg0).name) : false;
 	}
 	
-	
+	public String toString() {
+		return name;
+	}
 }
