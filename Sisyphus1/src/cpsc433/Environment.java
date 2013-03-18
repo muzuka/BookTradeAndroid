@@ -33,11 +33,15 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	private ArrayList<Entity> hackers; 
 	private ArrayList<Entity> large_rooms; 
 	private ArrayList<Entity> medium_rooms; 
-	private ArrayList<Entity> small_rooms; 
+	private ArrayList<Entity> small_rooms;
+	private ArrayList<Entity> large_projects;
 	private ArrayList<Pair<Entity, Entity>> works_with; 
 	private ArrayList<Pair<Entity, Entity>> assigned_to; // Format: <Person, Room> 
 	private ArrayList<Pair<Entity, Entity>> in_group; // Format: <Person, Group> 
 	private ArrayList<Pair<Entity, Entity>> in_project; // Format: <Person, Project> NEW
+	private ArrayList<Pair<Entity, Entity>> heads_group;
+	private ArrayList<Pair<Entity, Entity>> heads_project;
+	private ArrayList<Pair<Entity, Entity>> close;
  	// FIXME: these 'lists' seem to be filling in for what a predicate should do 
 
 	private Environment(String name) {
@@ -61,6 +65,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		this.in_project  = new ArrayList<Pair<Entity, Entity>>();
 		this.currentSolution = null; 
 		this.fixedAssignments = false; 
+		this.heads_group = new ArrayList<Pair<Entity, Entity>>();
+		this.heads_project = new ArrayList<Pair<Entity, Entity>>();
+		this.large_projects = new ArrayList<Entity>();
+		this.close = new ArrayList<Pair<Entity, Entity>>();
 	}
 
 	private Environment(Environment p) {
@@ -84,6 +92,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		this.in_project  = new ArrayList<Pair<Entity, Entity>>();
 		this.currentSolution = null; 
 		this.fixedAssignments = false; 
+		this.heads_group = new ArrayList<Pair<Entity, Entity>>();
+		this.heads_project = new ArrayList<Pair<Entity, Entity>>();
+		this.large_projects = new ArrayList<Entity>();
+		this.close = new ArrayList<Pair<Entity, Entity>>();
 	}
 
 	public static Environment get() {
@@ -100,14 +112,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			if (!facts.contains(new Predicate("person(" + p + ")")) && !people.contains(new Entity(p))) {
 				facts.add(new Predicate("person(" + p + ")"));
 				people.add(new Entity(p));
-			}
-			else {
-				if (facts.contains(new Predicate("person(" + p + ")"))) {
-					System.out.println("This person already exists in the facts list.");
-				}
-				if(people.contains(new Entity(p))) {
-					System.out.println("This person already exists in the people list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -129,19 +133,9 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_secretary(String p) {
 		try {
 			if (!facts.contains(new Predicate("secretary(" + p + ")")) && !secretaries.contains(new Entity(p))) {
-				if (!people.contains(new Entity(p))) {
-					people.add(new Entity(p));
-				}
+				a_person(p);
 				facts.add(new Predicate("secretary(" + p + ")"));
 				secretaries.add(new Entity(p));
-			}
-			else {
-				if (facts.contains(new Predicate("secretary(" + p + ")"))) {
-					System.out.println("This person already exists in the facts list.");
-				}
-				if(secretaries.contains(new Entity(p))) {
-					System.out.println("This person already exists in the secretaries list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -163,19 +157,9 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_researcher(String p) {
 		try {
 			if (!facts.contains(new Predicate("researcher(" + p + ")")) && !researchers.contains(new Entity(p))) {
-				if (!people.contains(new Entity(p))) {
-					people.add(new Entity(p));
-				}
+				a_person(p);
 				facts.add(new Predicate("researcher(" + p + ")"));
 				researchers.add(new Entity(p));
-			}
-			else {
-				if (facts.contains(new Predicate("researcher(" + p + ")"))) {
-					System.out.println("This person already exists in the facts list.");
-				}
-				if(researchers.contains(new Entity(p))) {
-					System.out.println("This person already exists in the researchers list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -197,19 +181,9 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_manager(String p) {
 		try {
 			if (!facts.contains(new Predicate("manager(" + p + ")")) && !managers.contains(new Entity(p))) {
-				if (!people.contains(new Entity(p))) {
-					people.add(new Entity(p));
-				}
+				a_person(p);
 				facts.add(new Predicate("manager(" + p + ")"));
 				managers.add(new Entity(p));
-			}
-			else {
-				if (facts.contains(new Predicate("manager(" + p + ")"))) {
-					System.out.println("This person already exists in the facts list.");
-				}
-				if(managers.contains(new Entity(p))) {
-					System.out.println("This person already exists in the managers list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -231,19 +205,9 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_smoker(String p) {
 		try {
 			if (!facts.contains(new Predicate("smoker(" + p + ")")) && !smokers.contains(new Entity(p))) {
-				if (!people.contains(new Entity(p))) {
-					people.add(new Entity(p));
-				}
+				a_person(p);
 				facts.add(new Predicate("smoker(" + p + ")"));
 				smokers.add(new Entity(p));
-			}
-			else {
-				if (facts.contains(new Predicate("smoker(" + p + ")"))) {
-					System.out.println("This person already exists in the facts list.");
-				}
-				if(smokers.contains(new Entity(p))) {
-					System.out.println("This person already exists in the smokers list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -265,19 +229,9 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_hacker(String p) {
 		try {
 			if (!facts.contains(new Predicate("hacker(" + p + ")")) && !hackers.contains(new Entity(p))) {
-				if (!people.contains(new Entity(p))) {
-					people.add(new Entity(p));
-				}
+				a_person(p);
 				facts.add(new Predicate("hacker(" + p + ")"));
 				hackers.add(new Entity(p));
-			}
-			else {
-				if (facts.contains(new Predicate("hacker(" + p + ")"))) {
-					System.out.println("This person already exists in the facts list.");
-				}
-				if(hackers.contains(new Entity(p))) {
-					System.out.println("This person already exists in the hackers list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -299,22 +253,11 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_in_group(String p, String grp) {
 		try {
 			if (!facts.contains(new Predicate("in-group(" + p + "," + grp + ")")) && !in_group.contains(new Pair<Entity, Entity>(new Entity(p), new Entity(grp)))) {
-				if (!people.contains(new Entity(p))) {
-					people.add(new Entity(p));
-				}
-				if (!groups.contains(new Entity(grp))) {
-					groups.add(new Entity(grp));
-				}
+				a_person(p);
+				a_group(grp);
+				facts.add(new Predicate("group(" + p + "," + grp + ")"));
 				facts.add(new Predicate("in-group(" + p + "," + grp + ")"));
 				in_group.add(new Pair<Entity, Entity>(new Entity(p), new Entity(grp)));
-			}
-			else {
-				if (facts.contains(new Predicate("in-group(" + p + "," + grp + ")"))) {
-					System.out.println("This pairing already exists in the facts list.");
-				}
-				if (in_group.contains(new Pair<Entity, Entity>(new Entity(p), new Entity(grp)))) {
-					System.out.println("This pairing already exists in the in-group list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -336,22 +279,11 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_group(String p, String grp) {
 		try {
 			if (!facts.contains(new Predicate("group(" + p + "," + grp + ")")) && !in_group.contains(new Pair<Entity, Entity>(new Entity(p), new Entity(grp)))) {
-				if (!people.contains(new Entity(p))) {
-					people.add(new Entity(p));
-				}
-				if (!groups.contains(new Entity(grp))) {
-					groups.add(new Entity(grp));
-				}
+				a_person(p);
+				a_group(grp);
 				facts.add(new Predicate("group(" + p + "," + grp + ")"));
+				facts.add(new Predicate("in-group(" + p + "," + grp + ")"));
 				in_group.add(new Pair<Entity, Entity>(new Entity(p), new Entity(grp)));
-			}
-			else {
-				if (facts.contains(new Predicate("group(" + p + "," + grp + ")"))) {
-					System.out.println("This pairing already exists in the facts list.");
-				}
-				if (in_group.contains(new Pair<Entity, Entity>(new Entity(p), new Entity(grp)))) {
-					System.out.println("This pairing already exists in the in-group list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -373,22 +305,11 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_in_project(String p, String prj) {
 		try {
 			if (!facts.contains(new Predicate("in-project(" + p + "," + prj + ")")) && !in_project.contains(new Pair<Entity, Entity>(new Entity(p), new Entity(prj)))) {
-				if (!people.contains(new Entity(p))) {
-					people.add(new Entity(p));
-				}
-				if (!projects.contains(new Entity(prj))) {
-					projects.add(new Entity(prj));
-				}
+				a_person(p);
+				a_project(prj);
+				facts.add(new Predicate("project(" + p + "," + prj + ")"));
 				facts.add(new Predicate("in-project(" + p + "," + prj + ")"));
 				in_project.add(new Pair<Entity, Entity>(new Entity(p), new Entity(prj)));
-			}
-			else {
-				if (facts.contains(new Predicate("in-project(" + p + "," + prj + ")"))) {
-					System.out.println("This pairing already exists in the facts list.");
-				}
-				if (in_project.contains(new Pair<Entity, Entity>(new Entity(p), new Entity(prj)))) {
-					System.out.println("This pairing already exists in the in-project list");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -410,22 +331,11 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_project(String p, String prj) {
 		try {
 			if (!facts.contains(new Predicate("project(" + p + "," + prj + ")")) && !in_project.contains(new Pair<Entity, Entity>(new Entity(p), new Entity(prj)))) {
-				if (!people.contains(new Entity(p))) {
-					people.add(new Entity(p));
-				}
-				if (!projects.contains(new Entity(prj))) {
-					projects.add(new Entity(prj));
-				}
+				a_person(p);
+				a_project(prj);
 				facts.add(new Predicate("project(" + p + "," + prj + ")"));
+				facts.add(new Predicate("in-project(" + p + "," + prj + ")"));
 				in_project.add(new Pair<Entity, Entity>(new Entity(p), new Entity(prj)));
-			}
-			else {
-				if (facts.contains(new Predicate("project(" + p + "," + prj + ")"))) {
-					System.out.println("This pairing already exists in the facts list.");
-				}
-				if (in_project.contains(new Pair<Entity, Entity>(new Entity(p), new Entity(prj)))) {
-					System.out.println("This pairing already exists in the in-project list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -447,18 +357,9 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_heads_group(String p, String grp) {
 		try {
 			if (!facts.contains(new Predicate("heads-group(" + p + "," + grp + ")"))) {
-				if (!people.contains(new Entity(p))) {
-					people.add(new Entity(p));
-				}
-				if (!groups.contains(new Entity(grp))) {
-					groups.add(new Entity(grp));
-				}
+				a_group(p, grp);
+				heads_group.add(new Pair<Entity, Entity>(new Entity(p), new Entity(grp)));
 				facts.add(new Predicate("heads-group(" + p + "," + grp + ")"));
-			}
-			else {
-				if (facts.contains(new Predicate("heads-group(" + p + "," + grp + ")"))) {
-					System.out.println("The group head already exists in the facts list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -480,18 +381,9 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_heads_project(String p, String prj) {
 		try {
 			if (!facts.contains(new Predicate("heads-project(" + p + "," + prj + ")"))) {
-				if (!people.contains(new Entity(p))) {
-					people.add(new Entity(p));
-				}
-				if (!projects.contains(new Entity(prj))) {
-					projects.add(new Entity(p));
-				}
+				a_project(p, prj);
+				heads_project.add(new Pair<Entity, Entity>(new Entity(p), new Entity(prj)));
 				facts.add(new Predicate("heads-project(" + p + "," + prj + ")"));
-			}
-			else {
-				if (facts.contains(new Predicate("heads-project(" + p + "," + prj + ")"))) {
-					System.out.println("The project head already exists in the facts list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -513,19 +405,11 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_works_with(String p, String p2) {
 		try {
 			if (!facts.contains(new Predicate("works-with(" + p + "," + p2 + ")")) && !works_with.contains(new Pair<Entity, Entity>(new Entity(p), new Entity(p2)))) {
-				if (!people.contains(new Entity(p))) {
-					people.add(new Entity(p));
-				}
-				if (!people.contains(new Entity(p2))) {
-					people.add(new Entity(p2));
-				}
+				a_person(p);
+				a_person(p2);			
 				facts.add(new Predicate("works-with(" + p + "," + p2 + ")"));
 				works_with.add(new Pair<Entity, Entity>(new Entity(p), new Entity(p2)));
-			}
-			else {
-				if (!facts.contains(new Predicate("works-with(" + p + "," + p2 + ")"))) {
-					System.out.println("This pairing already exists in the facts list.");
-				}
+				a_works_with(p2, p);
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -546,24 +430,18 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	// How to use exception?
 	// Need to distinguish room
+	// The exception is for violation of hard constraints I think... not yet. - T
 	public void a_assign_to(String p, String room) throws Exception {
-		if (!facts.contains(new Predicate("assign-to(" + p + "," + room + ")")) && !assigned_to.contains(new Pair<Entity, Entity>(new Entity(p), new Entity(room)))) {
-			if (!people.contains(new Entity(p))) {
-				people.add(new Entity(p));
+		try {
+			if (!facts.contains(new Predicate("assign-to(" + p + "," + room + ")")) && !assigned_to.contains(new Pair<Entity, Entity>(new Entity(p), new Entity(room)))) {
+				a_person(p);
+				a_room(room);
+				facts.add(new Predicate("assign-to(" + p + "," + room + ")"));
+				assigned_to.add(new Pair<Entity, Entity>(new Entity(p), new Entity(room)));
 			}
-			if (!rooms.contains(new Entity(room))) {
-				rooms.add(new Entity(room));
-			}
-			facts.add(new Predicate("assign-to(" + p + "," + room + ")"));
-			assigned_to.add(new Pair<Entity, Entity>(new Entity(p), new Entity(room)));
-		}
-		else {
-			if (facts.contains(new Predicate("assign-to(" + p + "," + room + ")"))) {
-				System.out.println("The assignment already exists in the facts list.");
-			}
-			if (assigned_to.contains(new Pair<Entity, Entity>(new Entity(p), new Entity(room)))) {
-				System.out.println("The assignment already exists in the assigned-to list.");
-			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -583,14 +461,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			if (!facts.contains(new Predicate("room(" + r + ")")) && !rooms.contains(new Entity(r))) {
 				rooms.add(new Entity(r));
 				facts.add(new Predicate("room(" + r + ")"));
-			}
-			else {
-				if (facts.contains(new Predicate("room(" + r + ")"))) {
-					System.out.println("This room already exists in the facts list.");
-				}
-				if (rooms.contains(new Entity(r))) {
-					System.out.println("This room already exists in the rooms list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -612,18 +482,11 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_close(String room, String room2) {
 		try {
 			if (!facts.contains(new Predicate("close(" + room + "," + room2 + ")"))) {
-				if (!rooms.contains(new Entity(room))) {
-					rooms.add(new Entity(room));
-				}
-				if (!rooms.contains(new Entity(room2))) {
-					rooms.add(new Entity(room2));
-				}
+				a_room(room);
+				a_room(room2);
 				facts.add(new Predicate("close(" + room + "," + room2 + ")"));
-			}
-			else {
-				if (facts.contains(new Predicate("close(" + room + "," + room2 + ")"))) {
-					System.out.println("This close assertion already exists in the facts list.");
-				}
+				close.add(new Pair<Entity, Entity>(new Entity(room), new Entity(room2)));
+				a_close(room2, room);
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -646,16 +509,9 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_large_room(String r) {
 		try {
 			if (!facts.contains(new Predicate("large-room(" + r + ")")) && !large_rooms.contains(new Entity(r))) {
+				a_room(r);
 				facts.add(new Predicate("large-room(" + r + ")"));
 				large_rooms.add(new Entity(r));
-			}
-			else {
-				if (facts.contains(new Predicate("large-room(" + r + ")"))) {
-					System.out.println("This large room already exists in the facts list.");
-				}
-				if (large_rooms.contains(new Entity(r))) {
-					System.out.println("This large room already exists in the large_rooms list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -677,16 +533,9 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_medium_room(String r) {
 		try {
 			if (!facts.contains(new Predicate("medium-room(" + r + ")")) && !medium_rooms.contains(new Entity(r))) {
+				a_room(r);
 				facts.add(new Predicate("medium-room(" + r + ")"));
 				medium_rooms.add(new Entity(r));
-			}
-			else {
-				if (facts.contains(new Predicate("medium-room(" + r + ")"))) {
-					System.out.println("This medium room already exists in the facts list.");
-				}
-				if (medium_rooms.contains(new Entity(r))) {
-					System.out.println("This medium room already exists in the large_rooms list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -708,16 +557,9 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_small_room(String r) {
 		try {
 			if (!facts.contains(new Predicate("small-room(" + r + ")")) && !small_rooms.contains(new Entity(r))) {
+				a_room(r);
 				facts.add(new Predicate("small-room(" + r + ")"));
 				small_rooms.add(new Entity(r));
-			}
-			else {
-				if (facts.contains(new Predicate("small-room(" + r + ")"))) {
-					System.out.println("This small room already exists in the facts list.");
-				}
-				if (small_rooms.contains(new Entity(r))) {
-					System.out.println("This small room already exists in the large_rooms list.");
-				}
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -742,14 +584,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 				facts.add(new Predicate("group(" + g + ")"));
 				groups.add(new Entity(g));
 			}
-			else {
-				if (facts.contains(new Predicate("group(" + g + ")"))) {
-					System.out.println("This group is already in the facts list.");
-				}
-				if (groups.contains(new Entity(g))) {
-					System.out.println("This group is already in the groups list.");
-				}
-			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -773,14 +607,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 				facts.add(new Predicate("project(" + p + ")"));
 				projects.add(new Entity(p));
 			}
-			else {
-				if (facts.contains(new Predicate("project(" + p + ")"))) {
-					System.out.println("This group is already in the facts list.");
-				}
-				if (projects.contains(new Entity(p))) {
-					System.out.println("This group is already in the groups list.");
-				}
-			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -799,19 +625,13 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	}
 
 	// Note: add large-project list maybe?
+	// Added -T
 	public void a_large_project(String prj) {
 		try {
 			if (!facts.contains(new Predicate("large-project(" + prj + ")")) && !projects.contains(new Entity(prj))) {
+				a_project(prj);
 				facts.add(new Predicate("large-project(" + prj + ")"));
-				projects.add(new Entity(prj));
-			}
-			else {
-				if (facts.contains(new Predicate("large-project(" + prj + ")"))) {
-					System.out.println("This group is already in the facts list.");
-				}
-				if (projects.contains(new Entity(prj))) {
-					System.out.println("This group is already in the groups list.");
-				}
+				large_projects.add(new Entity(prj));
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -832,23 +652,33 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	// I don't like TreeSets
 	public void a_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
-		// TODO Auto-generated method stub
-
+		for (Pair<ParamType, Object> pair : p2s) {
+			a_works_with(p, (String) pair.getValue());
+		}
 	}
 
 	public boolean e_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
-		// TODO Auto-generated method stub
-		return false;
+		for (Pair<ParamType, Object> pair : p2s) {
+			if (!e_works_with(p, (String) pair.getValue())) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public void a_close(String room, TreeSet<Pair<ParamType, Object>> set) {
-		// TODO Auto-generated method stub
-
+		for (Pair<ParamType, Object> pair : set) {
+			a_close(room, (String) pair.getValue());
+		}
 	}
 
 	public boolean e_close(String room, TreeSet<Pair<ParamType, Object>> set) {
-		// TODO Auto-generated method stub
-		return false;
+		for (Pair<ParamType, Object> pair : set) {
+			if (!e_close(room, (String) pair.getValue())) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public String toString() {
@@ -877,8 +707,17 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		for (int i = 0; i < in_group.size(); i++) {
 			s.append("in-group(" + in_group.get(i).getKey() + ", " + in_group.get(i).getValue() + ")\n");
 		}
+		for (int i = 0; i < heads_group.size(); i++) {
+			s.append("heads-group(" + heads_group.get(i).getKey() + ", " + heads_group.get(i).getValue() + ")\n");
+		}
 		for (int i = 0; i < in_project.size(); i++) {
 			s.append("in-project(" + in_project.get(i).getKey() + ", " + in_project.get(i).getValue() + ")\n");
+		}
+		for (int i = 0; i < heads_project.size(); i++) {
+			s.append("heads-project(" + heads_project.get(i).getKey() + ", " + heads_project.get(i).getValue() + ")\n");
+		}
+		for (int i = 0; i < rooms.size(); i++) {
+			s.append("room(" + rooms.get(i).getName() + ")\n");
 		}
 		for (int i = 0; i < large_rooms.size(); i++) {
 			s.append("large-room(" + large_rooms.get(i).getName() + ")\n");
@@ -889,8 +728,17 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		for (int i = 0; i < small_rooms.size(); i++) {
 			s.append("small-room(" + small_rooms.get(i).getName() + ")\n");
 		}
+		for (int i = 0; i < close.size(); i++) {
+			s.append("close(" + close.get(i).getKey() + ", " + close.get(i).getValue() + ")\n");
+		}
 		for (int i = 0; i < assigned_to.size(); i++) {
 			s.append("assigned-to(" + assigned_to.get(i).getKey() + ", " + assigned_to.get(i).getValue() + ")\n");
+		}
+		for (int i = 0; i < projects.size(); i++) {
+			s.append("project(" + projects.get(i).getName() + ")\n");
+		}
+		for (int i = 0; i < large_projects.size(); i++) {
+			s.append("large-project(" + projects.get(i).getName() + ")\n");
 		}
 		return s.toString();
 	}
