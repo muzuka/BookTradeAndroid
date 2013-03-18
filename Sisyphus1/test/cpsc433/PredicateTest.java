@@ -171,6 +171,8 @@ public class PredicateTest {
 	
 	/**
 	 * Tests that toString works for all types of predicates. 
+	 * <p><b>NOTE</b>: the TreeSet has been discovered to reorder its elements in 
+	 * 		 alphabetical order!</p> 
 	 */
 	@Test
 	public void testToString() throws ParseException {
