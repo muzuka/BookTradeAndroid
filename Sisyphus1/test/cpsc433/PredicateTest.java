@@ -129,10 +129,39 @@ public class PredicateTest {
 	 */
 	@Test
 	public void testGetParamType() throws ParseException {
-		Predicate sample = new Predicate("test(hello, -1, {this, is, a, set})");
+		Predicate sample = new Predicate("test(hello, -3.14159, {this, is, a, set})");
 		assertEquals(Predicate.ParamType.STRING, sample.getParamType(0)); 
 		assertEquals(Predicate.ParamType.LONG, sample.getParamType(1)); 
 		assertEquals(Predicate.ParamType.SET, sample.getParamType(2)); 
 	}
 	
+	/**
+	 * Tests that we can retrieve String parameters
+	 */
+	@Test
+	public void testGetStringParam() throws ParseException {
+		fail("Not Implemented Yet!!!"); 
+		//Predicate sample = new Predicate("test(hello, -3.14159, {this, is, a, set})");
+		//assertEquals(Predicate.ParamType.STRING, sample.getParamType(0)); 
+	}
+	
+	/**
+	 * Tests that we can retrieve long parameters
+	 */
+	@Test
+	public void testGetLongParam() throws ParseException {
+		fail("Not Implemented Yet!!!"); 
+		//Predicate sample = new Predicate("test(hello, -3.14159, {this, is, a, set})");
+		//assertEquals(Predicate.ParamType.STRING, sample.getParamType(0)); 
+	}
+	
+	/**
+	 * Tests that we can retrieve set parameters
+	 */
+	@Test
+	public void testGetSetParam() throws ParseException {
+		fail("Not Implemented Yet!!!"); 
+		//Predicate sample = new Predicate("test(hello, -3.14159, {this, is, a, set})");
+		//assertEquals(Predicate.ParamType.STRING, sample.getParamType(0)); 
+	}
 }
