@@ -70,17 +70,14 @@ public class Entity implements Comparable<Entity>{
 	 * @return -1 if this name is less than the param, 0 if equal, 1 if greater than.
 	 */
 	public int compareTo(Entity arg0) {
-	    if (arg0 instanceof Entity) {
-	    	int val = name.compareTo(((Entity)arg0).getName());
-	    	if(val < 0){
-	    		return -1; 
-	    	} else if (val > 0) { 
-	    		return 1; 
-	    	} else {
-	    		return 0; 
-	    	}
+		int val = name.compareTo(((Entity) arg0).getName());
+		if (val < 0) {
+			return -1;
+		} else if (val > 0) {
+			return 1;
+		} else {
+			return 0;
 		}
-	    else throw new java.lang.ClassCastException();
 	}
 
 	/**
