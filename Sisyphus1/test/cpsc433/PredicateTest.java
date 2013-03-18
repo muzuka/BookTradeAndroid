@@ -168,4 +168,28 @@ public class PredicateTest {
 		mySet.add(new Pair<Predicate.ParamType, Object>(Predicate.ParamType.STRING, "set")); 
 		assert(mySet.equals(sample.getParamType(2))); 
 	}
+	
+	/**
+	 * Tests that toString works for all types of predicates. 
+	 */
+	@Test
+	public void testToString() throws ParseException {
+		fail("Not implemented yet!!!"); 
+	}
+	
+	/**
+	 * Tests that toString works for all types of predicates. 
+	 */
+	@Test
+	public void testEquals() throws ParseException {
+		fail("Not implemented yet!!!"); 
+	}
+	
+	/**
+	 * Tests that toString works for all types of predicates. 
+	 */
+	@Test
+	public void testNotEquals() throws ParseException {
+		fail("Not implemented yet!!!"); 
+	}
 }
