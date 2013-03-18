@@ -28,7 +28,7 @@ public class Predicate {
 	/**
 	 * Represents the types of the parameters to the predicate.
 	 */
-	enum ParamType {
+	public enum ParamType {
 		STRING, SET, LONG, UNDEFINED
 	}
 
@@ -52,7 +52,7 @@ public class Predicate {
 	 * @throws ParseException
 	 *             thrown if the string is malformed.
 	 */
-	Predicate(String s) throws ParseException {
+	public Predicate(String s) throws ParseException {
 		int openParen = scanFor(s, 0, "(");
 		if (openParen == -1) { // assume a 0-ary predicate (which defaults to 1
 								// unary with an empty string)
