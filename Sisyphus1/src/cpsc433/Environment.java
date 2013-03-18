@@ -66,6 +66,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	private Environment(Environment p) {
 		super(p);
 		this.facts = new ArrayList<Predicate>(); 
+		this.people = new ArrayList<Entity>(); 
+		this.groups = new ArrayList<Entity>(); 
+		this.projects = new ArrayList<Entity>(); 
+		this.rooms = new ArrayList<Entity>(); 
 		this.smokers = new ArrayList<Entity>(); 
 		this.secretaries = new ArrayList<Entity>(); 
 		this.managers = new ArrayList<Entity>();
@@ -827,28 +831,86 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	}
 
 	// I don't like TreeSets
-	@Override
 	public void a_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public boolean e_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public void a_close(String room, TreeSet<Pair<ParamType, Object>> set) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public boolean e_close(String room, TreeSet<Pair<ParamType, Object>> set) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	/**
+	 * people
+	 * groups
+	 * projects
+	 * rooms
+	 * smokers
+	 * hackers
+	 * secretaries
+	 * researchers
+	 * managers
+	 * large-rooms
+	 * medium-rooms
+	 * small-rooms
+	 * work-with
+	 * assigned-to
+	 * in-group
+	 * in-project
+	 */
+	public String toString() {
+		StringBuffer s = new StringBuffer();
+		for (int i = 0; i < people.size(); i++) {
+			s.append("person(" + people.get(i).getName() + ")\n");
+		}
+		for (int i = 0; i < smokers.size(); i++) {
+			s.append("smoker(" + smokers.get(i).getName() + ")\n");
+		}
+		for (int i = 0; i < hackers.size(); i++) {
+			s.append("hacker(" + hackers.get(i).getName() + ")\n");
+		}
+		for (int i = 0; i < secretaries.size(); i++) {
+			s.append("secretary(" + secretaries.get(i).getName() + ")\n");
+		}
+		for (int i = 0; i < researchers.size(); i++) {
+			s.append("researcher(" + researchers.get(i).getName() + ")\n");
+		}
+		for (int i = 0; i < managers.size(); i++) {
+			s.append("manager(" + managers.get(i).getName() + ")\n");
+		}
+		for (int i = 0; i < works_with.size(); i++) {
+			s.append("works-with(" + works_with.get(i).getKey() + ", " + works_with.get(i).getValue() + ")\n");
+		}
+		for (int i = 0; i < in_group.size(); i++) {
+			s.append("in-group(" + in_group.get(i).getKey() + ", " + in_group.get(i).getValue() + ")\n");
+		}
+		for (int i = 0; i < in_project.size(); i++) {
+			s.append("in-project(" + in_project.get(i).getKey() + ", " + in_project.get(i).getValue() + ")\n");
+		}
+		for (int i = 0; i < large_rooms.size(); i++) {
+			s.append("large-room(" + large_rooms.get(i).getName() + ")\n");
+		}
+		for (int i = 0; i < medium_rooms.size(); i++) {
+			s.append("medium-room(" + medium_rooms.get(i).getName() + ")\n");
+		}
+		for (int i = 0; i < small_rooms.size(); i++) {
+			s.append("small-room(" + small_rooms.get(i).getName() + ")\n");
+		}
+		for (int i = 0; i < assigned_to.size(); i++) {
+			s.append("assigned-to(" + assigned_to.get(i).getKey() + ", " + assigned_to.get(i).getValue() + ")\n");
+		}
+		return s.toString();
 	}
 
 }
