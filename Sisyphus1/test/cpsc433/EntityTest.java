@@ -75,26 +75,16 @@ public class EntityTest {
 		Entity target = new Entity("Bob"); 
 		assertEquals(0, self.compareTo(target)); 
 	}
-	
-	/**
-	 * Tests that the compareto function works for compareTo equals
-	 * We want the compareTo function to return 0
-	 */
-	/*
-	@Test(expected=ClassCastException.class)
-	public void testNotEntity() {
-		Entity self = new Entity("Bob"); 
-		String target = "Bob";  
-		self.compareTo((Entity) target); 
-	}*/
-	
+		
 	/**
 	 * Tests that the equals function works
 	 * We want the equals function to return true if equals
 	 */
 	@Test
 	public void testEquals() {
-		fail("Not yet implemented!");
+		Entity self = new Entity("Bob"); 
+		Entity target = new Entity("Bob"); 
+		assert(self.equals(target)); 
 	}
 	
 	/**
@@ -103,6 +93,33 @@ public class EntityTest {
 	 */
 	@Test
 	public void testNotEquals() {
-		fail("Not yet implemented!");
+		Entity self = new Entity("Bob"); 
+		Entity target = new Entity("Samantha"); 
+		if(self.equals(target)){
+			fail("Unequal Targets returned as equal"); 
+		}
+	}
+	
+	/**
+	 * Tests that the equals function works
+	 * We want the equals function to return false if not equals
+	 */
+	@Test
+	public void testNotEqualsNotEntity() {
+		Entity self = new Entity("Bob"); 
+		Integer target = new Integer(22); 
+		if(self.equals(target)){
+			fail("Unequal Targets returned as equal"); 
+		}
+	}
+
+	/**
+	 * Tests that the equals function works
+	 * We want the equals function to return false if not equals
+	 */
+	@Test
+	public void testToString() {
+		Entity self = new Entity("Rob Kremer"); 
+		assertEquals("Rob Kremer", self.toString()); 
 	}
 }
