@@ -15,14 +15,12 @@ import org.junit.Test;
  */
 public class EntityTest {
 
-	Entity mything; 
 	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		mything = new Entity("testItem"); 
 	}
 
 	/**
@@ -30,7 +28,6 @@ public class EntityTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
-		mything = null; 
 	}
 
 	/**
@@ -39,6 +36,7 @@ public class EntityTest {
 	 */
 	@Test
 	public void testCopy() {
+		Entity mything = new Entity("Hello!"); 
 		Entity test_entity = new Entity(mything); 
 		assert(test_entity.getName().equals(mything.getName())); 
 	}
