@@ -6,6 +6,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test Suite for the PredicateReader class 
+ * @author Todd Bennet, Sean Brown, Alex Madsen
+ */
 public class PredicateReaderTest {
 
 	PredicateReader myReader; 
@@ -30,7 +34,16 @@ public class PredicateReaderTest {
 		assertEquals("testReader", myReader.getName());
 	}
 	
-	//testCopyConstructor(PredicateReader)
+	/**
+	 * Tests to make sure that the copy constructor works for 
+	 * the predicate reader. 
+	 */
+	@Test
+	public void testCopyConstructor() {
+		PredicateReader duplicate = new PredicateReader(myReader); 
+		assert(myReader.equals(duplicate)); 
+	}
+	
 	//testFromFile(String)
 	//testFromStream(BufferedReader)
 	//testAssert_(String)
