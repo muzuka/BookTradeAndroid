@@ -851,24 +851,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		return false;
 	}
 	
-	/**
-	 * people
-	 * groups
-	 * projects
-	 * rooms
-	 * smokers
-	 * hackers
-	 * secretaries
-	 * researchers
-	 * managers
-	 * large-rooms
-	 * medium-rooms
-	 * small-rooms
-	 * work-with
-	 * assigned-to
-	 * in-group
-	 * in-project
-	 */
 	public String toString() {
 		StringBuffer s = new StringBuffer();
 		for (int i = 0; i < people.size(); i++) {
