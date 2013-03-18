@@ -86,13 +86,14 @@ public class PredicateReaderTest {
 		}
 	}
 	
-	//testFromFile(String)
-	//testFromStream(BufferedReader)
 	//testAssert_(String)
 	//testEval(String)
+	
+	
 	//testAssert_(Predicate)
 	//testEval(Predicate)
+	
+	
 	//testA_read(String)
 	//testA_help(String)
-	//testError(String)
 }
