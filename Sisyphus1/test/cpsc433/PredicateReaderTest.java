@@ -86,6 +86,9 @@ public class PredicateReaderTest {
 		}
 	}
 	
+	// Unsure how to continue the testing of Assert and Eval... This is 
+	// big because this can be heavily refactored... 
+	
 	//testAssert_(String)
 	//testEval(String)
 	
