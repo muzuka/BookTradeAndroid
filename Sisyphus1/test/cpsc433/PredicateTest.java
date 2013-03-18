@@ -122,4 +122,17 @@ public class PredicateTest {
 		assertEquals(3, ternary.getArity()); 
 	}
 	
+	/**
+	 * Test to make sure that we can accurately retrieve
+	 * the parameter types of various kinds of common
+	 * arguments
+	 */
+	@Test
+	public void testGetParamType() throws ParseException {
+		Predicate sample = new Predicate("test(hello, -1, {this, is, a, set})");
+		assertEquals(Predicate.ParamType.STRING, sample.getParamType(0)); 
+		assertEquals(Predicate.ParamType.LONG, sample.getParamType(1)); 
+		assertEquals(Predicate.ParamType.SET, sample.getParamType(2)); 
+	}
+	
 }
