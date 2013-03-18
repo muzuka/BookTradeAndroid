@@ -43,7 +43,15 @@ public class PredicateReaderTest {
 		PredicateReader duplicate = new PredicateReader(myReader); 
 		assert(myReader.equals(duplicate)); 
 	}
-	
+
+	/**
+	 * Makes sure that the fromFile performs up to spec
+	 */
+	@Test
+	public void testFromFile() {
+		PredicateReader duplicate = new PredicateReader(myReader); 
+		assert(myReader.equals(duplicate)); 
+	}
 	//testFromFile(String)
 	//testFromStream(BufferedReader)
 	//testAssert_(String)

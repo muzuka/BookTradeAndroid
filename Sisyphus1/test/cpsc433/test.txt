@@ -1,0 +1,118 @@
+
+// the YQT group staff descriptions
+researcher(Werner)
+group(Werner, YQT)
+project(Werner, RESPECT)
+hacker(Werner)
+works-with(Werner, {Angi, Marc})
+
+researcher(Jurgen)
+group(Jurgen, YQT)
+project(Jurgen,EULISP)
+hacker(Jurgen)
+works-with(Jurgen,{Harry, Thomas})
+
+researcher(Marc)
+group(Marc, YQT)
+project(Marc, KRIPTON)
+hacker(Marc)
+works-with(Marc,{Angi, Werner})
+
+researcher(Angi)
+group(Angi, YQT)
+project(Angi, RESPECT)
+works-with(Angi, {Marc, Werner})
+
+researcher(Andy)
+group(Andy, YQT)
+project(Andy,TUTOR2000)
+smoker(Andy)
+
+researcher(Michael)
+group(Michael, YQT)
+project(Michael, "BABYLON Product")
+hacker(Michael)
+works-with(Michael,{Hans})
+
+researcher(Harry)
+group(Harry, YQT)
+project(Harry, EULISP)
+hacker(Harry)
+works-with(Harry,{Jurgen, Thomas})
+
+researcher(Uwe)
+group(Uwe, YQT)
+project(Uwe, "Autonomous Systems")
+smoker(Uwe)
+hacker(Uwe)
+
+researcher(Thomas)
+group(Thomas, YQT)
+heads-group(Thomas, YQT)
+project(Thomas, EULISP)
+works-with(Thomas,{Jurgen, Harry})
+
+secretary(Monika)
+group(Monika, YQT)
+works-with(Monika,{Thomas, Ulrike, Eva})
+
+secretary(Ulrike)
+group(Ulrike, YQT)
+works-with(Ulrike,{Thomas, Monika, Eva})
+
+researcher(Hans)
+group(Hans, YQT)
+project(Hans, "BABYLON Product")
+heads-project(Hans, "BABYLON Product")
+smoker(Hans)
+works-with(Hans,{Michael})
+
+manager(Eva)
+group(Eva, YQT)
+works-with(Eva,{Thomas, Ulrike, Monika})
+
+researcher(Joachim)
+group(Joachim, YQT)
+project(Joachim, ASERTI)
+heads-project(Joachim, ASERTI)
+
+researcher(Katharina)
+group(Katharina, YQT)
+project(Katharina, MLT)
+heads-project(Katharina, MLT)
+smoker(Katharina)
+hacker(Katharina)
+
+// project descriptions
+large-project("Babylon Product")
+large-project(ASERTI)
+large-project(MLT)
+
+// room sizes
+small-room (C5113)
+small-room (C5114)
+small-room (C5115)
+small-room (C5116)
+large-room(C5117)
+large-room (C5119)
+large-room (C5120)
+medium-room (C5121)
+medium-room (C5122)
+medium-room(C5123)
+
+// room proximity
+close(C5113, C5114)
+close(C5113, C5115)
+close(C5114, C5115)
+close(C5114, C5116)
+close(C5115, C5116)
+close(C5115, C5117)
+close(C5116, C5117)
+close(C5117, C5119)
+close(C5119, C5120)
+close(C5119, C5121)
+close(C5119, C5122)
+close(C5120, C5121)
+close(C5121, C5120)
+close(C5121, C5122)
+close(C5123, C5122)
