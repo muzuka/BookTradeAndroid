@@ -10,8 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author akmadsen
- *
+ * Test Suite for the Entity class 
+ * @author Todd Bennett, Sean Brown, Alex Madsen
  */
 public class EntityTest {
 
