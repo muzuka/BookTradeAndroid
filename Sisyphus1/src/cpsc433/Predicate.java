@@ -30,8 +30,7 @@ public class Predicate {
 	public enum ParamType {
 		STRING, SET, LONG, UNDEFINED
 	}
-	
-	
+
 	protected String name;
 	protected Vector<Pair<ParamType, Object>> params;
 
@@ -51,16 +50,11 @@ public class Predicate {
 		params = new Vector<Pair<ParamType, Object>>();
 		
 		int openParen = scanFor(s, 0, "(");
-		if (openParen == -1) { // assume a 0-ary predicate (which defaults to 1
+		if (openParen < 0) { // assume a 0-ary predicate (which defaults to 1
 								// unary with an empty string)
 			throw new ParseException("Unable to find proper predicate input: ", openParen);
-			//openParen = s.length();
-			//s = s + "()";
 		}
 		Int cur = new Int(openParen);
-		if (openParen < 0) {
-			throw new ParseException("Unable to find proper predicate input: ", openParen);
-		} 
 		try {
 			name = s.substring(0, openParen).trim();
 			params = scanList(s, cur, ')', ',');
