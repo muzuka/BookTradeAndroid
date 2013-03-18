@@ -2,6 +2,12 @@ package cpsc433;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,13 +51,41 @@ public class PredicateReaderTest {
 	}
 
 	/**
-	 * Makes sure that the fromFile performs up to spec
+	 * Makes sure that the fromFile performs up to spec. Measures 
+	 * the number of lines read by the file. 
 	 */
 	@Test
 	public void testFromFile() {
-		PredicateReader duplicate = new PredicateReader(myReader); 
-		assert(myReader.equals(duplicate)); 
+		String testfile = "test.txt"; 
+		assertEquals(119, myReader.fromFile(testfile)); 
 	}
+	
+	/**
+	 * Makes sure that the fromStream performs up to spec. Measures the number
+	 * of lines read by the file.
+	 */
+	@Test
+	public void testFromStream() {
+		String testfile = "test.txt"; 
+		
+		int ret = 0;
+		BufferedReader stream = null;
+		//System.out.println("reading file " + fileName + "...");
+		try {
+			stream = new BufferedReader(new InputStreamReader(
+					new FileInputStream(testfile)));
+			assertEquals(119, myReader.fromStream(stream)); 
+		} catch (FileNotFoundException ex) {
+			fail("Could not find file " + testfile); 
+		}
+		try {
+			if (stream != null)
+				stream.close();
+		} catch (IOException ex) {
+			fail("Could not close the file " + testfile); 
+		}
+	}
+	
 	//testFromFile(String)
 	//testFromStream(BufferedReader)
 	//testAssert_(String)
