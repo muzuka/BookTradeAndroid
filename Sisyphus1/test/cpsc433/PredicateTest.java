@@ -90,4 +90,26 @@ public class PredicateTest {
 		Predicate mypred = new Predicate("Do they speak English in What?"); 
 	}
 	
+	/**
+	 * Test to make sure that the getArity function works properly. We want: 
+	 * <ul>
+	 * 	<li>test() = 0</li>
+	 * 	<li>test(one) = 1</li>
+	 *  <li>test(one, two) = 2</li>
+	 *  <li>test(one, two, three) = 3</li>
+	 * </ul>
+	 */
+	@Test
+	public void testArity() throws ParseException {
+		Predicate monad = new Predicate("hello()");
+		Predicate unary = new Predicate("dragon-man(Trogdor)"); 
+		Predicate binary = new Predicate("trogdor-was(man, dragon)"); 
+		Predicate ternary = new Predicate("what-is(my, age, again)"); 
+		
+		assertEquals(0, monad.getArity()); 
+		assertEquals(1, unary.getArity()); 
+		assertEquals(2, binary.getArity()); 
+		assertEquals(3, ternary.getArity()); 
+	}
+	
 }
