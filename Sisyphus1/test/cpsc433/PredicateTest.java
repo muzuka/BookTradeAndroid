@@ -174,7 +174,18 @@ public class PredicateTest {
 	 */
 	@Test
 	public void testToString() throws ParseException {
-		fail("Not implemented yet!!!"); 
+		Predicate monad = new Predicate("hello()");
+		Predicate unary = new Predicate("dragon-man(Trogdor)"); 
+		Predicate binary = new Predicate("trogdor-was(man, dragon)"); 
+		Predicate ternary = new Predicate("what-is(my, age, again)"); 
+		Predicate various = new Predicate("test(hello, -3, {this, is, a, set})");
+	
+		assertEquals("hello()", monad.toString());
+		assertEquals("dragon-man(Trogdor)", unary.toString()); 
+		assertEquals("trogdor-was(man, dragon)", binary.toString()); 
+		assertEquals("what-is(my, age, again)", ternary.toString()); 
+		assertEquals("test(hello, -3, {a, is, set, this})", various.toString()); 
+		// TODO: the TreeSet reorders its elements in alphabetical order!!! 
 	}
 	
 	/**
