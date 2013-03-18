@@ -64,8 +64,7 @@ public class Entity implements Comparable<Entity>{
 	/**
 	 * If the parameter object is an <code>Entity</code>, 
 	 * compares the name of this object with that of the parameter:
-	 * <code>name.compareTo(((Entity)arg0).name)</code>.  Otherwise
-	 * throws a <code>java.lang.ClassCastException</code> exception.
+	 * <code>name.compareTo(((Entity)arg0).name)</code>. 
 	 * @param arg0 another object ot compare to (hopefully, another <em>Entity</em>.
 	 * @return -1 if this name is less than the param, 0 if equal, 1 if greater than.
 	 */
