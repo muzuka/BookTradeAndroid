@@ -24,6 +24,8 @@ public class Entity implements Comparable<Entity>{
 	
 	private String name = null;
 	
+	// TODO: consider getting rid of or moving these fields up into the classes that use them
+	// FIXME: these fields do not make sense here. 
 	static public String FIELD_TERMINATOR = "\n",
 						 OBJECT_TERMINATOR = "\n"; 
 
@@ -73,16 +75,14 @@ public class Entity implements Comparable<Entity>{
 	}
 
 	/**
-	 * If the parameter object is an <code>Entity</code>, 
-	 * compares the name of this object with that of the parameter:
-	 * <code>name.equals(((Entity)arg0).name)</code>.  Otherwise
-	 * returns false.
-	 * @param arg0 another object ot compare to (hopefully, another <em>Entity</em>.
-	 * @return true if the argument is an <em>Entity</em> and the names are equal, false otherwise.
+	 * If the object compared to is an <code>Entity</code> with the same name,
+	 * then we consider the objects equal, otherwise it is not.  
+	 * @param arg0 object to be compared to. 
+	 * @return true if the object is an entity with the same name, false otherwise. 
 	 */
 	@Override
 	public boolean equals(Object arg0) {
-		return (arg0 instanceof Entity) ? name.equals(((Entity)arg0).name) : false;
+		return (arg0 instanceof Entity) ? name.equals(((Entity)arg0).getName()) : false;
 	}
 	
 	/**
@@ -102,6 +102,9 @@ public class Entity implements Comparable<Entity>{
 		}
 	}
 
+	/**
+	 * returns the name of the entity as the object identifier. 
+	 */
 	public String toString() {
 		return name;
 	}
