@@ -31,16 +31,10 @@ public class Predicate {
 	public enum ParamType {
 		STRING, SET, LONG, UNDEFINED
 	}
-
-	/**
-	 * The name of the predicate.
-	 */
-	protected String name = null;
-
-	/**
-	 * The parameters (represented by type x value) in order.
-	 */
-	protected Vector<Pair<ParamType, Object>> params = new Vector<Pair<ParamType, Object>>();
+	
+	
+	protected String name;
+	protected Vector<Pair<ParamType, Object>> params;
 
 	/**
 	 * Constructs a predicate from <code>s</code>. If <code>s</code> is
@@ -53,6 +47,10 @@ public class Predicate {
 	 *             thrown if the string is malformed.
 	 */
 	public Predicate(String s) throws ParseException {
+		// Initialize the fields within the constructor
+		name = null;
+		params = new Vector<Pair<ParamType, Object>>();
+		
 		int openParen = scanFor(s, 0, "(");
 		if (openParen == -1) { // assume a 0-ary predicate (which defaults to 1
 								// unary with an empty string)
