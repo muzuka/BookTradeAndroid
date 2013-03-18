@@ -466,6 +466,11 @@ public class Predicate {
 		System.out.println(">>>>>> " + msg);
 	}
 
+	/**
+	 * returns true if object is equal to this object, false otherwise
+	 * @param the object to be compared to
+	 * @return true if the object is the same, false otherwise
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (o.getClass().equals(this.getClass())) {

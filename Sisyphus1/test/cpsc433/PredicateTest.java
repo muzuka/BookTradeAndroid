@@ -191,18 +191,32 @@ public class PredicateTest {
 	}
 	
 	/**
-	 * Tests that toString works for all types of predicates. 
+	 * Tests that the equals relation will be true if the predicates are equal
 	 */
 	@Test
 	public void testEquals() throws ParseException {
-		fail("Not implemented yet!!!"); 
+		Predicate various = new Predicate("test(hello, -3, {this, is, a, set})");
+		Predicate various2 = new Predicate("test(hello, -3, {this, is, a, set})");
+		assert(various.equals(various2)); 
 	}
 	
 	/**
-	 * Tests that toString works for all types of predicates. 
+	 * Tests that the equals relation will be false if the predicates are not equal
 	 */
 	@Test
 	public void testNotEquals() throws ParseException {
-		fail("Not implemented yet!!!"); 
+		Predicate various = new Predicate("test(hello, -3, {this, is, a, set})");
+		Predicate binary = new Predicate("trogdor-was(man, dragon)"); 
+		assert(!various.equals(binary)); 
+	}
+	
+	/**
+	 * Tests that the equals relation will be false if the object is not a predicate
+	 */
+	@Test
+	public void testNotEqualsNotPredicate() throws ParseException {
+		Predicate various = new Predicate("test(hello, -3, {this, is, a, set})");
+		String decoy = "test(hello, -3, {a, is, set, this})"; 
+		assert(!various.equals(decoy)); 
 	}
 }
