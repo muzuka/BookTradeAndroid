@@ -60,7 +60,9 @@ public class EntityTest {
 	 */
 	@Test
 	public void testGreaterThan() {
-		fail("Not yet implemented!");
+		Entity self = new Entity("Zebra"); 
+		Entity target = new Entity("Anteater"); 
+		assertEquals(1, self.compareTo(target)); 
 	}
 	
 	/**
@@ -69,8 +71,22 @@ public class EntityTest {
 	 */
 	@Test
 	public void testCompareToEquals() {
-		fail("Not yet implemented!");
+		Entity self = new Entity("Bob"); 
+		Entity target = new Entity("Bob"); 
+		assertEquals(0, self.compareTo(target)); 
 	}
+	
+	/**
+	 * Tests that the compareto function works for compareTo equals
+	 * We want the compareTo function to return 0
+	 */
+	/*
+	@Test(expected=ClassCastException.class)
+	public void testNotEntity() {
+		Entity self = new Entity("Bob"); 
+		String target = "Bob";  
+		self.compareTo((Entity) target); 
+	}*/
 	
 	/**
 	 * Tests that the equals function works
