@@ -101,4 +101,8 @@ public class Entity implements Comparable<Entity>{
 			return target; 
 		}
 	}
+
+	public String toString() {
+		return name;
+	}
 }

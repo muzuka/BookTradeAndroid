@@ -1,7 +1,7 @@
 package cpsc433;
 
 public class Solution {
-
+	
 	public enum Verbosity {
 		SUMMARY;
 	}
