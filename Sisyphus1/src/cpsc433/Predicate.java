@@ -21,7 +21,6 @@ import java.text.ParseException;
  * </p>
  * 
  * @author <a href="http://www.cpsc.ucalgary.ca/~kremer/">Rob Kremer</a>
- * 
  */
 public class Predicate {
 
@@ -54,12 +53,14 @@ public class Predicate {
 		int openParen = scanFor(s, 0, "(");
 		if (openParen == -1) { // assume a 0-ary predicate (which defaults to 1
 								// unary with an empty string)
-			openParen = s.length();
-			s = s + "()";
+			throw new ParseException("Unable to find proper predicate input: ", openParen);
+			//openParen = s.length();
+			//s = s + "()";
 		}
 		Int cur = new Int(openParen);
-		if (openParen < 0)
-			return;
+		if (openParen < 0) {
+			throw new ParseException("Unable to find proper predicate input: ", openParen);
+		} 
 		try {
 			name = s.substring(0, openParen).trim();
 			params = scanList(s, cur, ')', ',');

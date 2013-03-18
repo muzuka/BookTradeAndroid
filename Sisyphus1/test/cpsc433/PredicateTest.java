@@ -87,7 +87,6 @@ public class PredicateTest {
 	@Test(expected= ParseException.class)
 	public void testConstructorBadString() throws ParseException {
 		Predicate mypred = new Predicate("Do they speak English in What?"); 
-		//fail("Exception not thrown!"); 
 	}
 	
 }
