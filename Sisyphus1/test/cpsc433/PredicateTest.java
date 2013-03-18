@@ -3,6 +3,7 @@ package cpsc433;
 import static org.junit.Assert.*;
 
 import java.text.ParseException;
+import java.util.TreeSet;
 
 import org.junit.After;
 import org.junit.Before;
@@ -129,7 +130,7 @@ public class PredicateTest {
 	 */
 	@Test
 	public void testGetParamType() throws ParseException {
-		Predicate sample = new Predicate("test(hello, -3.14159, {this, is, a, set})");
+		Predicate sample = new Predicate("test(hello, -3, {this, is, a, set})");
 		assertEquals(Predicate.ParamType.STRING, sample.getParamType(0)); 
 		assertEquals(Predicate.ParamType.LONG, sample.getParamType(1)); 
 		assertEquals(Predicate.ParamType.SET, sample.getParamType(2)); 
@@ -140,9 +141,8 @@ public class PredicateTest {
 	 */
 	@Test
 	public void testGetStringParam() throws ParseException {
-		fail("Not Implemented Yet!!!"); 
-		//Predicate sample = new Predicate("test(hello, -3.14159, {this, is, a, set})");
-		//assertEquals(Predicate.ParamType.STRING, sample.getParamType(0)); 
+		Predicate sample = new Predicate("test(hello, -3, {this, is, a, set})");
+		assertEquals("hello", sample.getStringParam(0)); 
 	}
 	
 	/**
@@ -150,9 +150,9 @@ public class PredicateTest {
 	 */
 	@Test
 	public void testGetLongParam() throws ParseException {
-		fail("Not Implemented Yet!!!"); 
-		//Predicate sample = new Predicate("test(hello, -3.14159, {this, is, a, set})");
-		//assertEquals(Predicate.ParamType.STRING, sample.getParamType(0)); 
+		Predicate sample = new Predicate("test(hello, -3, {this, is, a, set})");
+		Long myVal = new Long(-3); 
+		assertEquals(myVal, sample.getLongParam(1)); 
 	}
 	
 	/**
@@ -160,8 +160,12 @@ public class PredicateTest {
 	 */
 	@Test
 	public void testGetSetParam() throws ParseException {
-		fail("Not Implemented Yet!!!"); 
-		//Predicate sample = new Predicate("test(hello, -3.14159, {this, is, a, set})");
-		//assertEquals(Predicate.ParamType.STRING, sample.getParamType(0)); 
+		Predicate sample = new Predicate("test(hello, -3, {this, is, a, set})");
+		TreeSet<Pair<Predicate.ParamType, Object>> mySet = new TreeSet<Pair<Predicate.ParamType, Object>>(); 
+		mySet.add(new Pair<Predicate.ParamType, Object>(Predicate.ParamType.STRING, "this")); 
+		mySet.add(new Pair<Predicate.ParamType, Object>(Predicate.ParamType.STRING, "is")); 
+		mySet.add(new Pair<Predicate.ParamType, Object>(Predicate.ParamType.STRING, "a")); 
+		mySet.add(new Pair<Predicate.ParamType, Object>(Predicate.ParamType.STRING, "set")); 
+		assert(mySet.equals(sample.getParamType(2))); 
 	}
 }
