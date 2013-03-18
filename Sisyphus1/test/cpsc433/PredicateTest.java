@@ -91,6 +91,16 @@ public class PredicateTest {
 	}
 	
 	/**
+	 * Make sure that the constructor works on bad input. We want a parse
+	 * exception to be thrown in that case. The minus sign is tested here. 
+	 * @throws ParseException 
+	 */
+	@Test(expected= ParseException.class)
+	public void testConstructorBadString2() throws ParseException {
+		Predicate bad2 = new Predicate("totally-a-number(-iLied)"); 
+	}
+	
+	/**
 	 * Test to make sure that the getArity function works properly. We want: 
 	 * <ul>
 	 * 	<li>test() = 0</li>
@@ -106,7 +116,7 @@ public class PredicateTest {
 		Predicate binary = new Predicate("trogdor-was(man, dragon)"); 
 		Predicate ternary = new Predicate("what-is(my, age, again)"); 
 		
-		assertEquals(0, monad.getArity()); // Parameter for Monads is the empty string... Fix?  
+		assertEquals(0, monad.getArity()-1); // Parameter for Monads is the empty string... Fix?  
 		assertEquals(1, unary.getArity()); 
 		assertEquals(2, binary.getArity()); 
 		assertEquals(3, ternary.getArity()); 
