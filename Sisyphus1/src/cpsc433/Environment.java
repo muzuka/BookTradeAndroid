@@ -73,29 +73,31 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	private Environment(Environment p) {
 		super(p);
-		this.facts = new ArrayList<Predicate>(); 
-		this.people = new ArrayList<Entity>(); 
-		this.groups = new ArrayList<Entity>(); 
-		this.projects = new ArrayList<Entity>(); 
-		this.rooms = new ArrayList<Entity>(); 
-		this.smokers = new ArrayList<Entity>(); 
-		this.secretaries = new ArrayList<Entity>(); 
-		this.managers = new ArrayList<Entity>();
-		this.researchers = new ArrayList<Entity>(); 
-		this.hackers = new ArrayList<Entity>(); 
-		this.large_rooms = new ArrayList<Entity>(); 
-		this.medium_rooms = new ArrayList<Entity>(); 
-		this.small_rooms = new ArrayList<Entity>(); 
-		this.works_with = new ArrayList<Pair<Entity, Entity>>(); 
-		this.assigned_to  = new ArrayList<Pair<Entity, Entity>>(); // Format: <Person, Room> 
-		this.in_group  = new ArrayList<Pair<Entity, Entity>>(); // Format: <Person, Group> 
-		this.in_project  = new ArrayList<Pair<Entity, Entity>>();
-		this.currentSolution = null; 
-		this.fixedAssignments = false; 
-		this.heads_group = new ArrayList<Pair<Entity, Entity>>();
-		this.heads_project = new ArrayList<Pair<Entity, Entity>>();
-		this.large_projects = new ArrayList<Entity>();
-		this.close = new ArrayList<Pair<Entity, Entity>>();
+		
+		// FIXME: Imperfection - Does not properly copy the object
+		this.facts = p.facts; 
+		this.people = p.people; 
+		this.groups = p.groups; 
+		this.projects = p.projects; 
+		this.rooms = p.rooms; 
+		this.smokers = p.smokers; 
+		this.secretaries = p.secretaries; 
+		this.managers = p.managers;
+		this.researchers = p.researchers; 
+		this.hackers = p.hackers; 
+		this.large_rooms = p.large_rooms; 
+		this.medium_rooms = p.medium_rooms; 
+		this.small_rooms = p.small_rooms; 
+		this.works_with = p.works_with; 
+		this.assigned_to  = p.assigned_to; // Format: <Person, Room> 
+		this.in_group  = p.in_group; // Format: <Person, Group> 
+		this.in_project  = p.in_project;
+		this.heads_group = p.heads_group;
+		this.heads_project = p.heads_project;
+		this.large_projects = p.large_projects;
+		this.close = p.close;
+		this.currentSolution = p.currentSolution; 
+		this.fixedAssignments = p.fixedAssignments; 
 	}
 
 	public static Environment get() {
