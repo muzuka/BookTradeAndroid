@@ -1,6 +1,3 @@
-/**
- * 
- */
 package cpsc433;
 
 import java.util.Map;
@@ -27,7 +24,7 @@ public class Pair<K, V> implements Map.Entry<K,V>, Comparable {
 	private V value;
 	
 	/**
-	 * Member constructor.
+	 * Construct new Pair with the Key/Value pair 
 	 * @param key the key
 	 * @param value the value that corresponds the the key
 	 */
@@ -77,9 +74,9 @@ public class Pair<K, V> implements Map.Entry<K,V>, Comparable {
     public int compareTo(Object arg0) {
         if (arg0 instanceof Pair) {
         	Pair other = (Pair) arg0;
-    		int ret = compare(key,other.key);
-    		if (ret!=0) return ret;
-    		else return compare(value,other.value);
+    		int ret = compare(key,other.getKey());
+    		if (ret!=0) return clamp(ret, -1, 1);
+    		else return clamp(compare(value,other.getValue()), -1, 1);
     	}
         else throw new java.lang.ClassCastException();
     }
@@ -98,7 +95,25 @@ public class Pair<K, V> implements Map.Entry<K,V>, Comparable {
     	if (x instanceof Comparable) {
 			Comparable x1 =  (Comparable)x;
 			return x1.compareTo(y);
-		} else 
+		} else {
 			return x.toString().compareTo(y.toString());
-   }
+  		}
+    } 
+    
+	/**
+	 * Clamp function for clamping integers.
+	 * @param terget The integer to be clamped.  
+	 * @param min Minimum integer values. 
+	 * @param max Maximum integer values. 
+	 * @return the integer value clamped within the number range. 
+	 */
+	private int clamp(int target, int min, int max){
+		if(target < min){
+			return min; 
+		} else if (target > max) {
+			return max; 
+		} else {
+			return target; 
+		}
+	}
 }
