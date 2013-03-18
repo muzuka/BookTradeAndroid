@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+// TODO: reflection is useful, but indirection makes it slow. Remove if able, for our purposes. 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -45,16 +46,16 @@ public class PredicateReader extends Entity {
 	private int lineNumber = 0;
 	
 	/**
-	 * Constructor thad does nothing except for recording this PredicateReader's
-	 * name.
+	 * Constructor that does nothing except for recording this PredicateReader's
+	 * name. (Is this really necessary? - AM) 
 	 * @param name The name of this PredicateReading
 	 */
 	public PredicateReader(String name) {
 		super(name);
-	}
+	} 
 	
 	/**
-	 * Copy constructor.
+	 * Copy constructor. (Is this really needed? - AM) 
 	 * @param p a PredicateReader to copy.
 	 */
 	public PredicateReader(PredicateReader p) {
