@@ -35,6 +35,7 @@ public class PredicateTest {
 	public void testConstructor() {
 		try{ 
 			Predicate monad = new Predicate("hello()"); 
+			assertEquals("hello()", monad.toString()); 
 		} catch (ParseException pe){ 
 			fail("Parse Exception on Atomic Input"); 
 		}
@@ -47,7 +48,7 @@ public class PredicateTest {
 	public void testConstructorUnary() {
 		try{ 
 			Predicate unary = new Predicate("dragon-man(Trogdor)"); 
-			// test to make sure the params took!!!
+			assertEquals("dragon-man(Trogdor)", unary.toString()); 
 		} catch (ParseException pe){ 
 			fail("Parse Exception on Unary Input"); 
 		}
@@ -60,7 +61,7 @@ public class PredicateTest {
 	public void testConstructorBinary() {
 		try{ 
 			Predicate binary = new Predicate("trogdor-was(man, dragon)"); 
-			// test to make sure the params took!!!
+			assertEquals("trogdor-was(man, dragon)", binary.toString()); 
 		} catch (ParseException pe){ 
 			fail("Parse Exception on Binary Input"); 
 		}
@@ -73,7 +74,7 @@ public class PredicateTest {
 	public void testConstructorTernary() {
 		try{ 
 			Predicate ternary = new Predicate("what-is(my, age, again)"); 
-			// test to make sure the params took!!!
+			assertEquals("what-is(my, age, again)", ternary.toString()); 
 		} catch (ParseException pe){ 
 			fail("Parse Exception on Ternary Input"); 
 		}
