@@ -106,7 +106,7 @@ public class PredicateTest {
 		Predicate binary = new Predicate("trogdor-was(man, dragon)"); 
 		Predicate ternary = new Predicate("what-is(my, age, again)"); 
 		
-		assertEquals(0, monad.getArity()); 
+		assertEquals(0, monad.getArity()); // Parameter for Monads is the empty string... Fix?  
 		assertEquals(1, unary.getArity()); 
 		assertEquals(2, binary.getArity()); 
 		assertEquals(3, ternary.getArity()); 
