@@ -69,14 +69,7 @@ public class Entity implements Comparable<Entity>{
 	 * @return -1 if this name is less than the param, 0 if equal, 1 if greater than.
 	 */
 	public int compareTo(Entity arg0) {
-		int val = name.compareTo(((Entity) arg0).getName());
-		if (val < 0) {
-			return -1;
-		} else if (val > 0) {
-			return 1;
-		} else {
-			return 0;
-		}
+		return clamp(name.compareTo(((Entity) arg0).getName()), -1, 1);
 	}
 
 	/**
@@ -92,5 +85,20 @@ public class Entity implements Comparable<Entity>{
 		return (arg0 instanceof Entity) ? name.equals(((Entity)arg0).name) : false;
 	}
 	
-	
+	/**
+	 * Clamp function for clamping integers.
+	 * @param terget The integer to be clamped.  
+	 * @param min Minimum integer values. 
+	 * @param max Maximum integer values. 
+	 * @return the integer value clamped within the number range. 
+	 */
+	private int clamp(int target, int min, int max){
+		if(target < min){
+			return min; 
+		} else if (target > max) {
+			return max; 
+		} else {
+			return target; 
+		}
+	}
 }
