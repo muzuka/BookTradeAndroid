@@ -46,6 +46,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	private Environment(String name) {
 		super(name);
+		
 		this.facts = new ArrayList<Predicate>(); 
 		this.people = new ArrayList<Entity>(); 
 		this.groups = new ArrayList<Entity>(); 
@@ -63,12 +64,13 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		this.assigned_to  = new ArrayList<Pair<Entity, Entity>>(); // Format: <Person, Room> 
 		this.in_group  = new ArrayList<Pair<Entity, Entity>>(); // Format: <Person, Group> 
 		this.in_project  = new ArrayList<Pair<Entity, Entity>>();
-		this.currentSolution = null; 
-		this.fixedAssignments = false; 
 		this.heads_group = new ArrayList<Pair<Entity, Entity>>();
 		this.heads_project = new ArrayList<Pair<Entity, Entity>>();
 		this.large_projects = new ArrayList<Entity>();
 		this.close = new ArrayList<Pair<Entity, Entity>>();
+		
+		this.currentSolution = null; 
+		this.fixedAssignments = false; 
 	}
 
 	private Environment(Environment p) {
@@ -740,7 +742,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			s.append("project(" + projects.get(i).getName() + ")\n");
 		}
 		for (int i = 0; i < large_projects.size(); i++) {
-			s.append("large-project(" + projects.get(i).getName() + ")\n");
+			s.append("large-project(" + large_projects.get(i).getName() + ")\n");
+		}
+		for (int i = 0; i < groups.size(); i++) {
+			s.append("group(" + groups.get(i).getName() + ")\n");
 		}
 		return s.toString();
 	}
