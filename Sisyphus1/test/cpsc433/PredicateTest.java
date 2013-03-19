@@ -181,12 +181,16 @@ public class PredicateTest {
 		Predicate binary = new Predicate("trogdor-was(man, dragon)"); 
 		Predicate ternary = new Predicate("what-is(my, age, again)"); 
 		Predicate various = new Predicate("test(hello, -3, {this, is, a, set})");
-	
+		Predicate quotes = new Predicate("i-am-a(\"Word\")"); 
+		Predicate spaces = new Predicate("isFun(Spaces are fun!)"); 
+		
 		assertEquals("hello()", monad.toString());
 		assertEquals("dragon-man(Trogdor)", unary.toString()); 
 		assertEquals("trogdor-was(man, dragon)", binary.toString()); 
 		assertEquals("what-is(my, age, again)", ternary.toString()); 
 		assertEquals("test(hello, -3, {a, is, set, this})", various.toString()); 
+		assertEquals("i-am-a(\"Word\")", quotes.toString()); 
+		assertEquals("isFun(Spaces are fun!)", spaces.toString()); 
 		// TODO: the TreeSet reorders its elements in alphabetical order!!! 
 	}
 	
