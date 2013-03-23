@@ -108,7 +108,8 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	}
 
 	public static void reset() {
-		// TODO: resetting the environment needs to clear all the facts 
+		// FIXME: Imperfection - Does not properly copy the object
+
 	}
 
 	public void a_person(String p) {
@@ -632,7 +633,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	// Added -T
 	public void a_large_project(String prj) {
 		try {
-			if (!facts.contains(new Predicate("large-project(" + prj + ")")) && !projects.contains(new Entity(prj))) {
+			if (!facts.contains(new Predicate("large-project(" + prj + ")")) && !large_projects.contains(new Entity(prj))) {
 				a_project(prj);
 				facts.add(new Predicate("large-project(" + prj + ")"));
 				large_projects.add(new Entity(prj));
@@ -645,7 +646,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	public boolean e_large_project(String prj) {
 		try {
-			return (facts.contains(new Predicate("large-project(" + prj + ")")) && projects.contains(new Entity(prj)));
+			return (facts.contains(new Predicate("large-project(" + prj + ")")) && large_projects.contains(new Entity(prj)));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -656,37 +657,142 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	// I don't like TreeSets
 	public void a_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
+		
+		// using the ArrayList
 		for (Pair<ParamType, Object> pair : p2s) {
 			a_works_with(p, (String) pair.getValue());
+		}
+		
+		// using predicates
+		StringBuffer s = new StringBuffer(); 
+		s.append("works-with(" + p + ", {");
+		for (Pair<ParamType, Object> pair : p2s) {
+			s.append((String) pair.getValue());
+			s.append(", "); 
+		}
+		if(!p2s.isEmpty()){
+			s.delete(s.length()-2, s.length()-1); 
+		}
+		s.append("})"); 
+		try{ 
+			if(!facts.contains(new Predicate(s.toString()))){
+				facts.add(new Predicate(s.toString())); 
+			}
+		}
+		catch(ParseException pe){
+			System.out.println("ERROR: we lost a predicate!"); 
 		}
 	}
 
 	public boolean e_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
+		// using the arraylist 
+		/*
 		for (Pair<ParamType, Object> pair : p2s) {
 			if (!e_works_with(p, (String) pair.getValue())) {
 				return false;
 			}
 		}
 		return true;
+		*/
+		
+		// using predicates
+		StringBuffer s = new StringBuffer(); 
+		s.append("works-with(" + p + ", {");
+		for (Pair<ParamType, Object> pair : p2s) {
+			s.append((String) pair.getValue());
+			s.append(", "); 
+		}
+		if(!p2s.isEmpty()){
+			s.delete(s.length()-2, s.length()-1); 
+		}
+		s.append("})"); 
+		
+		boolean ret = false; 
+		try{ 
+			if(!facts.contains(new Predicate(s.toString()))){
+				ret = true;
+			} else { 
+				ret = false; 
+			}
+		}
+		catch(ParseException pe){
+			System.out.println("ERROR: we lost a predicate!"); 
+			ret = false; 
+		}
+		return ret; 
 	}
 
 	public void a_close(String room, TreeSet<Pair<ParamType, Object>> set) {
+		// using arraylist 
 		for (Pair<ParamType, Object> pair : set) {
 			a_close(room, (String) pair.getValue());
+		}
+		
+		// using predicates
+		StringBuffer s = new StringBuffer(); 
+		s.append("close(" + room + ", {");
+		for (Pair<ParamType, Object> pair : set) {
+			s.append((String) pair.getValue()); 
+			s.append(", "); 
+		}
+		if(!set.isEmpty()){
+			s.delete(s.length()-2, s.length()-1); 
+		}
+		s.append("})"); 
+		try{ 
+			if(!facts.contains(new Predicate(s.toString()))){
+				facts.add(new Predicate(s.toString())); 
+			}
+		}
+		catch(ParseException pe){
+			System.out.println("ERROR: we lost a predicate!"); 
 		}
 	}
 
 	public boolean e_close(String room, TreeSet<Pair<ParamType, Object>> set) {
+		/*
 		for (Pair<ParamType, Object> pair : set) {
 			if (!e_close(room, (String) pair.getValue())) {
 				return false;
 			}
 		}
 		return true;
+		*/
+
+		// using predicates
+		StringBuffer s = new StringBuffer(); 
+		s.append("close" + room + ", {");
+		for (Pair<ParamType, Object> pair : set) {
+			s.append((String) pair.getValue());
+			s.append(", "); 
+		}
+		if(!set.isEmpty()){
+			s.delete(s.length()-2, s.length()-1); 
+		}
+		s.append("})"); 
+		
+		boolean ret = false; 
+		try{ 
+			if(!facts.contains(new Predicate(s.toString()))){
+				ret = true;
+			} else { 
+				ret = false; 
+			}
+		}
+		catch(ParseException pe){
+			System.out.println("ERROR: we lost a predicate!"); 
+			ret = false; 
+		}
+		return ret; 
 	}
 	
 	public String toString() {
 		StringBuffer s = new StringBuffer();
+		for(int i = 0; i < facts.size(); i++){
+			s.append(facts.get(i).toString() + "\n"); 
+		}
+		
+		/*
 		for (int i = 0; i < people.size(); i++) {
 			s.append("person(" + people.get(i).getName() + ")\n");
 		}
@@ -745,9 +851,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			s.append("large-project(" + large_projects.get(i).getName() + ")\n");
 		}
 		for (int i = 0; i < groups.size(); i++) {
+			facts.
 			s.append("group(" + groups.get(i).getName() + ")\n");
 		}
+		*/
 		return s.toString();
 	}
-
 }

@@ -15,11 +15,14 @@ import org.junit.Test;
  */
 public class EnvironmentTest {
 
+	Environment myInstance; 
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		myInstance = Environment.get(); 
 	}
 
 	/**
@@ -27,11 +30,18 @@ public class EnvironmentTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
+		Environment.reset(); 
+		myInstance = null; 
 	}
 
+	/**
+	 * Need to test the toString method of the environment for
+	 * normal predicates
+	 */
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testToStringNormal() {
+		myInstance.a_person("Jim"); 
+		assertEquals("person(Jim)\n", myInstance.toString()); 
 	}
 
 }
