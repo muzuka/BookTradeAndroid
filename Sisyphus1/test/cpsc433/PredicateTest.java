@@ -116,11 +116,13 @@ public class PredicateTest {
 		Predicate unary = new Predicate("dragon-man(Trogdor)"); 
 		Predicate binary = new Predicate("trogdor-was(man, dragon)"); 
 		Predicate ternary = new Predicate("what-is(my, age, again)"); 
+		Predicate quotes = new Predicate("i-am-weird(\"Mr. Smithers\")"); 
 		
 		assertEquals(0, monad.getArity()-1); // Parameter for Monads is the empty string... Fix?  
 		assertEquals(1, unary.getArity()); 
 		assertEquals(2, binary.getArity()); 
 		assertEquals(3, ternary.getArity()); 
+		assertEquals(1, quotes.getArity());
 	}
 	
 	/**
@@ -189,7 +191,7 @@ public class PredicateTest {
 		assertEquals("trogdor-was(man, dragon)", binary.toString()); 
 		assertEquals("what-is(my, age, again)", ternary.toString()); 
 		assertEquals("test(hello, -3, {a, is, set, this})", various.toString()); 
-		assertEquals("i-am-a(\"Word\")", quotes.toString()); 
+		assertEquals("i-am-a(Word)", quotes.toString()); // quotes are to be stripped
 		assertEquals("isFun(Spaces are fun!)", spaces.toString()); 
 		// TODO: the TreeSet reorders its elements in alphabetical order!!! 
 	}
