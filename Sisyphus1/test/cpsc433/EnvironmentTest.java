@@ -40,8 +40,8 @@ public class EnvironmentTest {
 	 */
 	@Test
 	public void testToStringNormal() {
-		myInstance.a_person("Jim"); 
-		assertEquals("person(Jim)\n", myInstance.toString()); 
+		myInstance.a_person("Jim Moriarte"); 
+		assertEquals("person(Jim Moriarte)\n", myInstance.toString()); 
 	}
 
 }
