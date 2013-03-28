@@ -14,10 +14,10 @@ public class SisyphusI {
 			Environment env = Environment.get();
 			env.fromFile(args[0]);
 			outfilewriter.write(env.toString());
+			Solution mySol = env.search(); 
 			outfilewriter.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 }

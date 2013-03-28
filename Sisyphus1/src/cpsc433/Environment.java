@@ -857,4 +857,9 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		*/
 		return s.toString();
 	}
+	
+	public Solution search(){
+		System.out.println("Search is in Environment!!!"); 
+		return new Solution("solStub.txt"); 
+	}
 }
