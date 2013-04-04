@@ -19,6 +19,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public boolean fixedAssignments; // TODO: What is this used for? 
 
 	// lists of the known 'nouns' within our system  
+	//TODO: this needs to be changed from Entity to Predicate for a nicer toString() 
 	private ArrayList<Entity> 	people; 
 	private ArrayList<Entity> 	groups; 
 	private ArrayList<Entity> 	projects;
@@ -856,10 +857,5 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 		*/
 		return s.toString();
-	}
-	
-	public Solution search(){
-		System.out.println("Search is in Environment!!!"); 
-		return new Solution("solStub.txt"); 
 	}
 }
