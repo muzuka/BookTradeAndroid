@@ -22,6 +22,12 @@ public class Solution {
 		this.assignments = new ArrayList<Predicate>(); 
 	}
 
+	/**
+	 * Generate the goodness value as per the soft constraint definitions
+	 * of the Sisyphus I problem. 
+	 * 
+	 * @return the goodness value of the current solution
+	 */
 	public int getGoodness() {
 		// TODO Auto-generated method stub
 		
@@ -32,6 +38,10 @@ public class Solution {
 		return 0;
 	}
 
+	/**
+	 * Returns a boolean value as per whether the solution is complete 
+	 * @return true if the solution is complete, false otherwise 
+	 */
 	public boolean isComplete() {
 		// TODO Auto-generated method stub
 		
@@ -40,6 +50,10 @@ public class Solution {
 		return false;
 	}
 
+	/**
+	 * Returns a boolean value as per whether the solution is solved
+	 * @return true if the solution is solved, false otherwise 
+	 */
 	public boolean isSolved() {
 		// TODO Auto-generated method stub
 		
