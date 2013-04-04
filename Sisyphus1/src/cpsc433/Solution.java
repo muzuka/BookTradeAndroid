@@ -3,13 +3,21 @@ package cpsc433;
 import java.util.ArrayList;
 
 public class Solution {
-	private ArrayList<Predicate> assignments;
 	
+	//FIXME: What use is an enum with only one value? Da fuq? 
 	public enum Verbosity {
 		SUMMARY;
 	}
+	
 	public static Verbosity verbosity;
+	private ArrayList<Predicate> assignments;
+	private ArrayList<Predicate> people; 
+	private ArrayList<Predicate> rooms; 
 
+	/**
+	 * Used to define the output file of the 
+	 * @param outfilename
+	 */
 	public Solution(String outfilename) {
 		this.assignments = new ArrayList<Predicate>(); 
 	}
