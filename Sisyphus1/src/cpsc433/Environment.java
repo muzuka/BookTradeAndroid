@@ -50,6 +50,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	// Otherwise it could get modified from outside.
 	// Nasty stuff.
 	// =P
+	public ArrayList<Entity> getLargeRooms() {
+		return new ArrayList<Entity>(large_rooms);
+	}
+	
 	public ArrayList<Entity> getManagers() {
 		return new ArrayList<Entity>(managers);
 	}

@@ -35,6 +35,9 @@ public class Solution {
 		// penalties - requires knowledge of the environment... Hurm... 
 		// seems like this was what the Singleton pattern was designed for... 
 		// will this work well? - AM 
+		// yeah it'll work fine. Environment really is a singleton, just
+		// have the Solution grab the Environment in the constructor I'd say.
+		// - T
 		return 0;
 	}
 

@@ -22,6 +22,7 @@ public class OrTreeNode {
 	private ArrayList<Pair<Entity, Entity>> assigned;
 	private ArrayList<OrTreeNode> children;
 	
+	// Give this a person
 	private boolean isAssigned(Entity e) {
 		for (Pair<Entity, Entity> p : assigned) {
 			if (p.getKey().compareTo(e) == 0) {
@@ -29,6 +30,17 @@ public class OrTreeNode {
 			}
 		}
 		return false;
+	}
+	
+	// Give this a room
+	private int numAssigned(Entity e) {
+		int i = 0;
+		for (Pair<Entity, Entity> p : assigned) {
+			if (p.getValue().compareTo(e) == 0) {
+				i++;
+			}
+		}
+		return i;
 	}
 	
 	public OrTreeNode(ArrayList<Pair<Entity, Entity>> assigned) {
@@ -42,22 +54,39 @@ public class OrTreeNode {
 		env = Environment.get();
 	}
 	
-	public void assign() {
-		ArrayList<Entity> managers = env.getManagers();
-		for (Entity m : managers) {
-			if (!isAssigned(m)) {
-				assign(m);
+	// This isn't done. Don't complain just yet. - T
+	public OrTreeNode search() {
+		if (assign() == 0) {
+			// We're done. This is a complete assignment.
+			return this;
+		}
+		children.add(new OrTreeNode(assigned));
+		for (OrTreeNode c : children) {
+			return c.search();
+		}
+		return null;
+	}
+	
+	public int assign() {
+		ArrayList<Entity> groupHeads = env.getGroupHeads();
+		for (Entity p : groupHeads) {
+			if (!isAssigned(p)) {
+				assignGroupHead(p);
+				return 1;
+			}
+		}
+		return 0;
+	}
+	
+	// One per room, Should be a large room
+	// These are assigned first
+	private void assignGroupHead(Entity p) {
+		ArrayList<Entity> largeRooms = env.getLargeRooms();
+		for (Entity r : largeRooms) {
+			if (numAssigned(r) == 0) {
+				assigned.add(new Pair<Entity, Entity>(p, r));
 				return;
 			}
 		}
-	}
-	
-	// This is private because there's careful rules about how it ought to be
-	// called. It makes the assumption that p has not already been assigned.
-	// This better be true! Check before it ever gets here. assign(void) is
-	// the external interface, it looks for an appropriate person to assign
-	// next.
-	private void assign(Entity p) {
-		
 	}
 }
