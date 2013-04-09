@@ -44,6 +44,35 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	private ArrayList<Pair<Entity, Entity>> heads_project;
 	private ArrayList<Pair<Entity, Entity>> close;
  	// FIXME: these 'lists' seem to be filling in for what a predicate should do 
+	
+	// Before anyone asks,
+	// This is supposed to return a copy, that's why.
+	// Otherwise it could get modified from outside.
+	// Nasty stuff.
+	// =P
+	public ArrayList<Entity> getManagers() {
+		return new ArrayList<Entity>(managers);
+	}
+	
+	public ArrayList<Entity> getGroupHeads() {
+		ArrayList<Entity> l = new ArrayList<Entity>();
+		for (Pair<Entity,Entity> p : heads_group) {
+			if (!l.contains(p.getKey())) {
+				l.add(p.getKey());
+			}
+		}
+		return l;
+	}
+	
+	public ArrayList<Entity> getProjectHeads() {
+		ArrayList<Entity> l = new ArrayList<Entity>();
+		for (Pair<Entity,Entity> p : heads_project) {
+			if (!l.contains(p.getKey())) {
+				l.add(p.getKey());
+			}
+		}
+		return l;
+	}
 
 	private Environment(String name) {
 		super(name);
