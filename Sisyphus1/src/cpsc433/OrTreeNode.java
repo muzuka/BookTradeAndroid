@@ -1,5 +1,7 @@
 package cpsc433;
 
+import java.util.ArrayList;
+
 /**
  * Class to represent the internal nodes of our or-tree 
  * based search. 
@@ -13,8 +15,23 @@ package cpsc433;
  * Each node will contain a function in order to find the next 
  * node of our problem search (fAltern). 
  *   
- * @author Todd Bennet, Sean Brown, Alex Madsen
+ * @author Todd Bennett, Sean Brown, Alex Madsen
  */
 public class OrTreeNode {
+	private ArrayList<Pair<Entity, Entity>> assigned;
+	private ArrayList<OrTreeNode> children;
 	
+	public OrTreeNode(ArrayList<Pair<Entity, Entity>> assigned) {
+		if (assigned == null) {
+			this.assigned = new ArrayList<Pair<Entity, Entity>>();
+		}
+		else {
+			this.assigned = new ArrayList<Pair<Entity, Entity>>(assigned);
+		}
+		children = new ArrayList<OrTreeNode>();
+	}
+	
+	public void assign() {
+		
+	}
 }
