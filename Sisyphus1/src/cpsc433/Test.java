@@ -10,6 +10,8 @@ import java.io.PrintStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import cpsc433.Environment;
+
 /**
  * main() for Testing a program in the CPSC 433 W06 assignment.  The main() 
  * method in the sisyphusI.Test class must comply to the following syntax:
