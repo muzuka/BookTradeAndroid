@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import cpsc433.Environment;
+
 /**
  * @author akmadsen
  *
@@ -40,8 +42,12 @@ public class EnvironmentTest {
 	 */
 	@Test
 	public void testToStringNormal() {
-		myInstance.a_person("Jim Moriarte"); 
-		assertEquals("person(Jim Moriarte)\n", myInstance.toString()); 
+		String name = "Jim Moriarte"; 
+		String group = "Bad Guys"; 
+		myInstance.a_person(name); 
+		myInstance.a_group(group); 
+		myInstance.a_in_group(name, group);
+		assertEquals("person(Jim Moriarte)\ngroup(Bad Guys)\ngroup(Jim Moriarte, Bad Guys)\nin-group(Jim Moriarte, Bad Guys)\n", myInstance.toString()); 
 	}
 
 }
