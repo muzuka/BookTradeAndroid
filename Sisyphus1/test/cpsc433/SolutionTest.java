@@ -37,9 +37,24 @@ public class SolutionTest {
 		mySol = null; 
 	}
 
+	/**
+	 * Test the goodness function for the empty assignment. It should
+	 * return 0 (assuming that no one in the test environment has been
+	 * assigned to a room) 
+	 */
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testEmptyGoodness() {
+		assertEquals(0, mySol.getGoodness(env)); 
 	}
 
+	/**
+	 * If either the person or the room does not exist, 
+	 * then we should get false. 
+	 */
+	@Test
+	public void testNonexistentAssignment() {
+		assert(!(mySol.assign(new Entity("Chuck"), new Entity("000")))); 
+		assert(!(mySol.assign(new Entity("Jurgen"), new Entity("000"))));
+		assert(!(mySol.assign(new Entity("Chuck"), new Entity("C5113"))));
+	}
 }
