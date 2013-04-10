@@ -13,12 +13,14 @@ public class Solution {
 	private ArrayList<Predicate> assignments;
 	private ArrayList<Predicate> people; 
 	private ArrayList<Predicate> rooms; 
+	private String outfilename; 
 
 	/**
 	 * Used to define the output file of the 
 	 * @param outfilename
 	 */
 	public Solution(String outfilename) {
+		this.outfilename = outfilename; 
 		this.assignments = new ArrayList<Predicate>(); 
 	}
 
