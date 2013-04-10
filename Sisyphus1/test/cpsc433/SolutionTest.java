@@ -11,15 +11,19 @@ import org.junit.Test;
 
 /**
  * @author akmadsen
- *
  */
 public class SolutionTest {
-
+		Environment env; 
+		Solution mySol; 
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		env = Environment.get(); 
+		env.fromFile("test.txt"); 
+		mySol = new Solution("test.txt.out"); 
 	}
 
 	/**
@@ -27,6 +31,8 @@ public class SolutionTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
+		env.reset(); 
+		mySol = null; 
 	}
 
 	@Test
