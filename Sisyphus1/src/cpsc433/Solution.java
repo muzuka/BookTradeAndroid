@@ -2,6 +2,8 @@ package cpsc433;
 
 import java.util.ArrayList;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
 public class Solution {
 	
 	// START LEGACY CODE 
@@ -13,8 +15,8 @@ public class Solution {
 	// END LEGACY CODE 
 	
 	private ArrayList<Predicate> assignments;
-	private ArrayList<Predicate> people; 
-	private ArrayList<Predicate> rooms; 
+	private ArrayList<Entity> people; 
+	private ArrayList<Entity> rooms; 
 
 	private String outfilename; 
 
@@ -218,5 +220,17 @@ public class Solution {
 		//TODO: I'm a stub!
 		return false; 
 	}
-
+	
+	/**
+	 * Assign a person to a room within the Solution class 
+	 * @param person The person to be assigned to the room
+	 * @param room The room to have the person assigned. 
+	 */
+	public void assign(Entity person, Entity room){
+		try{
+			Predicate assignment = new Predicate("assign-to(" + person + ", " + room + ")"); 
+		} catch (java.text.ParseException pe) {
+			System.err.println("Person \"" + person + "\" could not be assigned to " + room); 
+		}
+	}
 }
