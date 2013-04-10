@@ -880,4 +880,13 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public ArrayList<Entity> getPeople() {
+		return people; 
+	}
+	
+	public ArrayList<Entity> getRooms() {
+		return rooms; 
+	}
+	
 }

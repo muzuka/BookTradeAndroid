@@ -14,6 +14,7 @@ public class Solution {
 	public static Verbosity verbosity;
 	// END LEGACY CODE 
 	
+	private Environment myEnv; 
 	private ArrayList<Predicate> assignments;
 	private ArrayList<Entity> people; 
 	private ArrayList<Entity> rooms; 
@@ -27,6 +28,9 @@ public class Solution {
 	public Solution(String outfilename) {
 		this.outfilename = outfilename; 
 		this.assignments = new ArrayList<Predicate>(); 
+		this.myEnv = Environment.get(); 
+		people = myEnv.getPeople(); 
+		rooms = myEnv.getRooms(); 
 	}
 	
 	/**
