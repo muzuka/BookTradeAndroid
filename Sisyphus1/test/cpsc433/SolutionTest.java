@@ -89,4 +89,195 @@ public class SolutionTest {
 		} 
 	}
 	
+	/**
+	 * Tests Soft Constraint 1: 
+	 * 		<ul> 
+	 * 		<li>Group Heads should have a Large Office</li> 
+	 * 		<li>Penalty: -40</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint1() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 2: 
+	 * 		<ul> 
+	 * 		<li>Group Heads should be close to all members of their group</li> 
+	 * 		<li>Penalty: -2</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint2() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 3: 
+	 * 		<ul> 
+	 * 		<li>Group Heads should be close to at least one secretary in the group</li> 
+	 * 		<li>Penalty: -30</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint3() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 4: 
+	 * 		<ul> 
+	 * 		<li>Secretaries should share offices with other secretaries</li> 
+	 * 		<li>Penalty: -5</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint4() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 5: 
+	 * 		<ul> 
+	 * 		<li>Managers should be close to at least one secretary of their group</li> 
+	 * 		<li>Penalty: -20</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint5() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 6: 
+	 * 		<ul> 
+	 * 		<li>Managers should be close to their Group's Head </li> 
+	 * 		<li>Penalty: -20</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint6() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 7: 
+	 * 		<ul> 
+	 * 		<li>Managers should be close to all members of their group</li> 
+	 * 		<li>Penalty: -2</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint7() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 8: 
+	 * 		<ul> 
+	 * 		<li>All heads of projects should be close to all members of their project</li> 
+	 * 		<li>Penalty: -5</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint8() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 9: 
+	 * 		<ul> 
+	 * 		<li>Heads of Large Projects should be close to at least one secretary in their group</li> 
+	 * 		<li>Penalty: -10</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint9() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 10: 
+	 * 		<ul> 
+	 * 		<li>Heads of Large Projects should be close to the head of their group</li> 
+	 * 		<li>Penalty: -10</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint10() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 11: 
+	 * 		<ul> 
+	 * 		<li>A Smoker shouldn't share an office with a non-smoker</li> 
+	 * 		<li>Penalty: -50</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint11() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 12: 
+	 * 		<ul> 
+	 * 		<li>Members of the same project should not share an office</li> 
+	 * 		<li>Penalty: -7</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint12() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 13: 
+	 * 		<ul> 
+	 * 		<li>if a non secretary hacker/non-hacker shares an office, then they should share with another hacker/non-hacker</li> 
+	 * 		<li>Penalty: -2</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint13() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 14: 
+	 * 		<ul> 
+	 * 		<li>people prefer to have their own offices</li> 
+	 * 		<li>Penalty: -4</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint14() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 15: 
+	 * 		<ul> 
+	 * 		<li>if two people share an office, they should work together</li> 
+	 * 		<li>Penalty: -3</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint15() {
+		fail("not implemented yet"); 
+	}
+	
+	/**
+	 * Tests Soft Constraint 16: 
+	 * 		<ul> 
+	 * 		<li>Two people shouldn't share a small room</li> 
+	 * 		<li>Penalty: -25</li>
+	 * 		</ul> 
+	 */
+	@Test
+	public void testSoftConstraint16() {
+		fail("not implemented yet"); 
+	}
 }
