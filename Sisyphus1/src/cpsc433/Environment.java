@@ -112,18 +112,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		// FIXME: Imperfection - Does not properly copy the object
 
 	}
-	
-	public ArrayList<Entity> getGroups() {
-		return groups;
-	}
-	
-	public ArrayList<Pair<Entity, Entity>> getClose() {
-		return close;
-	}
-	
-	public ArrayList<Entity> getProjects() {
-		return projects;
-	}
 
 	public void a_person(String p) {
 		try {
@@ -871,6 +859,18 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		return s.toString();
 	}
 
+	public ArrayList<Entity> getGroups() {
+		return groups;
+	}
+	
+	public ArrayList<Pair<Entity, Entity>> getClose() {
+		return close;
+	}
+	
+	public ArrayList<Entity> getProjects() {
+		return projects;
+	}
+	
 	public ArrayList<Entity> getGroupHeads() {
 		// TODO Auto-generated method stub
 		return null;
