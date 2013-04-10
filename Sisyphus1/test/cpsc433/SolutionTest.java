@@ -17,6 +17,7 @@ public class SolutionTest {
 		Solution mySol; 
 	
 	/**
+	 * Set up the environment where the solution will be living
 	 * @throws java.lang.Exception
 	 */
 	@Before
@@ -27,11 +28,12 @@ public class SolutionTest {
 	}
 
 	/**
+	 * destroy that  environment to be made afresh 
 	 * @throws java.lang.Exception
 	 */
 	@After
 	public void tearDown() throws Exception {
-		env.reset(); 
+		Environment.reset(); 
 		mySol = null; 
 	}
 
