@@ -1,7 +1,7 @@
 /**
  * 
  */
-package test.cpsc433;
+package cpsc433;
 
 import static org.junit.Assert.*;
 

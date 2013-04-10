@@ -870,4 +870,14 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		*/
 		return s.toString();
 	}
+
+	public ArrayList<Entity> getGroupHeads() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<Entity> getLargeRooms() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
