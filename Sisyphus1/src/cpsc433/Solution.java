@@ -226,11 +226,28 @@ public class Solution {
 	 * @param person The person to be assigned to the room
 	 * @param room The room to have the person assigned. 
 	 */
-	public void assign(Entity person, Entity room){
+	public boolean assign(Entity person, Entity room){
+		String workstring = "assign-to(" + person + ", " + room + ")"; 
 		try{
-			Predicate assignment = new Predicate("assign-to(" + person + ", " + room + ")"); 
+			if(people.contains(person) && rooms.contains(room)){
+				Predicate assignment = new Predicate(workstring); 
+				assignments.add(assignment);
+				return true; 
+			} else { 
+				return false; 
+			}
 		} catch (java.text.ParseException pe) {
-			System.err.println("Person \"" + person + "\" could not be assigned to " + room); 
+			System.err.println("ERROR: Could not parse " + workstring); 
+			return false; 
 		}
+	}
+	
+	/**
+	 * Prints out all current room assignments as well as the current goodness of 
+	 * the solution. 
+	 */
+	// I'm thinking this should go here for ease of access -AM 
+	public String toString(){
+		return "Implement me!"; 
 	}
 }
