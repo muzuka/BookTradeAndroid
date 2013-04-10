@@ -164,14 +164,17 @@ public class Solution {
 	}
 
 	/**
-	 * Returns a boolean value as per whether the solution is complete 
+	 * Returns a boolean value as to whether all persons within
+	 * the solution have been assigned. 
 	 * @return true if the solution is complete, false otherwise 
 	 */
 	public boolean isComplete() {
 		// TODO Auto-generated method stub
+		// if (all persons are assigned) 
+		//		return true
+		// else
+		//		return false
 		
-		// if all of the persons are assigned, then the solution
-		// is complete
 		return false;
 	}
 
@@ -184,6 +187,10 @@ public class Solution {
 		
 		// how is this different from isComplete() for Otrees? 
 		return false;
+	}
+	
+	public String getOutfileName(){
+		return outfilename; 
 	}
 
 }
