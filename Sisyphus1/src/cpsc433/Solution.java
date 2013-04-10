@@ -184,8 +184,9 @@ public class Solution {
 	 */
 	public boolean isSolved() {
 		// TODO Auto-generated method stub
-		
-		// how is this different from isComplete() for Otrees? 
+		// returns true if the solution has all persons assigned and 
+		// no hard constraints are violated. 
+		// returns false otherwise. 
 		return false;
 	}
 	
