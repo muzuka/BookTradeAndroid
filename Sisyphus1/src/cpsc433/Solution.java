@@ -2,6 +2,8 @@ package cpsc433;
 
 import java.util.ArrayList;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
 public class Solution {
 	
 	// START LEGACY CODE 
@@ -27,8 +29,8 @@ public class Solution {
 		this.outfilename = outfilename; 
 		this.assignments = new ArrayList<Predicate>(); 
 		this.myEnv = Environment.get(); 
-		this.people = myEnv.getPeople(); 
-		this.rooms = myEnv.getRooms(); 
+		people = myEnv.getPeople(); 
+		rooms = myEnv.getRooms(); 
 	}
 	
 	/**
@@ -77,55 +79,57 @@ public class Solution {
 					
 					String person2 = assignments.get(j).getStringParam(0);
 					
-					// Test 1: smoker vs. non-smoker
+					// Test 11: smoker vs. non-smoker
 					if ((env.e_smoker(person) && !env.e_smoker(person2)) || (env.e_smoker(person2) && !env.e_smoker(person))) {
 						goodness -= 50;
 					}
 					
-					// Test 2: group heads need large offices.
+					// Test 1: group heads need large offices.
 					for (int k = 0; k < groups.size(); k++) {
 						if((env.e_heads_group(person, groups.get(k).getName()) && !env.e_large_room(room)) || (env.e_heads_group(person2, groups.get(k).getName()) && !env.e_large_room(room))) {
 							goodness -= 40;
 						}
 					}
 					
-					// Test 4: no sharing a small room.
+					// Test 16: no sharing a small room.
 					if (env.e_small_room(room)) {
 						goodness -= 25;
 					}
 					
-					// Test 9: both cannot be in the same project
+					// Test 12: both cannot be in the same project
 					for (int k = 0; k < projects.size(); k++) {
 						if (!env.e_in_project(person, projects.get(k).getName()) || !env.e_in_project(person2, projects.get(k).getName())) {
 							goodness -= 7;
 						}
 					}
 					
-					// Test 10: secretary shouldn't be with a non-secretary
+					// Test 4: secretary shouldn't be with a non-secretary
 					if ((env.e_secretary(person) && !env.e_secretary(person2)) || (!env.e_secretary(person) && env.e_secretary(person2))) {
 						goodness -= 5;
 					}
 					
-					// Test 12: if not alone
+					// Test 14: if not alone
 					goodness -= 4;
 					
-					// Test 13: both people should work together
+					// Test 15: both people should work together
 					if (!env.e_works_with(person, person2)) {
 						goodness -= 3;
 					}
 					
-					// Test 16: hackers should share rooms with hackers and non-hackers should share with non-hackers
+					// Test 13: hackers should share rooms with hackers and non-hackers should share with non-hackers
 					if ((env.e_hacker(person) && env.e_hacker(person2)) || (!env.e_hacker(person) && !env.e_hacker(person2))) {
 						goodness -= 2;
 					}
 				}
 			}
 			
+			ArrayList<Entity> closePeople = getPeople(closeAssignments);
+			
 			// for each group
 			for (int j = 0, j2 = 0; j < groups.size() || j2 < projects.size(); j++, j2++) {
 				String project = projects.get(j2).getName();
 				String group = groups.get(j).getName();
-				// Test 3: group head is close to at least one secretary in group
+				// Test 2: group head is close to at least one secretary in group
 				// if current person is head of the group
 				if (env.e_heads_group(person, group)) {
 					// search close rooms
@@ -139,6 +143,10 @@ public class Solution {
 						else {
 							goodness -= 30;
 						}
+					}
+					// Test: are all members of group close
+					if (!areMembersClose(env, group, closePeople)) {
+						goodness -= 2;
 					}
 				}
 				// Test 5: manager is close to at least one secretary in group
@@ -156,8 +164,12 @@ public class Solution {
 							goodness -= 20;
 						}
 					}
+					// Test: are all members of group close
+					if (!areMembersClose(env, group, closePeople)) {
+						goodness -= 2;
+					}
 				}
-				// Test 7: large project head is close to at least one secretary in group
+				// Test 9: large project head is close to at least one secretary in group
 				// if current person is large project head
 				else if (env.e_heads_project(person, project) && env.e_large_project(project)) {
 					// search close rooms
@@ -172,11 +184,37 @@ public class Solution {
 							goodness -= 10;
 						}
 					}
+					// Test: are all members of group close
+					if (!areMembersClose(env, group, closePeople)) {
+						goodness -= 5;
+					}
 				}
 			}
 		}
 		
 		return goodness;
+	}
+	
+	// Extracts first arguements of a list of predicates
+	// for getting the names of people in the close assignments
+	public ArrayList<Entity> getPeople(ArrayList<Predicate> closeAssignings) {
+		ArrayList<Entity> names = new ArrayList<Entity>();
+		for (int i = 0; i < closeAssignings.size(); i++) {
+			names.add(new Entity(closeAssignings.get(i).getStringParam(0)));
+		}
+	}
+	
+	// tests for all members of a group being close to room
+	public boolean areMembersClose(Environment env, String groupName, ArrayList<Entity> closeAssignings) {
+		ArrayList<Entity> people = env.getPeople();
+		for (int i = 0; i < people.size(); i++) {
+			if (env.e_in_group(people.get(i).getName(), groupName)) {
+				if (!closeAssignings.contains(new Entity(people.get(i).getName()))) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -230,20 +268,12 @@ public class Solution {
 	 */
 	public boolean assign(Entity person, Entity room){
 		String workstring = "assign-to(" + person + ", " + room + ")"; 
-				
 		try{
 			if(people.contains(person) && rooms.contains(room)){
-				//System.out.println(person + " and " + room + " exist here!"); 
 				Predicate assignment = new Predicate(workstring); 
 				assignments.add(assignment);
 				return true; 
 			} else { 
-				/*
-				if(people.contains(person)){
-					System.out.println(room + " does NOT exist here!"); 
-				} else { 
-					System.out.println(person + " does NOT exist here"); 
-				}*/
 				return false; 
 			}
 		} catch (java.text.ParseException pe) {
@@ -259,16 +289,5 @@ public class Solution {
 	// I'm thinking this should go here for ease of access -AM 
 	public String toString(){
 		return "Implement me!"; 
-	}
-	
-	/**
-	 * Temporary fix so that Environment can be passed around between the 
-	 * solution class and its holder... 
-	 * @param env
-	 */
-	public void updateEnvironment(Environment env){
-		this.myEnv = env; 
-		people = myEnv.getPeople(); 
-		rooms = myEnv.getRooms(); 
 	}
 }
