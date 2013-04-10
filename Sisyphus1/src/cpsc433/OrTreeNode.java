@@ -19,13 +19,14 @@ import java.util.ArrayList;
  */
 public class OrTreeNode {
 	private Environment env;
+	private Solution currentSol; 
 	private ArrayList<Pair<Entity, Entity>> assigned;
 	private ArrayList<OrTreeNode> children;
 	
 	/**
 	 * Creates a new OrTreeNode with the current assignments
 	 * @param assigned The current assignments. Pass in 
-	 * <b><code>null</code></b>to create a root node. 
+	 * <b><code>null</code></b> to create a root node. 
 	 */
 	public OrTreeNode(ArrayList<Pair<Entity, Entity>> assigned) {
 		if (assigned == null) {
@@ -36,6 +37,10 @@ public class OrTreeNode {
 		}
 		children = new ArrayList<OrTreeNode>();
 		env = Environment.get();
+		
+		// this is NOT to spec! We need to change this up... 
+		// should we pass this as a parameter? or allow this to be set up...? - AM 
+		currentSol = new Solution("outfile.txt"); 
 	}
 	
 	
