@@ -14,7 +14,8 @@ public class SisyphusI {
 			Environment env = Environment.get();
 			env.fromFile(args[0]);
 			outfilewriter.write(env.toString());
-			
+			OrTreeNode root = new OrTreeNode(null);
+			root.search(); 
 			outfilewriter.close();
 		} catch (Exception e) {
 			e.printStackTrace();
