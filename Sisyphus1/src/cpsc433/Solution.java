@@ -4,15 +4,18 @@ import java.util.ArrayList;
 
 public class Solution {
 	
-	//FIXME: What use is an enum with only one value? Da fuq? 
+	// START LEGACY CODE 
 	public enum Verbosity {
 		SUMMARY;
 	}
 	
 	public static Verbosity verbosity;
+	// END LEGACY CODE 
+	
 	private ArrayList<Predicate> assignments;
 	private ArrayList<Predicate> people; 
 	private ArrayList<Predicate> rooms; 
+
 	private String outfilename; 
 
 	/**
@@ -22,6 +25,15 @@ public class Solution {
 	public Solution(String outfilename) {
 		this.outfilename = outfilename; 
 		this.assignments = new ArrayList<Predicate>(); 
+	}
+	
+	/**
+	 * Constructor used to parse out information
+	 * from the environment 
+	 */
+	
+	public Solution(Environment env){
+		
 	}
 
 	/**
@@ -192,6 +204,19 @@ public class Solution {
 	
 	public String getOutfileName(){
 		return outfilename; 
+	}
+	
+	public ArrayList<Predicate> getAssignments(){
+		return assignments; 
+	}
+	
+	/**
+	 * Returns true if the solution violates hard constraints, false otherwise. 
+	 * @return true if the solution violates any hard constraints, false otherwise. 
+	 */
+	public boolean violatesHardConstraints(){
+		//TODO: I'm a stub!
+		return false; 
 	}
 
 }
