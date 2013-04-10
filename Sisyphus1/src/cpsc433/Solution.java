@@ -2,8 +2,6 @@ package cpsc433;
 
 import java.util.ArrayList;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
 public class Solution {
 	
 	// START LEGACY CODE 
@@ -235,16 +233,17 @@ public class Solution {
 				
 		try{
 			if(people.contains(person) && rooms.contains(room)){
-				System.out.println(person + " and " + room + " exist here!"); 
+				//System.out.println(person + " and " + room + " exist here!"); 
 				Predicate assignment = new Predicate(workstring); 
 				assignments.add(assignment);
 				return true; 
 			} else { 
+				/*
 				if(people.contains(person)){
 					System.out.println(room + " does NOT exist here!"); 
 				} else { 
 					System.out.println(person + " does NOT exist here"); 
-				}
+				}*/
 				return false; 
 			}
 		} catch (java.text.ParseException pe) {
