@@ -5,6 +5,8 @@ package cpsc433;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +27,7 @@ public class SolutionTest {
 		env = Environment.get(); 
 		env.fromFile("test.txt"); 
 		mySol = new Solution("test.txt.out"); 
+		mySol.updateEnvironment(env); 
 	}
 
 	/**
@@ -53,8 +56,37 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testNonexistentAssignment() {
-		assert(!(mySol.assign(new Entity("Chuck"), new Entity("000")))); 
-		assert(!(mySol.assign(new Entity("Jurgen"), new Entity("000"))));
-		assert(!(mySol.assign(new Entity("Chuck"), new Entity("C5113"))));
+		Entity chuck = new Entity("Chuck"); 
+		Entity jurgen = new Entity("Jurgen"); 
+		Entity room0 = new Entity("000"); 
+		Entity goodRoom = new Entity("C5113"); 
+		assertEquals(false, (mySol.assign(chuck, room0))); 
+		assertEquals(false, (mySol.assign(jurgen, room0)));
+		assertEquals(false, (mySol.assign(chuck, goodRoom)));
 	}
+	
+	/**
+	 * If we make an assignment with people and rooms that do exist, 
+	 * then we should get the value 'true' returned. Note that hard 
+	 * constraints are not tested here. 
+	 */
+	@Test
+	public void testGoodAssignment() {
+		
+		Entity jurgen = new Entity("Jurgen"); 
+		Entity goodRoom = new Entity("C5113"); 
+		
+		String workstring = "assign-to(" + jurgen + ", " + goodRoom + ")"; 
+		Predicate workPred;
+		try {
+			workPred = new Predicate(workstring);
+			assertEquals(true, env.getRooms().contains(goodRoom)); 
+			assertEquals(true, env.getPeople().contains(jurgen)); 
+			assertEquals(true, mySol.assign(jurgen, goodRoom)); 
+			assertEquals(true, mySol.getAssignments().contains(workPred)); 
+		} catch (ParseException e) {
+			fail("Work String was malformed"); 
+		} 
+	}
+	
 }

@@ -29,8 +29,8 @@ public class Solution {
 		this.outfilename = outfilename; 
 		this.assignments = new ArrayList<Predicate>(); 
 		this.myEnv = Environment.get(); 
-		people = myEnv.getPeople(); 
-		rooms = myEnv.getRooms(); 
+		this.people = myEnv.getPeople(); 
+		this.rooms = myEnv.getRooms(); 
 	}
 	
 	/**
@@ -232,12 +232,19 @@ public class Solution {
 	 */
 	public boolean assign(Entity person, Entity room){
 		String workstring = "assign-to(" + person + ", " + room + ")"; 
+				
 		try{
 			if(people.contains(person) && rooms.contains(room)){
+				System.out.println(person + " and " + room + " exist here!"); 
 				Predicate assignment = new Predicate(workstring); 
 				assignments.add(assignment);
 				return true; 
 			} else { 
+				if(people.contains(person)){
+					System.out.println(room + " does NOT exist here!"); 
+				} else { 
+					System.out.println(person + " does NOT exist here"); 
+				}
 				return false; 
 			}
 		} catch (java.text.ParseException pe) {
@@ -253,5 +260,16 @@ public class Solution {
 	// I'm thinking this should go here for ease of access -AM 
 	public String toString(){
 		return "Implement me!"; 
+	}
+	
+	/**
+	 * Temporary fix so that Environment can be passed around between the 
+	 * solution class and its holder... 
+	 * @param env
+	 */
+	public void updateEnvironment(Environment env){
+		this.myEnv = env; 
+		people = myEnv.getPeople(); 
+		rooms = myEnv.getRooms(); 
 	}
 }
