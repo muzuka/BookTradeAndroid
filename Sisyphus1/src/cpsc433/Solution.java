@@ -140,15 +140,7 @@ public class Solution {
 							isGroupHead = true;
 						}
 					}
-					
-					/*
-					// Test: is group head close to the manager
-					if (!isGroupHead) {
-						goodness -= 20;
-					}
-					*/
-					
-					
+										
 					// Test: are all members of group close
 					if (!areMembersClose(myEnv, group, closePeople)) {
 						goodness -= 2;
