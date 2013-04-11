@@ -97,7 +97,7 @@ public class OrTreeNode {
 	/**
 	 * Assign a person to a room 
 	 * TODO: should this be in the Solution/Involve the Solution? 
-	 * @return 1 if the person is a group head 
+	 * @return 1 if the person is a group head , 0 otherwise 
 	 * 			
 	 */
 	public int assign() {
