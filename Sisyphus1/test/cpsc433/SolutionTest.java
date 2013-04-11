@@ -103,8 +103,13 @@ public class SolutionTest {
 		env.a_group("Warcraft Guild");
 		env.a_heads_group("Steve", "Warcraft Guild"); 
 		env.a_large_room("Bedroom"); 
+		
+		Entity steve = new Entity("Steve"); 
+		Entity bedroom = new Entity("Bedroom"); 
+		
 		try {
 			env.a_assign_to("Steve", "Bedroom");
+			mySol.assign(steve, bedroom); 
 		} catch (Exception e) {
 			fail("The Good case did not work"); 
 		} 
@@ -132,6 +137,7 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint2() {
+		
 		fail("not implemented yet"); 
 	}
 	
@@ -300,6 +306,17 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint16() {
-		fail("not implemented yet"); 
+		env.a_person("Vegeta"); 
+		env.a_person("Nappa"); 
+		env.a_room("Space Pod"); 
+		env.a_small_room("Space Pod"); 
+		
+		try {
+			env.a_assign_to("Vegeta", "Space Pod");
+			env.a_assign_to("Nappa", "Space Pod");
+			assertEquals(-25, mySol.getGoodness(env)); 
+		} catch (Exception e) {
+			fail("could not assign Saiyans to Space Pod"); 
+		}
 	}
 }
