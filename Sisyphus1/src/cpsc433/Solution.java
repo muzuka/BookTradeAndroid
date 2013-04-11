@@ -94,7 +94,7 @@ public class Solution {
 						goodness -= 50;
 					}
 					
-					if (myEnv.getGroup(new Entity(person)).getName() != null) {
+					if (myEnv.getGroup(new Entity(person)) != null) {
 						// Test 1: group heads need large offices.
 						String group = myEnv.getGroup(new Entity(person)).getName();
 						if((myEnv.e_heads_group(person, group) && !myEnv.e_large_room(room))) {
@@ -107,7 +107,7 @@ public class Solution {
 						goodness -= 25;
 					}
 					
-					if (myEnv.getProject(new Entity(person)).getName() != null) {
+					if (myEnv.getProject(new Entity(person)) != null) {
 						// Test 12: both cannot be in the same project
 						String project = myEnv.getProject(new Entity(person)).getName();
 						if (!myEnv.e_in_project(person2, project)) {
@@ -346,7 +346,7 @@ public class Solution {
 				try {
 					String room = assignments.get(j).getStringParam(1);
 					String person = assignments.get(j).getName();
-					if (myEnv.getGroup(new Entity(person)).getName() != null) {
+					if (myEnv.getGroup(new Entity(person)) != null) {
 						String group = myEnv.getGroup(new Entity(person)).getName();
 						// if a group head, manager, or 
 						if (myEnv.e_heads_group(person, group) || myEnv.e_manager(person) || myEnv.e_heads_project(person, myEnv.getProject(new Entity(person)).getName())) {
