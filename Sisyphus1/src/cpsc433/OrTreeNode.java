@@ -148,11 +148,39 @@ public class OrTreeNode {
 			return null;
 		}
 		
-		Entity r;
+		Entity r = null;
 		if (secretaries.contains(p)) {
 			Entity g = env.getGroup(p);
-			for (Entity e : possibleRooms) {
-				if (env.e_close(e, room2))
+			if (g != null) {
+				Entity h = env.getGroupHead(g);
+				if (h != null) {
+					Entity hr = null;
+					for (Pair<Entity, Entity> as : assigned) {
+						if (as.getKey().compareTo(h) == 0) {
+							hr = as.getValue();
+							break;
+						}
+					}
+					if (hr != null) {
+						for (Entity e : possibleRooms) {
+							if (env.e_close(e.getName(), hr.getName())) {
+								r = e;
+							}
+						}
+						if (r == null) {
+							r = possibleRooms.get(magic8ball.nextInt(possibleRooms.size()));
+						}
+					}
+					else {
+						r = possibleRooms.get(magic8ball.nextInt(possibleRooms.size()));
+					}
+				}
+				else {
+					r = possibleRooms.get(magic8ball.nextInt(possibleRooms.size()));
+				}
+			}
+			else {
+				r = possibleRooms.get(magic8ball.nextInt(possibleRooms.size()));
 			}
 		}
 		else {

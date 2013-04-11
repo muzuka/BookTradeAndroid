@@ -955,4 +955,22 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 		return null;
 	}
+	
+	public Entity getProject(Entity p) {
+		for (Entity g : projects) {
+			if (in_project.contains(new Pair<Entity, Entity>(p, g))) {
+				return g;
+			}
+		}
+		return null;
+	}
+	
+	public Entity getProjectHead(Entity g) {
+		for (Pair<Entity, Entity> pair : heads_project) {
+			if (pair.getValue().compareTo(g) == 0) {
+				return pair.getKey();
+			}
+		}
+		return null;
+	}
 }
