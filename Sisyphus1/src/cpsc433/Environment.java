@@ -897,8 +897,14 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	}
 	
 	public ArrayList<Entity> getGroupHeads() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Entity> groupHeads = new ArrayList<Entity>();
+		for (Pair<Entity, Entity> p : heads_group) {
+			Entity groupHead = p.getKey();
+			if (!groupHeads.contains(groupHead)) {
+				groupHeads.add(groupHead);
+			}
+		}
+		return groupHeads;
 	}
 
 	public ArrayList<Entity> getLargeRooms() {
