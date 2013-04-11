@@ -140,10 +140,15 @@ public class Solution {
 							isGroupHead = true;
 						}
 					}
+					
+					/*
 					// Test: is group head close to the manager
 					if (!isGroupHead) {
 						goodness -= 20;
 					}
+					*/
+					
+					
 					// Test: are all members of group close
 					if (!areMembersClose(myEnv, group, closePeople)) {
 						goodness -= 2;
@@ -348,6 +353,7 @@ public class Solution {
 				updateConstraint3(person, room); 
 				updateConstraint4(person, room); 	
 				updateConstraint5(person, room); 
+				updateConstraint6(person, room); 
 				
 				return true; 
 			} else { 
@@ -526,30 +532,65 @@ public class Solution {
 		// Constraint 5
 		// Managers should be close to at least one secretary
 		// within their group
-		constraints.get(4).reset(); 
-		
-		for(Entity g : myEnv.getGroups()){
-			boolean secretaryClose = false; 
-			
-			for(Predicate a : assignments){
-				String p = a.getStringParam(0); 
-				String r = a.getStringParam(1); 
-				
-				Entity p_g = myEnv.getGroup(new Entity(p)); 
-				
-				if(g.equals(p_g)){
-					if(myEnv.e_secretary(p)){
-						if(myEnv.e_close(r, room.toString())){
-							secretaryClose = true; 
+		constraints.get(4).reset();
+
+		boolean secretaryClose = false;
+
+		for (Predicate a : assignments) {
+			String p = a.getStringParam(0);
+			String r = a.getStringParam(1);
+			Entity g = myEnv.getGroup(new Entity(p));
+
+			if (myEnv.e_manager(p)) {
+				for (Predicate a2 : assignments) {
+					
+					String p2 = a2.getStringParam(0);
+					String r2 = a2.getStringParam(1);
+					Entity g2 = myEnv.getGroup(new Entity(p2));
+
+					if (g.equals(g2)) {
+						if (myEnv.e_secretary(p2)) {
+							if (myEnv.e_close(r, r2)) {
+								secretaryClose = true;
+							}
 						}
 					}
 				}
 			}
-			
-			if(!secretaryClose){
-				constraints.get(4).addTick(); 
-			}
 		}
+
+		if (!secretaryClose) {
+			constraints.get(4).addTick();
+		}
+	}
+		
+		private void updateConstraint6(Entity person, Entity room) {
+			// Constraint 6
+			// Managers should be close to their group head 
+			constraints.get(5).reset(); 
+			
+			for(Entity g : myEnv.getGroups()){
+				boolean secretaryClose = false; 
+				
+				for(Predicate a : assignments){
+					String p = a.getStringParam(0); 
+					String r = a.getStringParam(1); 
+					
+					Entity p_g = myEnv.getGroup(new Entity(p)); 
+					
+					if(g.equals(p_g)){
+						if(myEnv.e_secretary(p)){
+							if(myEnv.e_close(r, room.toString())){
+								secretaryClose = true; 
+							}
+						}
+					}
+				}
+				
+				if(!secretaryClose){
+					constraints.get(5).addTick(); 
+				}
+			}
 	}
 	
 	private boolean groupHeadAssigned(Entity group){
