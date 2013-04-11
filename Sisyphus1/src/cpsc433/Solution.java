@@ -319,7 +319,11 @@ public class Solution {
 	}
 	
 	public void writeFile() {
-		
+		PrintWriter writer = new PrintWriter(new File(outfilename));
+		for (int i = 0; i < assignments.size(); i++) {
+			writer.println(assignments.toString());
+		}
+		writer.close();
 	}
 	
 	/**
