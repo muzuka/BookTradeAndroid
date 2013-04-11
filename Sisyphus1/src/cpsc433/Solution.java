@@ -127,6 +127,7 @@ public class Solution {
 			
 			// for each group
 			for (int j = 0, j2 = 0; j < groups.size() || j2 < projects.size(); j++, j2++) {
+				boolean isGroupHead = false;
 				String project = projects.get(j2).getName();
 				String group = groups.get(j).getName();
 				// Test 2: group head is close to at least one secretary in group
@@ -152,9 +153,14 @@ public class Solution {
 				// Test 5: manager is close to at least one secretary in group
 				// if current person is a manager of the group
 				else if (env.e_manager(person) && env.e_in_group(person, group)) {
+					
 					// search close rooms
 					for (int k = 0; k < closeAssignments.size(); k++) {
 						String person2 = closeAssignments.get(k).getStringParam(0);
+						
+						if (env.e_heads_group(person2, group)) {
+							isGroupHead = true;
+						}
 						
 						// if secretary is in the same group
 						if (env.e_secretary(person2) && env.e_in_group(person2, group)) {
@@ -163,6 +169,10 @@ public class Solution {
 						else {
 							goodness -= 20;
 						}
+					}
+					// Test: is group head close to the manager
+					if (!isGroupHead) {
+						goodness -= 20;
 					}
 					// Test: are all members of group close
 					if (!areMembersClose(env, group, closePeople)) {
@@ -176,6 +186,10 @@ public class Solution {
 					for (int k = 0; k < closeAssignments.size(); k++) {
 						String person2 = closeAssignments.get(k).getStringParam(0);
 						
+						if (env.e_heads_group(person2, group)) {
+							isGroupHead = true;
+						}
+						
 						// if secretary is in the same group
 						if (env.e_secretary(person2) && env.e_in_project(person2, project)) {
 							break;
@@ -184,6 +198,11 @@ public class Solution {
 							goodness -= 10;
 						}
 					}
+					// test: is head of the group close to project head
+					if (!isGroupHead) {
+						goodness -= 10;
+					}
+					
 					// Test: are all members of group close
 					if (!areMembersClose(env, group, closePeople)) {
 						goodness -= 5;
