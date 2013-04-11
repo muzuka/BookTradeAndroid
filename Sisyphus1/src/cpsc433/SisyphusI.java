@@ -10,10 +10,10 @@ public class SisyphusI {
 			System.exit(-1);
 		}
 		try {
-			Environment env = Environment.get();
-			env.fromFile(args[0]);
 			Date now = new Date();
 			Date endtimes = new Date(now.getTime() + Long.parseLong(args[1]));
+			Environment env = Environment.get();
+			env.fromFile(args[0]);
 			OrTreeNode root = new OrTreeNode(null, endtimes, args[0] + ".out");
 			root.search(); 
 		} catch (Exception e) {

@@ -934,7 +934,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	}
 	
 	public ArrayList<Entity> getPeople() {
-		return new ArrayList<Entity>(people); 
+		return people; 
 	}
 	
 	public ArrayList<Entity> getRooms() {

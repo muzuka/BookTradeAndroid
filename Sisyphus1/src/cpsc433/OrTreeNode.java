@@ -76,7 +76,7 @@ public class OrTreeNode {
 		managers = env.getManagers();
 		Collections.shuffle(managers, magic8ball);
 		people = env.getPeople();
-		Collections.shuffle(people, magic8ball);
+		//Collections.shuffle(people, magic8ball);
 		largeRooms = env.getLargeRooms();
 		Collections.shuffle(largeRooms, magic8ball);
 		secretaries = env.getSecretaries();
@@ -126,12 +126,13 @@ public class OrTreeNode {
 	 */
 	public Solution search() {
 		Date testTime = new Date();
-		if ((apocalypse.getTime() - testTime.getTime()) < 1000) {
+		if ((apocalypse.getTime() - testTime.getTime()) < 20000) {
+			currentSol.writeFile(); 
 			return panic_mode();
 		}
 		Entity p = nextPersonToAssign();
 		if (p == null) {
-			return (currentSol.isSolved() ? currentSol : null);
+			return (!currentSol.violatesHardConstraints() ? currentSol : null);
 		}
 		ArrayList<Entity> possibleRooms = null;
 		if (groupHeads.contains(p)) {
@@ -152,7 +153,7 @@ public class OrTreeNode {
 		}
 		
 		Entity r = null;
-		if (secretaries.contains(p)) {
+		/*if (secretaries.contains(p)) {
 			Entity g = env.getGroup(p);
 			if (g != null) {
 				Entity h = env.getGroupHead(g);
@@ -186,13 +187,12 @@ public class OrTreeNode {
 				r = possibleRooms.get(magic8ball.nextInt(possibleRooms.size()));
 			}
 		}
-		else {
+		else {*/
 			r = possibleRooms.get(magic8ball.nextInt(possibleRooms.size()));
-		}
+		/*}*/
 		assigned.add(new Pair<Entity, Entity>(p, r));
 		currentSol.assign(p, r);
 		
-		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		ArrayList<Solution> goodChildren = new ArrayList<Solution>();
@@ -252,9 +252,6 @@ public class OrTreeNode {
 		assigned.add(new Pair<Entity, Entity>(p, r));
 		currentSol.assign(p, r);
 		
-		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
-		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
-		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		for (OrTreeNode c : children) {
