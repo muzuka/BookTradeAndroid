@@ -30,6 +30,10 @@ public class OrTreeNode {
 	// These are not so much "necessary", but my algorithm is fairly
 	// specialized. I would consider that a strong point.
 	private ArrayList<Entity> groupHeads;
+	private ArrayList<Entity> projectHeads;
+	private ArrayList<Entity> managers;
+	private ArrayList<Entity> people;
+	private ArrayList<Entity> largeRooms;
 	
 	/**
 	 * Creates a new OrTreeNode with the current assignments
@@ -61,6 +65,10 @@ public class OrTreeNode {
 		start_goodness = currentSol.getGoodness();
 		
 		groupHeads = env.getGroupHeads();
+		projectHeads = env.getProjectHeads();
+		managers = env.getManagers();
+		people = env.getPeople();
+		largeRooms = env.getLargeRooms();
 	}
 	
 	/** 
@@ -92,6 +100,13 @@ public class OrTreeNode {
 		return i;
 	}
 	
+	/**
+	 * Search for the optimal room assignment given the 
+	 * state of the current environment. If Ctrl+C is pressed
+	 * or the process is otherwise interrupted, the current 
+	 * solution is returned. 
+	 * @return A Solution, or null
+	 */
 	public Solution search() {
 		Date testTime = new Date();
 		if (testTime.after(apocalypse)) {
@@ -101,11 +116,21 @@ public class OrTreeNode {
 		if (p == null) {
 			return (currentSol.isSolved() ? currentSol : null);
 		}
+		ArrayList<Entity> possibleRooms = null;
 		if (groupHeads.contains(p)) {
-			ArrayList<Entity> possibleRooms = findPossibleRooms(p, 1, true);
+			possibleRooms = findPossibleRooms(p, 1, true);
 			if (possibleRooms == null) {
 				possibleRooms = findPossibleRooms(p, 1, false);
 			}
+		}
+		else if (projectHeads.contains(p) || managers.contains(p)) {
+			possibleRooms = findPossibleRooms(p, 1, false);
+		}
+		else {
+			possibleRooms = findPossibleRooms(p, 2, false);
+		}
+		if (possibleRooms == null) {
+			return null;
 		}
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		for (OrTreeNode c : children) {
@@ -115,7 +140,22 @@ public class OrTreeNode {
 	}
 	
 	private ArrayList<Entity> findPossibleRooms(Entity p, int max, boolean large) {
-		ArrayList<Entity> PossibleRooms = env.getRooms();
+		ArrayList<Entity> possibleRooms = env.getRooms();
+		for (Entity r : possibleRooms) {
+			if (large) {
+				if (!largeRooms.contains(r)) {
+					possibleRooms.remove(r);
+				}
+			}
+			if (max == 1) {
+				if (numAssigned(r) > 0) {
+					possibleRooms.remove(r);
+				}
+			}
+			if (numAssigned(r) > 1) {
+				possibleRooms.remove(r);
+			}
+		}
 		return null;
 	}
 
@@ -145,6 +185,21 @@ public class OrTreeNode {
 	
 	private Entity nextPersonToAssign() {
 		for (Entity p : groupHeads) {
+			if (!isAssigned(p)) {
+				return p;
+			}
+		}
+		for (Entity p : projectHeads) {
+			if (!isAssigned(p)) {
+				return p;
+			}
+		}
+		for (Entity p : managers) {
+			if (!isAssigned(p)) {
+				return p;
+			}
+		}
+		for (Entity p : people) {
 			if (!isAssigned(p)) {
 				return p;
 			}

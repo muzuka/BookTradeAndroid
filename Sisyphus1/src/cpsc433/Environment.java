@@ -906,6 +906,21 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 		return groupHeads;
 	}
+	
+	public ArrayList<Entity> getProjectHeads() {
+		ArrayList<Entity> projectHeads = new ArrayList<Entity>();
+		for (Pair<Entity, Entity> p : heads_project) {
+			Entity projectHead = p.getKey();
+			if (!projectHeads.contains(projectHead)) {
+				projectHeads.add(projectHead);
+			}
+		}
+		return projectHeads;
+	}
+	
+	public ArrayList<Entity> getManagers() {
+		return new ArrayList<Entity>(managers);
+	}
 
 	public ArrayList<Entity> getLargeRooms() {
 		return new ArrayList<Entity>(large_rooms);
