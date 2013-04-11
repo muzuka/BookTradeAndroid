@@ -129,8 +129,7 @@ public class Solution {
 				boolean isGroupHead = false;
 				String group = groups.get(j).getName();
 
-				// Test 5: manager is close to at least one secretary in group
-				// if current person is a manager of the group				
+				
 				if (myEnv.e_manager(person) && myEnv.e_in_group(person, group)) {
 				
 					// search close rooms
