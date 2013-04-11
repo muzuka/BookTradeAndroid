@@ -313,5 +313,7 @@ public class Solution {
 
 	public void updateEnvironment(Environment env) {
 		this.myEnv = env; 
+		this.people = myEnv.getPeople();
+		this.rooms = myEnv.getRooms(); 
 	}
 }
