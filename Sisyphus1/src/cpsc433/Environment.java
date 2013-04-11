@@ -387,7 +387,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	public void a_heads_group(String p, String grp) {
 		try {
-			if (!facts.contains(new Predicate("heads-group(" + p + "," + grp + ")"))) {
+			if (!facts.contains(new Predicate("heads-group(" + p + ", " + grp + ")"))) {
 				a_group(p, grp);
 				heads_group.add(new Pair<Entity, Entity>(new Entity(p), new Entity(grp)));
 				facts.add(new Predicate("heads-group(" + p + "," + grp + ")"));
