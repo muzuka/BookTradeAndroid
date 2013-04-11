@@ -563,36 +563,43 @@ public class Solution {
 			constraints.get(4).addTick();
 		}
 	}
+
+	private void updateConstraint6(Entity person, Entity room) {
+		// Constraint 6
+		// Managers should be close to their group head
+		constraints.get(5).reset();
 		
-		private void updateConstraint6(Entity person, Entity room) {
-			// Constraint 6
-			// Managers should be close to their group head 
-			constraints.get(5).reset(); 
+		for(Predicate a : assignments){
+			String p = a.getStringParam(0); 
+			String r = a.getStringParam(1); 
 			
-			for(Entity g : myEnv.getGroups()){
-				boolean secretaryClose = false; 
+			if(myEnv.e_manager(p)){
+				Entity g = myEnv.getGroup(new Entity(p)); 
 				
-				for(Predicate a : assignments){
-					String p = a.getStringParam(0); 
-					String r = a.getStringParam(1); 
-					
-					Entity p_g = myEnv.getGroup(new Entity(p)); 
-					
-					if(g.equals(p_g)){
-						if(myEnv.e_secretary(p)){
-							if(myEnv.e_close(r, room.toString())){
-								secretaryClose = true; 
+				boolean closeToHead = false; 
+				for(Predicate a2 : assignments) { 
+					if(!a.equals(a2)){
+						String p2 = a.getStringParam(0); 
+						String r2 = a.getStringParam(1); 
+						
+						Entity g2 = myEnv.getGroup(new Entity(p2)); 
+						
+						if(g.equals(g2)){
+							if(myEnv.e_heads_group(p2, g.toString())){
+								if(!myEnv.e_close(r, r2)){
+									closeToHead = true; 
+								}
 							}
 						}
 					}
 				}
-				
-				if(!secretaryClose){
+				if(!closeToHead){
 					constraints.get(5).addTick(); 
 				}
 			}
+		}
 	}
-	
+
 	private boolean groupHeadAssigned(Entity group){
 		boolean headAssigned = false; 
 		for(Predicate a : assignments){
