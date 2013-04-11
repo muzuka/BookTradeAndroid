@@ -283,12 +283,19 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	public void a_in_group(String p, String grp) {
 		try {
-			if (!facts.contains(new Predicate("in-group(" + p + "," + grp + ")")) && !in_group.contains(new Pair<Entity, Entity>(new Entity(p), new Entity(grp)))) {
+			String workString = "in-group(" + p + ", " + grp + ")"; 
+			Predicate workPred = new Predicate(workString); 
+			
+			Entity person = new Entity(p); 
+			Entity group = new Entity(grp); 
+			Pair<Entity, Entity> match = new Pair<Entity, Entity>(person, group); 
+			
+			if (!facts.contains(workPred)) {
 				a_person(p);
 				a_group(grp);
 				facts.add(new Predicate("group(" + p + "," + grp + ")"));
 				facts.add(new Predicate("in-group(" + p + "," + grp + ")"));
-				in_group.add(new Pair<Entity, Entity>(new Entity(p), new Entity(grp)));
+				in_group.add(match); 
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -298,7 +305,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	public boolean e_in_group(String p, String grp) {
 		try {
-			return (facts.contains(new Predicate("in-group(" + p + "," + grp + ")")) && in_group.contains(new Pair<Entity, Entity>(new Entity(p), new Entity(grp))));
+			return (facts.contains(new Predicate("in-group(" + p + "," + grp + ")")));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
