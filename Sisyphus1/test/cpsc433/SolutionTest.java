@@ -47,7 +47,7 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testEmptyGoodness() {
-		assertEquals(0, mySol.getGoodness(env)); 
+		assertEquals(0, mySol.getGoodness()); 
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class SolutionTest {
 		} catch (Exception e) {
 			fail("The Good case did not work"); 
 		} 
-		assertEquals(0, mySol.getGoodness(env)); 
+		assertEquals(0, mySol.getGoodness()); 
 		
 		env.a_person("Harry"); 
 		env.a_room("Broom Closet");
@@ -125,7 +125,7 @@ public class SolutionTest {
 		} catch (Exception e) {
 			fail("The Bad Case did not work!");
 		} 
-		assertEquals(-40, mySol.getGoodness(env)); 
+		assertEquals(-40, mySol.getGoodness()); 
 	}
 	
 	/**
@@ -137,8 +137,26 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint2() {
+		env.a_person("Joker");
+		env.a_person("Penguin"); 
 		
-		fail("not implemented yet"); 
+		env.a_group("Villains");
+		env.a_in_group("Joker", "Villains"); 
+		env.a_in_group("Penguin", "Villains"); 
+		env.a_heads_group("Joker", "Villains"); 
+		
+		env.a_room("Arkham Asylum"); 
+		env.a_room("Iceberg Lounge"); 
+		
+		Entity joker = new Entity("Joker"); 
+		Entity penguin = new Entity("Penguin"); 
+		Entity arkham = new Entity("Arkham Asylum"); 
+		Entity lounge = new Entity("Iceberg Lounge"); 
+		
+		mySol.assign(joker, arkham); 
+		mySol.assign(penguin, lounge); 
+		
+		assertEquals(-20, mySol.getGoodness()); 
 	}
 	
 	/**
@@ -150,7 +168,26 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint3() {
-		fail("not implemented yet"); 
+		env.a_person("Joker");
+		env.a_secretary("Penguin"); 
+		
+		env.a_group("Villains");
+		env.a_in_group("Joker", "Villains"); 
+		env.a_in_group("Penguin", "Villains"); 
+		env.a_heads_group("Joker", "Villains"); 
+		
+		env.a_room("Arkham Asylum"); 
+		env.a_room("Iceberg Lounge"); 
+		
+		Entity joker = new Entity("Joker"); 
+		Entity penguin = new Entity("Penguin"); 
+		Entity arkham = new Entity("Arkham Asylum"); 
+		Entity lounge = new Entity("Iceberg Lounge"); 
+		
+		mySol.assign(joker, arkham); 
+		mySol.assign(penguin, lounge); 
+		
+		assertEquals(-30, mySol.getGoodness()); 
 	}
 	
 	/**
@@ -162,7 +199,23 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint4() {
-		fail("not implemented yet"); 
+		env.a_person("Joker");
+		env.a_secretary("Penguin"); 
+		
+		env.a_group("Villains");
+		env.a_in_group("Joker", "Villains"); 
+		env.a_in_group("Penguin", "Villains"); 
+		
+		env.a_room("Arkham Asylum"); 
+		
+		Entity joker = new Entity("Joker"); 
+		Entity penguin = new Entity("Penguin"); 
+		Entity arkham = new Entity("Arkham Asylum"); 
+		
+		mySol.assign(joker, arkham); 
+		mySol.assign(penguin, arkham); 
+		
+		assertEquals(-5, mySol.getGoodness()); 
 	}
 	
 	/**
@@ -174,7 +227,25 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint5() {
-		fail("not implemented yet"); 
+		env.a_manager("Joker");
+		env.a_secretary("Penguin"); 
+		
+		env.a_group("Villains");
+		env.a_in_group("Joker", "Villains"); 
+		env.a_in_group("Penguin", "Villains"); 
+		
+		env.a_room("Arkham Asylum"); 
+		env.a_room("Iceberg Lounge"); 
+		
+		Entity joker = new Entity("Joker"); 
+		Entity penguin = new Entity("Penguin"); 
+		Entity arkham = new Entity("Arkham Asylum"); 
+		Entity lounge = new Entity("Iceberg Lounge"); 
+		
+		mySol.assign(joker, arkham); 
+		mySol.assign(penguin, lounge); 
+		
+		assertEquals(-20, mySol.getGoodness()); 
 	}
 	
 	/**
@@ -186,7 +257,26 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint6() {
-		fail("not implemented yet"); 
+		env.a_person("Joker");
+		env.a_manager("Penguin"); 
+		
+		env.a_group("Villains");
+		env.a_in_group("Joker", "Villains"); 
+		env.a_in_group("Penguin", "Villains"); 
+		env.a_heads_group("Joker", "Villains"); 
+		
+		env.a_room("Arkham Asylum"); 
+		env.a_room("Iceberg Lounge"); 
+		
+		Entity joker = new Entity("Joker"); 
+		Entity penguin = new Entity("Penguin"); 
+		Entity arkham = new Entity("Arkham Asylum"); 
+		Entity lounge = new Entity("Iceberg Lounge"); 
+		
+		mySol.assign(joker, arkham); 
+		mySol.assign(penguin, lounge); 
+		
+		assertEquals(-20, mySol.getGoodness()); 
 	}
 	
 	/**
@@ -198,7 +288,25 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint7() {
-		fail("not implemented yet"); 
+		env.a_manager("Joker");
+		env.a_person("Penguin"); 
+		
+		env.a_group("Villains");
+		env.a_in_group("Joker", "Villains"); 
+		env.a_in_group("Penguin", "Villains"); 
+		
+		env.a_room("Arkham Asylum"); 
+		env.a_room("Iceberg Lounge"); 
+		
+		Entity joker = new Entity("Joker"); 
+		Entity penguin = new Entity("Penguin"); 
+		Entity arkham = new Entity("Arkham Asylum"); 
+		Entity lounge = new Entity("Iceberg Lounge"); 
+		
+		mySol.assign(joker, arkham); 
+		mySol.assign(penguin, lounge); 
+		
+		assertEquals(-2, mySol.getGoodness()); 
 	}
 	
 	/**
@@ -210,7 +318,26 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint8() {
-		fail("not implemented yet"); 
+		env.a_person("Joker");
+		env.a_person("Penguin"); 
+		
+		env.a_project("Conquer Gotham");
+		env.a_in_project("Joker", "Conquer Gotham"); 
+		env.a_in_project("Penguin", "Conquer Gotham"); 
+		env.a_heads_project("Joker", "Conquer Gotham"); 
+		
+		env.a_room("Arkham Asylum"); 
+		env.a_room("Iceberg Lounge"); 
+		
+		Entity joker = new Entity("Joker"); 
+		Entity penguin = new Entity("Penguin"); 
+		Entity arkham = new Entity("Arkham Asylum"); 
+		Entity lounge = new Entity("Iceberg Lounge"); 
+		
+		mySol.assign(joker, arkham); 
+		mySol.assign(penguin, lounge); 
+		
+		assertEquals(-5, mySol.getGoodness()); 
 	}
 	
 	/**
@@ -222,7 +349,31 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint9() {
-		fail("not implemented yet"); 
+		env.a_person("Master Chief");
+		env.a_person("Cortana");
+		env.a_large_project("Destroy the Halo");
+		env.a_group("The Good Guys"); 
+		env.a_secretary("Cortana"); 
+		
+		env.a_in_group("Master Chief", "The Good Guys"); 
+		env.a_in_group("Cortana", "The Good guys"); 
+		
+		env.a_heads_project("Master Chief", "Destroy the Halo"); 
+		env.a_heads_group("Cortana", "The Good Guys"); 
+		
+		// Note that these two rooms are NOT at all close
+		env.a_room("The Halo");
+		env.a_room("The Autumn"); 
+		
+		Entity chief = new Entity("Master Chief"); 
+		Entity cortana = new Entity("Cortana"); 
+		Entity halo = new Entity("The Halo"); 
+		Entity autumn = new Entity("The Autumn");
+		
+		mySol.assign(chief, halo); 
+		mySol.assign(cortana, autumn); 
+		
+		assertEquals(-10, mySol.getGoodness()); 
 	}
 	
 	/**
@@ -234,7 +385,30 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint10() {
-		fail("not implemented yet"); 
+		env.a_person("Master Chief");
+		env.a_person("Cortana");
+		env.a_large_project("Destroy the Halo");
+		env.a_group("The Good Guys"); 
+		
+		env.a_in_group("Master Chief", "The Good Guys"); 
+		env.a_in_group("Cortana", "The Good guys"); 
+		
+		env.a_heads_project("Master Chief", "Destroy the Halo"); 
+		env.a_heads_group("Cortana", "The Good Guys"); 
+		
+		// Note that these two rooms are NOT at all close
+		env.a_room("The Halo");
+		env.a_room("The Autumn"); 
+		
+		Entity chief = new Entity("Master Chief"); 
+		Entity cortana = new Entity("Cortana"); 
+		Entity halo = new Entity("The Halo"); 
+		Entity autumn = new Entity("The Autumn");
+		
+		mySol.assign(chief, halo); 
+		mySol.assign(cortana, autumn); 
+		
+		assertEquals(-10, mySol.getGoodness()); 
 	}
 	
 	/**
@@ -246,7 +420,19 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint11() {
-		fail("not implemented yet"); 
+		env.a_person("Snake");
+		env.a_person("Raiden");
+		env.a_smoker("Snake"); 
+		env.a_room("Metal Gear Rex");
+		
+		Entity snake = new Entity("Snake"); 
+		Entity raiden = new Entity("Raiden"); 
+		Entity rex = new Entity("Metal Gear Rex"); 
+		
+		mySol.assign(snake, rex);
+		mySol.assign(raiden, rex); 
+		
+		assertEquals(-50, mySol.getGoodness());  
 	}
 	
 	/**
@@ -258,7 +444,24 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint12() {
-		fail("not implemented yet"); 
+		env.a_person("Vegeta");
+		env.a_person("Nappa");
+		env.a_project("Destroy Earth");
+		env.a_project("Find Dragonballs"); 
+		env.a_room("Namek"); 
+		
+		env.a_in_project("Vegeta", "Find Dragonballs");
+		env.a_in_project("Nappa", "Destroy Earth"); 
+		
+		Entity vegeta = new Entity("Vegeta"); 
+		Entity nappa = new Entity("Nappa"); 
+		Entity namek = new Entity("Namek"); 
+		
+		mySol.assign(vegeta, namek); 
+		mySol.assign(nappa, namek); 
+		
+		assertEquals(-7, mySol.getGoodness()); 
+		
 	}
 	
 	/**
@@ -270,7 +473,44 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint13() {
-		fail("not implemented yet"); 
+		
+		env.a_person("Link");
+		env.a_person("Zelda"); 
+		env.a_person("Water Temple");
+		
+		Entity link = new Entity("Link"); 
+		Entity zelda = new Entity("Zelda"); 
+		Entity temple = new Entity("Water Temple"); 
+		
+		mySol.assign(zelda, temple); 
+		mySol.assign(link, temple); 
+		
+		assertEquals(0, mySol.getGoodness()); 
+		
+		
+		env.a_hacker("Spike Spiegel");
+		env.a_hacker("Jet Black"); 
+		env.a_room("The Bebop"); 
+		
+		Entity spike = new Entity("Spike Spiegel"); 
+		Entity jet = new Entity("Jet Black"); 
+		Entity bebop = new Entity("The Bebop"); 
+		
+		assertEquals(0, mySol.getGoodness()); 
+		
+		
+		env.a_person("John Wayne");
+		env.a_hacker("Bill Gates");
+		env.a_room("A Bar"); 
+		
+		Entity wayne = new Entity("John Wayne"); 
+		Entity gates = new Entity("Bill Gates"); 
+		Entity saloon = new Entity("A Bar"); 
+		
+		mySol.assign(wayne, saloon); 
+		mySol.assign(gates, saloon);
+		
+		assertEquals(-2, mySol.getGoodness()); 
 	}
 	
 	/**
@@ -281,8 +521,22 @@ public class SolutionTest {
 	 * 		</ul> 
 	 */
 	@Test
-	public void testSoftConstraint14() {
-		fail("not implemented yet"); 
+	public void testSoftConstraint14() {		
+		env.a_person("Dr. Alan Grant"); 
+		env.a_person("Velociraptors"); 
+		env.a_room("Jurassic Park"); 
+		
+		Entity grant = new Entity("Dr. Alan Grant"); 
+		Entity raptors = new Entity("Velociraptors"); 
+		Entity jp = new Entity("Jurassic Park"); 
+		
+		mySol.assign(grant, jp);
+		
+		assertEquals(0, mySol.getGoodness()); 
+		
+		mySol.assign(raptors, jp); 
+		
+		assertEquals(-4, mySol.getGoodness()); 
 	}
 	
 	/**
@@ -294,7 +548,20 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint15() {
-		fail("not implemented yet"); 
+		env.a_person("Goku"); 
+		env.a_person("Krillin"); 
+		env.a_person("Nappa"); 
+		env.a_room("Space Pod"); 
+		env.a_works_with("Goku", "Krillin");
+		
+		Entity goku = new Entity("Goku"); 
+		Entity nappa = new Entity("Nappa"); 
+		Entity room = new Entity("Space Pod"); 
+		
+		mySol.assign(goku, room);
+		mySol.assign(nappa, room); 
+		
+		assertEquals(-3, mySol.getGoodness()); 
 	}
 	
 	/**
@@ -311,28 +578,14 @@ public class SolutionTest {
 		env.a_room("Space Pod"); 
 		env.a_small_room("Space Pod"); 
 		
-		try {
-			env.a_assign_to("Vegeta", "Space Pod");
-			env.a_assign_to("Nappa", "Space Pod");
+		Entity vegeta = new Entity("Vegeta"); 
+		Entity nappa = new Entity("Nappa"); 
+		Entity spacepod = new Entity("Space Pod"); 
 			
-			Entity vegeta = new Entity("Vegeta"); 
-			Entity nappa = new Entity("Nappa"); 
-			Entity spacepod = new Entity("Space Pod"); 
+		mySol.assign(vegeta, spacepod); 
+		mySol.assign(nappa, spacepod); 
 			
-			mySol.assign(vegeta, spacepod); 
-			mySol.assign(nappa, spacepod); 
-			
-			assertEquals(-25-4, mySol.getGoodness(env)); 
-		} catch (Exception e) {
-			if((!env.e_assign_to("Vegeta", "Space Pod")) && (!env.e_assign_to("Nappa", "Space Pod"))){
-				fail("could not assign Saiyans to Space Pod"); 
-			} else if (!env.e_assign_to("Vegeta", "Space Pod")) { 
-				fail("could not assign Vegeta to Space Pod"); 
-			} else if(!env.e_assign_to("Nappa", "Space Pod")) {
-				fail("could not assign Nappa to Space Pod"); 
-			} else {
-				fail("something else blew up!"); 
-			}
-		}
+		// additional -4 b/c they have to share an office!
+		assertEquals(-25-4, mySol.getGoodness()); 
 	}
 }
