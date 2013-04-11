@@ -148,7 +148,16 @@ public class OrTreeNode {
 			return null;
 		}
 		
-		Entity r = possibleRooms.get(magic8ball.nextInt(possibleRooms.size()));
+		Entity r;
+		if (secretaries.contains(p)) {
+			Entity g = env.getGroup(p);
+			for (Entity e : possibleRooms) {
+				if (env.e_close(e, room2))
+			}
+		}
+		else {
+			r = possibleRooms.get(magic8ball.nextInt(possibleRooms.size()));
+		}
 		assigned.add(new Pair<Entity, Entity>(p, r));
 		currentSol.assign(p, r);
 		

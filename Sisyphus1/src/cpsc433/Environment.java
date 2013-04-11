@@ -946,4 +946,13 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 		return null;
 	}
+	
+	public Entity getGroupHead(Entity g) {
+		for (Pair<Entity, Entity> pair : heads_group) {
+			if (pair.getValue().compareTo(g) == 0) {
+				return pair.getKey();
+			}
+		}
+		return null;
+	}
 }
