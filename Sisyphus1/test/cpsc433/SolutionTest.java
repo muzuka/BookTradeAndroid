@@ -102,18 +102,17 @@ public class SolutionTest {
 		env.a_person("Steve"); 
 		env.a_room("Bedroom"); 
 		env.a_group("Warcraft Guild");
+		env.a_in_group("Steve", "Warcraft Guild"); 
 		env.a_heads_group("Steve", "Warcraft Guild"); 
 		env.a_large_room("Bedroom"); 
 		
 		Entity steve = new Entity("Steve"); 
 		Entity bedroom = new Entity("Bedroom"); 
 		
-		try {
-			env.a_assign_to("Steve", "Bedroom");
-			mySol.assign(steve, bedroom); 
-		} catch (Exception e) {
-			fail("The Good case did not work"); 
-		} 
+		mySol.assign(steve, bedroom); 
+		
+		assertEquals(true, env.e_heads_group("Steve", "WarcraftGuild")); 
+		assertEquals(true, env.e_large_room("Bedroom")); 
 		assertEquals(0, mySol.getGoodness()); 
 		
 		env.a_person("Harry"); 

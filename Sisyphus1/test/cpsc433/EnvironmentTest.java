@@ -110,6 +110,23 @@ public class EnvironmentTest {
 	}
 	
 	/**
+	 * Tests to make sure that a hacker is seen as a person.
+	 */
+	@Test
+	public void testInGroup() {
+		String person = "Spiderman"; 
+		String group = "Avengers"; 
+		
+		
+		myInstance.a_person(person);
+		myInstance.a_group(group);
+		
+		myInstance.a_in_group(person, group); 
+		
+		assertEquals(true, myInstance.e_in_group(person, group)); 
+	}
+	
+	/**
 	 * Tests to make sure that the Environment.reset() function 
 	 * works properly. 
 	 */
