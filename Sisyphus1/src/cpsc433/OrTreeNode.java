@@ -108,7 +108,12 @@ public class OrTreeNode {
 		int i = 0;
 		for (Pair<Entity, Entity> p : assigned) {
 			if (p.getValue().compareTo(e) == 0) {
-				i++;
+				if (groupHeads.contains(p.getKey()) || managers.contains(p.getKey()) || projectHeads.contains(p.getKey())) {
+					i += 2;
+				}
+				else {
+					i++;
+				}
 			}
 		}
 		return i;
@@ -332,11 +337,16 @@ public class OrTreeNode {
 		env.a_smoker("NastiestSmoker");
 		env.a_smoker("RastaSmoker");
 		env.a_smoker("SnoopDogg");
+		env.a_secretary("Heather");
+		env.a_group("Heather", "Vatican");
 		env.a_large_room("GrandCanyon");
 		env.a_medium_room("InsideJabuJabusBelly");
 		env.a_large_room("OuterSpace");
 		env.a_small_room("ST084");
-		OrTreeNode root = new OrTreeNode(null, new Date(), "outfile.txt");
+		env.a_medium_room("HyruleCastle");
+		env.a_medium_room("TheCrimsonRoom");
+		env.a_medium_room("Barrels O Fun");
+		OrTreeNode root = new OrTreeNode(null, new Date(), "C:\\Users\\Todd\\Desktop\\outfile.txt");
 		Solution s = root.search();
 		System.out.println(s.getGoodness());
 		s.writeFile();
