@@ -98,7 +98,29 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint1() {
-		fail("not implemented yet"); 
+		env.a_person("Steve"); 
+		env.a_room("Bedroom"); 
+		env.a_group("Warcraft Guild");
+		env.a_heads_group("Steve", "Warcraft Guild"); 
+		env.a_large_room("Bedroom"); 
+		try {
+			env.a_assign_to("Steve", "Bedroom");
+		} catch (Exception e) {
+			fail("The Good case did not work"); 
+		} 
+		assertEquals(0, mySol.getGoodness(env)); 
+		
+		env.a_person("Harry"); 
+		env.a_room("Broom Closet");
+		env.a_group("Hogwarts");
+		env.a_heads_group("Harry", "Hogwarts");
+		env.a_small_room("Broom Closet");
+		try {
+			env.a_assign_to("Harry", "Broom Closet");
+		} catch (Exception e) {
+			fail("The Bad Case did not work!");
+		} 
+		assertEquals(-40, mySol.getGoodness(env)); 
 	}
 	
 	/**
