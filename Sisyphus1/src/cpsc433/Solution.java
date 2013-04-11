@@ -221,6 +221,7 @@ public class Solution {
 		for (int i = 0; i < closeAssignings.size(); i++) {
 			names.add(new Entity(closeAssignings.get(i).getStringParam(0)));
 		}
+		return names; 
 	}
 	
 	// tests for all members of a group being close to room
