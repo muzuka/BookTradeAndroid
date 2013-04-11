@@ -196,7 +196,8 @@ public class SolutionTest {
 		mySol.assign(joker, arkham); 
 		mySol.assign(penguin, lounge); 
 		
-		assertEquals(-30, mySol.getGoodness()); 
+		assertEquals(1, mySol.getNumberViolations(2));
+		assertEquals(-30, mySol.getPenalty(2)); 
 	}
 	
 	/**

@@ -134,8 +134,9 @@ public class Solution {
 				boolean isGroupHead = false;
 				String group = groups.get(j).getName();
 
-				// Test ???: group head is close to at least one secretary in group
+				// Test 3: group head is close to at least one secretary in group
 				// if current person is head of the group
+				/*
 				if (myEnv.e_heads_group(person, group)) {
 					
 					// search close rooms
@@ -154,7 +155,10 @@ public class Solution {
 				}
 				// Test 5: manager is close to at least one secretary in group
 				// if current person is a manager of the group
-				else if (myEnv.e_manager(person) && myEnv.e_in_group(person, group)) {
+				else
+				*/ 
+				
+				if (myEnv.e_manager(person) && myEnv.e_in_group(person, group)) {
 				
 					// search close rooms
 					for (int k = 0; k < closeAssignments.size(); k++) {
@@ -377,6 +381,7 @@ public class Solution {
 				
 				updateConstraint1(person, room); 
 				updateConstraint2(person, room); 
+				updateConstraint3(person, room); 
 								
 				return true; 
 			} else { 
@@ -461,23 +466,8 @@ public class Solution {
 		// If the person is a group head, then they should be
 		// close to all members of their group
 		Entity group = myEnv.getGroup(person); 
-		if(group != null){
-			boolean headAssigned = false; 
-			for(Predicate a : assignments){
-				String p = a.getStringParam(0); 
-				String r = a.getStringParam(1); 
-				
-				Entity g = myEnv.getGroup(new Entity(p)); 
-				if(g != null){
-					if(g.equals(group)){
-						if(myEnv.e_heads_group(p, g.toString())){
-							headAssigned = true; 
-						}
-					}
-				}
-			}
-			
-			if(headAssigned){
+		if(group != null){			
+			if(groupHeadAssigned(group)){
 				constraints.get(1).reset(); 
 				for(Predicate a: assignments){
 					String p = a.getStringParam(0); 
@@ -506,6 +496,63 @@ public class Solution {
 				}
 			}
 		}
-		
+	}
+	
+
+	private void updateConstraint3(Entity person, Entity room){
+		// Constraint 3
+		// If the person is a group head, then they should be
+		// close to at least one secretary in the group
+		Entity group = myEnv.getGroup(person); 
+		if(group != null){
+			if(groupHeadAssigned(group)){
+				constraints.get(2).reset(); 
+				for(Predicate a: assignments){
+					String p = a.getStringParam(0); 
+					String r = a.getStringParam(1); 
+
+					Entity g = myEnv.getGroup(new Entity(p)); 
+					if(g != null){
+						if(myEnv.e_heads_group(p, g.toString())){
+							for(Predicate a2: assignments){
+								String p2 = a2.getStringParam(0);
+								String r2 = a2.getStringParam(1); 
+								
+								if(!p2.equals(p)){
+									Entity g2 = myEnv.getGroup(new Entity(p2)); 
+									if(g2 != null){
+										if(g2.equals(g)){
+											if(myEnv.e_secretary(p2)){
+												if(!myEnv.e_close(r, r2)){
+													constraints.get(2).addTick();
+												} 
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	private boolean groupHeadAssigned(Entity group){
+		boolean headAssigned = false; 
+		for(Predicate a : assignments){
+			String p = a.getStringParam(0); 
+			String r = a.getStringParam(1); 
+			
+			Entity g = myEnv.getGroup(new Entity(p)); 
+			if(g != null){
+				if(g.equals(group)){
+					if(myEnv.e_heads_group(p, g.toString())){
+						headAssigned = true; 
+					}
+				}
+			}
+		}
+		return headAssigned;
 	}
 }
