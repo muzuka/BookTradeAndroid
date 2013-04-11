@@ -94,15 +94,12 @@ public class Solution {
 						goodness -= 50;
 					}
 					
-					try {
+					if (myEnv.getGroup(new Entity(person)).getName() != null) {
 						// Test 1: group heads need large offices.
 						String group = myEnv.getGroup(new Entity(person)).getName();
 						if((myEnv.e_heads_group(person, group) && !myEnv.e_large_room(room))) {
 							goodness -= 40;
 						}
-					}
-					catch(NullPointerException e) {
-						e.printStackTrace();
 					}
 					
 					// Test 16: no sharing a small room.
@@ -110,15 +107,12 @@ public class Solution {
 						goodness -= 25;
 					}
 					
-					try {
+					if (myEnv.getProject(new Entity(person)).getName() != null) {
 						// Test 12: both cannot be in the same project
 						String project = myEnv.getProject(new Entity(person)).getName();
 						if (!myEnv.e_in_project(person2, project)) {
 							goodness -= 7;
 						}
-					}
-					catch(NullPointerException e) {
-						e.printStackTrace();
 					}
 					
 					// Test 4: secretary shouldn't be with a non-secretary
@@ -323,6 +317,7 @@ public class Solution {
 			}
 			catch(IndexOutOfBoundsException e) {
 				e.printStackTrace();
+				return false;
 			}
 			// Test: no more than 2 people should be assigned to an office.
 			// for all rooms
@@ -343,6 +338,7 @@ public class Solution {
 				}
 				catch (IndexOutOfBoundsException e) {
 					e.printStackTrace();
+					return false;
 				}
 			}
 			// for all assignments
@@ -350,25 +346,17 @@ public class Solution {
 				try {
 					String room = assignments.get(j).getStringParam(1);
 					String person = assignments.get(j).getName();
-					try {
+					if (myEnv.getGroup(new Entity(person)).getName() != null) {
 						String group = myEnv.getGroup(new Entity(person)).getName();
-					}
-					catch(NullPointerException e) {
-						e.printStackTrace();
-					}
-					// if a group head, manager, or 
-					if (myEnv.e_heads_group(person, group) || myEnv.e_manager(person) || myEnv.e_heads_project(person, myEnv.getProject(new Entity(person)).getName())) {
-						for (int k = j+1; k < assignments.size(); k++) {
-							String person2 = assignments.get(k).getStringParam(0);
-							try {
+						// if a group head, manager, or 
+						if (myEnv.e_heads_group(person, group) || myEnv.e_manager(person) || myEnv.e_heads_project(person, myEnv.getProject(new Entity(person)).getName())) {
+							for (int k = j+1; k < assignments.size(); k++) {
+								String person2 = assignments.get(k).getStringParam(0);
 								String group2 = myEnv.getGroup(new Entity(person2)).getName();
-							}
-							catch(NullPointerException e) {
-								e.printStackTrace();
-							}
-							if(room.equals(assignments.get(k).getStringParam(1))) {
-								if (myEnv.e_heads_group(person2, group) || myEnv.e_manager(person2) || myEnv.e_heads_project(person2, myEnv.getProject(new Entity(person2)).getName())) {
-									return false;
+								if(room.equals(assignments.get(k).getStringParam(1))) {
+									if (myEnv.e_heads_group(person2, group) || myEnv.e_manager(person2) || myEnv.e_heads_project(person2, myEnv.getProject(new Entity(person2)).getName())) {
+										return false;
+									}
 								}
 							}
 						}
@@ -376,6 +364,7 @@ public class Solution {
 				}
 				catch(IndexOutOfBoundsException e) {
 					e.printStackTrace();
+					return false;
 				}
 			}
 		}
