@@ -1,6 +1,7 @@
 package cpsc433;
 
 import java.util.ArrayList;
+import java.io.*;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
@@ -138,9 +139,9 @@ public class Solution {
 			for (int j = 0, j2 = 0; j < groups.size() || j2 < projects.size(); j++, j2++) {
 				boolean isGroupHead = false;
 				String project = projects.get(j2).getName();
+				String group = groups.get(j).getName();
 				
 				if (j < groups.size()) {
-					String group = groups.get(j).getName();
 					// Test 2: group head is close to at least one secretary in group
 					// if current person is head of the group
 					if (env.e_heads_group(person, group)) {
@@ -315,6 +316,10 @@ public class Solution {
 			System.err.println("ERROR: Could not parse " + workstring); 
 			return false; 
 		}
+	}
+	
+	public void writeFile() {
+		
 	}
 	
 	/**
