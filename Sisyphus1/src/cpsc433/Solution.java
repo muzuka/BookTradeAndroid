@@ -372,7 +372,7 @@ public class Solution {
 	public boolean assign(Entity person, Entity room){
 		String workstring = "assign-to(" + person + ", " + room + ")"; 
 		try{
-			if(people.contains(person) && rooms.contains(room)){
+			if(myEnv.e_person(person.toString()) && myEnv.e_room(room.toString())){
 				Predicate assignment = new Predicate(workstring); 
 				assignments.add(assignment);
 				return true; 
@@ -386,9 +386,15 @@ public class Solution {
 	}
 	
 	public void writeFile() {
-		PrintWriter writer = new PrintWriter(new File(outfilename));
-		writer.println(assignments.toString());
-		writer.close();
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(new File(outfilename));
+			writer.println(assignments.toString());
+			writer.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**

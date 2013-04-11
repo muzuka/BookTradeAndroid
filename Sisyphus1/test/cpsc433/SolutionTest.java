@@ -77,12 +77,18 @@ public class SolutionTest {
 		Entity jurgen = new Entity("Jurgen"); 
 		Entity goodRoom = new Entity("C5113"); 
 		
+		if(!env.e_person("Jurgen")){
+			fail("Jurgen is not present within the environment"); 
+		} 
+		
+		if(!env.e_room("C5113")) { 
+			fail("C5113 is not present within the environment"); 
+		}
+		
 		String workstring = "assign-to(" + jurgen + ", " + goodRoom + ")"; 
 		Predicate workPred;
 		try {
 			workPred = new Predicate(workstring);
-			assertEquals(true, env.getRooms().contains(goodRoom)); 
-			assertEquals(true, env.getPeople().contains(jurgen)); 
 			assertEquals(true, mySol.assign(jurgen, goodRoom)); 
 			assertEquals(true, mySol.getAssignments().contains(workPred)); 
 		} catch (ParseException e) {
@@ -109,22 +115,29 @@ public class SolutionTest {
 		Entity steve = new Entity("Steve"); 
 		Entity bedroom = new Entity("Bedroom"); 
 		
-		mySol.assign(steve, bedroom); 
 		
-		assertEquals(true, env.e_heads_group("Steve", "WarcraftGuild")); 
+		assertEquals(true, env.e_in_group("Steve", "Warcraft Guild"));
+		assertEquals(true, env.e_heads_group("Steve", "Warcraft Guild")); 
 		assertEquals(true, env.e_large_room("Bedroom")); 
+		
+		boolean myValue = mySol.assign(steve, bedroom); 
+		assertEquals(true, myValue); 
+		
 		assertEquals(0, mySol.getGoodness()); 
 		
 		env.a_person("Harry"); 
 		env.a_room("Broom Closet");
 		env.a_group("Hogwarts");
+		env.a_in_group("Harry", "Hogwarts"); 
 		env.a_heads_group("Harry", "Hogwarts");
 		env.a_small_room("Broom Closet");
-		try {
-			env.a_assign_to("Harry", "Broom Closet");
-		} catch (Exception e) {
-			fail("The Bad Case did not work!");
-		} 
+
+		Entity harry = new Entity("Harry"); 
+		Entity closet = new Entity("Broom Closet"); 
+		
+		assertEquals(true, env.e_in_group("Harry", "Hogwarts")); 
+		mySol.assign(harry, closet); 
+		
 		assertEquals(-40, mySol.getGoodness()); 
 	}
 	
