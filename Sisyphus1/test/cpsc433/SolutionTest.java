@@ -25,9 +25,8 @@ public class SolutionTest {
 	@Before
 	public void setUp() throws Exception {
 		env = Environment.get(); 
-		env.fromFile("test.txt"); 
 		mySol = new Solution("test.txt.out"); 
-		mySol.updateEnvironment(env); 
+		//mySol.updateEnvironment(env); 
 	}
 
 	/**
@@ -56,6 +55,7 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testNonexistentAssignment() {
+		env.fromFile("test.txt"); 
 		Entity chuck = new Entity("Chuck"); 
 		Entity jurgen = new Entity("Jurgen"); 
 		Entity room0 = new Entity("000"); 
@@ -72,6 +72,7 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testGoodAssignment() {
+		env.fromFile("test.txt"); 
 		
 		Entity jurgen = new Entity("Jurgen"); 
 		Entity goodRoom = new Entity("C5113"); 
