@@ -346,7 +346,7 @@ public class OrTreeNode {
 		env.a_medium_room("HyruleCastle");
 		env.a_medium_room("TheCrimsonRoom");
 		env.a_medium_room("Barrels O Fun");
-		OrTreeNode root = new OrTreeNode(null, new Date(), "C:\\Users\\Todd\\Desktop\\outfile.txt");
+		OrTreeNode root = new OrTreeNode(null, new Date(), "/home/akmadsen/output.txt");
 		Solution s = root.search();
 		System.out.println(s.getGoodness());
 		s.writeFile();
