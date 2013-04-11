@@ -58,15 +58,15 @@ public class Solution {
 	 * 
 	 * @return the goodness value of the current solution
 	 */
-	public int getGoodness(Environment env) {
+	public int getGoodness() {
 		// place in the soft constraints and their corresponding
 		// penalties - requires knowledge of the environment... Hurm... 
 		// seems like this was what the Singleton pattern was designed for... 
 		// will this work well? - AM 
 		int goodness = 0;
-		ArrayList<Entity> groups = env.getGroups();
-		ArrayList<Entity> projects = env.getProjects();
-		ArrayList<Pair<Entity, Entity>> close = env.getClose();
+		ArrayList<Entity> groups = myEnv.getGroups();
+		ArrayList<Entity> projects = myEnv.getProjects();
+		ArrayList<Pair<Entity, Entity>> close = myEnv.getClose();
 		
 		// search assignments
 		for (int i = 0; i < assignments.size(); i++) {
@@ -80,7 +80,7 @@ public class Solution {
 			for (int j = 0; j < assignments.size(); j++) {
 				// multi-tasking ftw!
 				// find close rooms too.
-				if (env.e_close(room, assignments.get(j).getStringParam(1))) {
+				if (myEnv.e_close(room, assignments.get(j).getStringParam(1))) {
 					closeAssignments.add(assignments.get(j));
 				}
 				
@@ -90,31 +90,31 @@ public class Solution {
 					String person2 = assignments.get(j).getStringParam(0);
 					
 					// Test 11: smoker vs. non-smoker
-					if ((env.e_smoker(person) && !env.e_smoker(person2)) || (env.e_smoker(person2) && !env.e_smoker(person))) {
+					if ((myEnv.e_smoker(person) && !myEnv.e_smoker(person2)) || (myEnv.e_smoker(person2) && !myEnv.e_smoker(person))) {
 						goodness -= 50;
 					}
 					
 					// Test 1: group heads need large offices.
 					for (int k = 0; k < groups.size(); k++) {
-						if((env.e_heads_group(person, groups.get(k).getName()) && !env.e_large_room(room)) || (env.e_heads_group(person2, groups.get(k).getName()) && !env.e_large_room(room))) {
+						if((myEnv.e_heads_group(person, groups.get(k).getName()) && !myEnv.e_large_room(room)) || (myEnv.e_heads_group(person2, groups.get(k).getName()) && !myEnv.e_large_room(room))) {
 							goodness -= 40;
 						}
 					}
 					
 					// Test 16: no sharing a small room.
-					if (env.e_small_room(room)) {
+					if (myEnv.e_small_room(room)) {
 						goodness -= 25;
 					}
 					
 					// Test 12: both cannot be in the same project
 					for (int k = 0; k < projects.size(); k++) {
-						if (!env.e_in_project(person, projects.get(k).getName()) || !env.e_in_project(person2, projects.get(k).getName())) {
+						if (!myEnv.e_in_project(person, projects.get(k).getName()) || !myEnv.e_in_project(person2, projects.get(k).getName())) {
 							goodness -= 7;
 						}
 					}
 					
 					// Test 4: secretary shouldn't be with a non-secretary
-					if ((env.e_secretary(person) && !env.e_secretary(person2)) || (!env.e_secretary(person) && env.e_secretary(person2))) {
+					if ((myEnv.e_secretary(person) && !myEnv.e_secretary(person2)) || (!myEnv.e_secretary(person) && myEnv.e_secretary(person2))) {
 						goodness -= 5;
 					}
 					
@@ -122,12 +122,12 @@ public class Solution {
 					goodness -= 4;
 					
 					// Test 15: both people should work together
-					if (!env.e_works_with(person, person2)) {
+					if (!myEnv.e_works_with(person, person2)) {
 						goodness -= 3;
 					}
 					
 					// Test 13: hackers should share rooms with hackers and non-hackers should share with non-hackers
-					if ((env.e_hacker(person) && env.e_hacker(person2)) || (!env.e_hacker(person) && !env.e_hacker(person2))) {
+					if ((myEnv.e_hacker(person) && myEnv.e_hacker(person2)) || (!myEnv.e_hacker(person) && !myEnv.e_hacker(person2))) {
 						goodness -= 2;
 					}
 				}
@@ -144,13 +144,13 @@ public class Solution {
 				if (j < groups.size()) {
 					// Test 2: group head is close to at least one secretary in group
 					// if current person is head of the group
-					if (env.e_heads_group(person, group)) {
+					if (myEnv.e_heads_group(person, group)) {
 						// search close rooms
 						for (int k = 0; k < closeAssignments.size(); k++) {
 							String person2 = closeAssignments.get(k).getStringParam(0);
 						
 							// if secretary is in the same group
-							if (env.e_secretary(person2) && env.e_in_group(person2, group)) {
+							if (myEnv.e_secretary(person2) && myEnv.e_in_group(person2, group)) {
 								break;
 							}
 							else {
@@ -158,24 +158,24 @@ public class Solution {
 							}
 						}
 						// Test: are all members of group close
-						if (!areMembersClose(env, group, closePeople)) {
+						if (!areMembersClose(myEnv, group, closePeople)) {
 							goodness -= 2;
 						}
 					}
 					// Test 5: manager is close to at least one secretary in group
 					// if current person is a manager of the group
-					else if (env.e_manager(person) && env.e_in_group(person, group)) {
+					else if (myEnv.e_manager(person) && myEnv.e_in_group(person, group)) {
 					
 						// search close rooms
 						for (int k = 0; k < closeAssignments.size(); k++) {
 							String person2 = closeAssignments.get(k).getStringParam(0);
 						
-							if (env.e_heads_group(person2, group)) {
+							if (myEnv.e_heads_group(person2, group)) {
 								isGroupHead = true;
 							}
 						
 							// if secretary is in the same group
-							if (env.e_secretary(person2) && env.e_in_group(person2, group)) {
+							if (myEnv.e_secretary(person2) && myEnv.e_in_group(person2, group)) {
 								break;
 							}
 							else {
@@ -187,7 +187,7 @@ public class Solution {
 							goodness -= 20;
 						}
 						// Test: are all members of group close
-						if (!areMembersClose(env, group, closePeople)) {
+						if (!areMembersClose(myEnv, group, closePeople)) {
 							goodness -= 2;
 						}
 					}
@@ -196,17 +196,17 @@ public class Solution {
 				if (j2 < projects.size()) {
 					// Test 9: large project head is close to at least one secretary in group
 					// if current person is large project head
-					if (env.e_heads_project(person, project) && env.e_large_project(project)) {
+					if (myEnv.e_heads_project(person, project) && myEnv.e_large_project(project)) {
 						// search close rooms
 						for (int k = 0; k < closeAssignments.size(); k++) {
 							String person2 = closeAssignments.get(k).getStringParam(0);
 						
-							if (env.e_heads_group(person2, group)) {
+							if (myEnv.e_heads_group(person2, group)) {
 								isGroupHead = true;
 							}
 						
 							// if secretary is in the same group
-							if (env.e_secretary(person2) && env.e_in_project(person2, project)) {
+							if (myEnv.e_secretary(person2) && myEnv.e_in_project(person2, project)) {
 								break;
 							}
 							else {
@@ -219,7 +219,7 @@ public class Solution {
 						}
 					
 						// Test: are all members of group close
-						if (!areMembersClose(env, group, closePeople)) {
+						if (!areMembersClose(myEnv, group, closePeople)) {
 							goodness -= 5;
 						}
 					}
@@ -332,6 +332,7 @@ public class Solution {
 	 */
 	// I'm thinking this should go here for ease of access -AM 
 	public String toString(){
+		String str;
 		return "Implement me!"; 
 	}
 
