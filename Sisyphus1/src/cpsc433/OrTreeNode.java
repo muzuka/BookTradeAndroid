@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class OrTreeNode {
 	private Environment env;
-	private Solution currentSol; 
+	private Solution currentSol;
 	private ArrayList<Pair<Entity, Entity>> assigned;
 	private ArrayList<OrTreeNode> children;
 	
@@ -74,6 +74,11 @@ public class OrTreeNode {
 		return i;
 	}
 	
+	public Solution search() {
+		
+		return currentSol;
+	}
+	
 	/**
 	 * Search for the optimal room assignment given the 
 	 * state of the current environment. If Ctrl+C is pressed
@@ -82,7 +87,7 @@ public class OrTreeNode {
 	 * @return the OrTreeNode with the optimal found solution. 
 	 */
 	// This isn't done. Don't complain just yet. - T
-	public OrTreeNode search() {
+	private OrTreeNode search_h() {
 		if (assign() == 0) {
 			// We're done. This is a complete assignment.
 			return this;
