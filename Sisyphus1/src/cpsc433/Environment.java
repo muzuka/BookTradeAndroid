@@ -885,15 +885,15 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	}
 
 	public ArrayList<Entity> getGroups() {
-		return groups;
+		return new ArrayList<Entity>(groups);
 	}
 	
 	public ArrayList<Pair<Entity, Entity>> getClose() {
-		return close;
+		return new ArrayList<Pair<Entity, Entity>>(close);
 	}
 	
 	public ArrayList<Entity> getProjects() {
-		return projects;
+		return new ArrayList<Entity>(projects);
 	}
 	
 	public ArrayList<Entity> getGroupHeads() {
@@ -908,16 +908,15 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	}
 
 	public ArrayList<Entity> getLargeRooms() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Entity>(large_rooms);
 	}
 	
 	public ArrayList<Entity> getPeople() {
-		return people; 
+		return new ArrayList<Entity>(people); 
 	}
 	
 	public ArrayList<Entity> getRooms() {
-		return rooms; 
+		return new ArrayList<Entity>(rooms); 
 	}
 	
 }

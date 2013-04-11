@@ -27,6 +27,10 @@ public class OrTreeNode {
 	private String outfilename;
 	private int start_goodness;
 	
+	// These are not so much "necessary", but my algorithm is fairly
+	// specialized. I would consider that a strong point.
+	private ArrayList<Entity> groupHeads;
+	
 	/**
 	 * Creates a new OrTreeNode with the current assignments
 	 * @param assigned The current assignments. Pass in 
@@ -55,6 +59,8 @@ public class OrTreeNode {
 			currentSol.assign(p.getKey(), p.getValue());
 		}
 		start_goodness = currentSol.getGoodness();
+		
+		groupHeads = env.getGroupHeads();
 	}
 	
 	/** 
@@ -95,7 +101,12 @@ public class OrTreeNode {
 		if (p == null) {
 			return (currentSol.isSolved() ? currentSol : null);
 		}
-		ArrayList<Entity> possibleRooms = findPossibleRooms(p, 1, false);
+		if (groupHeads.contains(p)) {
+			ArrayList<Entity> possibleRooms = findPossibleRooms(p, 1, true);
+			if (possibleRooms == null) {
+				possibleRooms = findPossibleRooms(p, 1, false);
+			}
+		}
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		for (OrTreeNode c : children) {
 			Solution csoln = c.search();
@@ -133,7 +144,6 @@ public class OrTreeNode {
 	}
 	
 	private Entity nextPersonToAssign() {
-		ArrayList<Entity> groupHeads = env.getGroupHeads();
 		for (Entity p : groupHeads) {
 			if (!isAssigned(p)) {
 				return p;
