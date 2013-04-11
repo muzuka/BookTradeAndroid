@@ -126,6 +126,47 @@ public class EnvironmentTest {
 	}
 	
 	/**
+	 * Test Multiple in group with a head
+	 */
+	@Test
+	public void testMultipleInGroupWithHead() {
+		String head = "Joker"; 
+		String member = "Penguin";
+		String group = "Villains"; 
+		
+		myInstance.a_person(head);
+		myInstance.a_person(member); 
+		myInstance.a_group(group);
+		myInstance.a_in_group(head, group);
+		myInstance.a_in_group(member, group); 
+		myInstance.a_heads_group(head, group); 
+		
+		assertEquals(true, myInstance.e_heads_group(head, group)); 
+		assertEquals(true, myInstance.e_in_group(head, group));
+		assertEquals(true, myInstance.e_in_group(member, group)); 
+	}
+	
+	/**
+	 * Test Multiple in group with a head
+	 */
+	@Test
+	public void testGetGroup() {
+		String head = "Joker"; 
+		String member = "Penguin";
+		String group = "Villains"; 
+		
+		myInstance.a_person(head);
+		myInstance.a_person(member); 
+		myInstance.a_group(group);
+		myInstance.a_in_group(head, group);
+		myInstance.a_in_group(member, group); 
+		myInstance.a_heads_group(head, group); 
+		
+		assertEquals(new Entity(head), myInstance.getGroup(new Entity(head)));
+		assertEquals(new Entity(member), myInstance.getGroup(new Entity(member))); 
+	}
+	
+	/**
 	 * Tests to make sure that the Environment.reset() function 
 	 * works properly. 
 	 */
