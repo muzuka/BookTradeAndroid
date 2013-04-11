@@ -980,4 +980,19 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 		return null;
 	}
+	
+	
+	public boolean isGroupHead(String person){
+		Entity peep = new Entity(person); 
+		for(Entity p : people){
+			if(p.equals(peep)){
+				for(Entity g: groups){
+					if(e_heads_group(peep.toString(), g.toString())){
+						return true; 
+					}
+				}
+			}
+		}
+		return false; 
+	}
 }
