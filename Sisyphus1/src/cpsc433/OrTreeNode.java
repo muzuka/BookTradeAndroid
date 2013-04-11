@@ -25,31 +25,36 @@ public class OrTreeNode {
 	private ArrayList<OrTreeNode> children;
 	private Date apocalypse;
 	private String outfilename;
+	private int start_goodness;
 	
 	/**
 	 * Creates a new OrTreeNode with the current assignments
 	 * @param assigned The current assignments. Pass in 
-	 * <b><code>null</code></b> to create a root node. 
+	 * <b><code>null</code></b> to create a root node.
+	 * @param endtimes A Date representing the time limit for the search.
+	 * @param outfilename The name for the output solution file.
 	 */
 	public OrTreeNode(ArrayList<Pair<Entity, Entity>> assigned, Date endtimes, String outfilename) {
 		if (assigned == null) {
+			// Root node.
 			this.assigned = new ArrayList<Pair<Entity, Entity>>();
 		}
 		else {
+			// Child node.
 			this.assigned = new ArrayList<Pair<Entity, Entity>>(assigned);
 		}
 		children = new ArrayList<OrTreeNode>();
 		env = Environment.get();
-		
-		this.outfilename = outfilename;
-
-		currentSol = new Solution(outfilename);
-		
 		apocalypse = endtimes;
 		
-		for (Pair<Entity, Entity> p : assigned) {
+		// Keep this around so we can pass it on to the next guy...
+		this.outfilename = outfilename;
+		
+		currentSol = new Solution(outfilename);
+		for (Pair<Entity, Entity> p : this.assigned) {
 			currentSol.assign(p.getKey(), p.getValue());
 		}
+		start_goodness = currentSol.getGoodness();
 	}
 	
 	/** 
@@ -71,7 +76,6 @@ public class OrTreeNode {
 	 * @param e The room to be checked. 
 	 * @return The number of persons assigned to a room. 
 	 */
-	// Give this a room
 	private int numAssigned(Entity e) {
 		int i = 0;
 		for (Pair<Entity, Entity> p : assigned) {
@@ -83,9 +87,15 @@ public class OrTreeNode {
 	}
 	
 	public Solution search() {
-		if (assign() == 0) {
-			return currentSol;
+		Date testTime = new Date();
+		if (testTime.after(apocalypse)) {
+			return panic_mode();
 		}
+		Entity p = nextPersonToAssign();
+		if (p == null) {
+			return (currentSol.isSolved() ? currentSol : null);
+		}
+		ArrayList<Entity> possibleRooms = findPossibleRooms(p, 1, false);
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		for (OrTreeNode c : children) {
 			Solution csoln = c.search();
@@ -93,6 +103,15 @@ public class OrTreeNode {
 		return currentSol;
 	}
 	
+	private ArrayList<Entity> findPossibleRooms(Entity p, int max, boolean large) {
+		ArrayList<Entity> PossibleRooms = env.getRooms();
+		return null;
+	}
+
+	private Solution panic_mode() {
+		return currentSol;
+	}
+
 	/**
 	 * Search for the optimal room assignment given the 
 	 * state of the current environment. If Ctrl+C is pressed
@@ -109,6 +128,16 @@ public class OrTreeNode {
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		for (OrTreeNode c : children) {
 			return c.search_h();
+		}
+		return null;
+	}
+	
+	private Entity nextPersonToAssign() {
+		ArrayList<Entity> groupHeads = env.getGroupHeads();
+		for (Entity p : groupHeads) {
+			if (!isAssigned(p)) {
+				return p;
+			}
 		}
 		return null;
 	}
