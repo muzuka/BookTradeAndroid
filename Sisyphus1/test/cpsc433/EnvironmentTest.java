@@ -117,7 +117,6 @@ public class EnvironmentTest {
 		String person = "Spiderman"; 
 		String group = "Avengers"; 
 		
-		
 		myInstance.a_person(person);
 		myInstance.a_group(group);
 		
