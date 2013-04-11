@@ -134,7 +134,7 @@ public class Solution {
 				boolean isGroupHead = false;
 				String group = groups.get(j).getName();
 
-				// Test 2: group head is close to at least one secretary in group
+				// Test ???: group head is close to at least one secretary in group
 				// if current person is head of the group
 				if (myEnv.e_heads_group(person, group)) {
 					
@@ -151,12 +151,6 @@ public class Solution {
 						}
 					}
 					
-					/*
-					// Test: are all members of group close
-					if (!areMembersClose(myEnv, group, closePeople)) {
-						goodness -= 2;
-					}
-					*/ 
 				}
 				// Test 5: manager is close to at least one secretary in group
 				// if current person is a manager of the group
