@@ -12,6 +12,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import cpsc433.PredicateReader;
+
 /**
  * Test Suite for the PredicateReader class 
  * @author Todd Bennet, Sean Brown, Alex Madsen
