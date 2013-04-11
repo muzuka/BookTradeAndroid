@@ -947,7 +947,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	
 	public Entity getGroup(Entity p) {
 		for (Entity g : groups) {
-			if (in_group.contains(new Pair<Entity, Entity>(p, g))) {
+			if (getEnv.e_in_group(p.toString(), g.toString())) {
 				return g;
 			}
 		}
