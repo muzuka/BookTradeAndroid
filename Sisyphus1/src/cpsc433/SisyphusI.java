@@ -1,6 +1,6 @@
 package cpsc433;
 
-import java.io.FileWriter;
+import java.util.Date;
 
 public class SisyphusI {
 
@@ -10,13 +10,12 @@ public class SisyphusI {
 			System.exit(-1);
 		}
 		try {
-			FileWriter outfilewriter = new FileWriter(args[0] + ".out");
 			Environment env = Environment.get();
 			env.fromFile(args[0]);
-			outfilewriter.write(env.toString());
-			OrTreeNode root = new OrTreeNode(null);
+			Date now = new Date();
+			Date endtimes = new Date(now.getTime() + Long.parseLong(args[1]));
+			OrTreeNode root = new OrTreeNode(null, endtimes, args[0] + ".out");
 			root.search(); 
-			outfilewriter.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
