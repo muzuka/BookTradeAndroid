@@ -408,16 +408,10 @@ public class Solution {
 	 * Prints out all current room assignments as well as the current goodness of 
 	 * the solution. 
 	 */
-	// I'm thinking this should go here for ease of access -AM 
 	public String toString(){
 		String str;
 		str = assignments.toString();
 		return str; 
 	}
 
-	public void updateEnvironment(Environment env) {
-		this.myEnv = env; 
-		this.people = myEnv.getPeople();
-		this.rooms = myEnv.getRooms(); 
-	}
 }
