@@ -134,30 +134,8 @@ public class Solution {
 				boolean isGroupHead = false;
 				String group = groups.get(j).getName();
 
-				// Test 3: group head is close to at least one secretary in group
-				// if current person is head of the group
-				/*
-				if (myEnv.e_heads_group(person, group)) {
-					
-					// search close rooms
-					for (int k = 0; k < closeAssignments.size(); k++) {
-						String person2 = closeAssignments.get(k).getStringParam(0);
-					
-						// if secretary is in the same group
-						if (myEnv.e_secretary(person2) && myEnv.e_in_group(person2, group)) {
-							break;
-						}
-						else {
-							goodness -= 30;
-						}
-					}
-					
-				}
 				// Test 5: manager is close to at least one secretary in group
-				// if current person is a manager of the group
-				else
-				*/ 
-				
+				// if current person is a manager of the group				
 				if (myEnv.e_manager(person) && myEnv.e_in_group(person, group)) {
 				
 					// search close rooms
