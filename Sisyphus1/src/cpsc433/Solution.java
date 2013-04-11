@@ -354,7 +354,13 @@ public class Solution {
 	}
 	
 	public void writeFile() {
-		PrintWriter writer = new PrintWriter(new File(outfilename));
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter(new File(outfilename));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		writer.println(assignments.toString());
 		writer.close();
 	}
