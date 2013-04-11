@@ -19,8 +19,12 @@ public class Solution {
 	private ArrayList<Predicate> assignments;
 	private ArrayList<Entity> people; 
 	private ArrayList<Entity> rooms; 
-
 	private String outfilename; 
+	
+	private ArrayList<Constraint> constraints; 
+	
+	// proper penalty values for each constrant
+	private static final int[] PENALTIES = {-40, -2, -30, -5, -20, -20, -2, -5, -10, -10, -50, -7, -2, -4, -3, -25};
 	
 	public Solution(Solution s) {
 		myEnv = Environment.get();
@@ -29,6 +33,11 @@ public class Solution {
 		rooms = new ArrayList<Entity>(s.rooms);
 		
 		outfilename = new String(s.outfilename);
+		
+		// initializing the constraints; 
+		for(int p : PENALTIES){ 
+			constraints.add(new Constraint(p)); 
+		}
 	}
 
 	/**
