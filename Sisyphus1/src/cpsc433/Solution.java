@@ -296,8 +296,40 @@ public class Solution {
 	 * @return true if the solution violates any hard constraints, false otherwise. 
 	 */
 	public boolean violatesHardConstraints(){
-		//TODO: I'm a stub!
-		return false; 
+		ArrayList<Entity> names = getPeople(assignments);
+		for (int i = 0; i < people.size(); i++) {
+			// Test: All people should be assigned
+			if(!names.contains(new Entity(people.get(i).getName()))) {
+				return false;
+			}
+			// Test: people should only be assigned to one room
+			for (int j = 0; j < names.size(); j++) {
+				String person = names.get(j).getName();
+				for (int k = j+1; k < names.size(); k++) {
+					if (person.equals(names.get(k).getName())) {
+						return false;
+					}
+				}
+			}
+			// Test: no more than 2 people should be assigned to an office.
+			// for all rooms
+			for (int j = 0; j < rooms.size(); j++) {
+				String room = rooms.get(j).getName();
+				int rooms = 0;
+			    
+				// for each assignment
+				for (int k = 0; k < assignments.size(); k++) {
+					if (room.equals(assignments.get(k).getStringParam(1))) {
+						rooms++;
+					}
+					if (rooms >= 3) {
+						return false;
+					}	
+				}
+			}
+			
+		}
+		return true; 
 	}
 	
 	/**
