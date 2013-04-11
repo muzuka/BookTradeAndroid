@@ -178,7 +178,8 @@ public class OrTreeNode {
 	
 	private ArrayList<Entity> findPossibleRooms(Entity p, int max, boolean large) {
 		ArrayList<Entity> possibleRooms = env.getRooms();
-		for (Entity r : possibleRooms) {
+		ArrayList<Entity> realPossibleRooms = env.getRooms();
+		for (Entity r : realPossibleRooms) {
 			if (large) {
 				if (!largeRooms.contains(r)) {
 					possibleRooms.remove(r);
@@ -281,7 +282,12 @@ public class OrTreeNode {
 	public static void main(String[] args) {
 		Environment env = Environment.get();
 		env.a_heads_group("Francis", "Vatican");
+		env.a_person("Kim Jong-un");
+		env.a_person("A-Mad");
 		env.a_large_room("GrandCanyon");
+		env.a_medium_room("InsideJabuJabusBelly");
+		env.a_large_room("OuterSpace");
+		env.a_small_room("ST084");
 		OrTreeNode root = new OrTreeNode(null, new Date(), "C:\\Users\\Todd\\Desktop\\outfile.txt");
 		Solution s = root.search();
 		System.out.println(s.getGoodness());
