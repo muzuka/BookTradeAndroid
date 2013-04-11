@@ -119,10 +119,10 @@ public class OrTreeNode {
 	 * @return A Solution, or null
 	 */
 	public Solution search() {
-		Date testTime = new Date();
+		/*Date testTime = new Date();
 		if (testTime.after(apocalypse)) {
 			return panic_mode();
-		}
+		}*/
 		Entity p = nextPersonToAssign();
 		if (p == null) {
 			return (currentSol.isSolved() ? currentSol : null);
@@ -145,9 +145,18 @@ public class OrTreeNode {
 			return null;
 		}
 		
+		Entity r = possibleRooms.get(magic8ball.nextInt(possibleRooms.size()));
+		assigned.add(new Pair<Entity, Entity>(p, r));
+		currentSol.assign(p, r);
+		
+		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
+		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		for (OrTreeNode c : children) {
-			Solution csoln = c.search();
+			Solution possibility = c.search();
+			if (possibility != null) {
+				return possibility;
+			}
 		}
 		return currentSol;
 	}
@@ -251,5 +260,15 @@ public class OrTreeNode {
 				return;
 			}
 		}
+	}
+	
+	// For testing purposes
+	public static void main(String[] args) {
+		Environment env = Environment.get();
+		env.a_heads_group("Francis", "Vatican");
+		env.a_large_room("GrandCanyon");
+		OrTreeNode root = new OrTreeNode(null, new Date(), "C:\\Users\\Todd\\Desktop\\outfile.txt");
+		Solution s = root.search();
+		s.writeFile();
 	}
 }
