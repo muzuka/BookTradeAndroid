@@ -20,6 +20,15 @@ public class Solution {
 	private ArrayList<Entity> rooms; 
 
 	private String outfilename; 
+	
+	public Solution(Solution s) {
+		myEnv = Environment.get();
+		assignments = new ArrayList<Predicate>(s.assignments);
+		people = new ArrayList<Entity>(s.people);
+		rooms = new ArrayList<Entity>(s.rooms);
+		
+		outfilename = new String(s.outfilename);
+	}
 
 	/**
 	 * Used to define the output file of the 
