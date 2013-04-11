@@ -520,7 +520,6 @@ public class Solution {
 		boolean headAssigned = false; 
 		for(Predicate a : assignments){
 			String p = a.getStringParam(0); 
-			String r = a.getStringParam(1); 
 			
 			Entity g = myEnv.getGroup(new Entity(p)); 
 			if(g != null){
