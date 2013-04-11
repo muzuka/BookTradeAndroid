@@ -27,7 +27,6 @@ public class OrTreeNode {
 	private ArrayList<OrTreeNode> children;
 	private Date apocalypse;
 	private String outfilename;
-	private int start_goodness;
 	
 	// These are not so much "necessary", but my algorithm is fairly
 	// specialized. I would consider that a strong point.
@@ -67,7 +66,6 @@ public class OrTreeNode {
 		for (Pair<Entity, Entity> p : this.assigned) {
 			currentSol.assign(p.getKey(), p.getValue());
 		}
-		start_goodness = currentSol.getGoodness();
 		
 		magic8ball = new Random();
 		
@@ -127,10 +125,10 @@ public class OrTreeNode {
 	 * @return A Solution, or null
 	 */
 	public Solution search() {
-		/*Date testTime = new Date();
-		if (testTime.after(apocalypse)) {
+		Date testTime = new Date();
+		if ((apocalypse.getTime() - testTime.getTime()) < 1000) {
 			return panic_mode();
-		}*/
+		}
 		Entity p = nextPersonToAssign();
 		if (p == null) {
 			return (currentSol.isSolved() ? currentSol : null);
@@ -241,27 +239,31 @@ public class OrTreeNode {
 	}
 
 	private Solution panic_mode() {
-		return currentSol;
-	}
-
-	/**
-	 * Search for the optimal room assignment given the 
-	 * state of the current environment. If Ctrl+C is pressed
-	 * or the process is otherwise interrupted, the current 
-	 * solution is returned. 
-	 * @return the OrTreeNode with the optimal found solution. 
-	 */
-	// This isn't done. Don't complain just yet. - T
-	private OrTreeNode search_h() {
-		if (assign() == 0) {
-			// We're done. This is a complete assignment.
-			return this;
+		Entity p = nextPersonToAssign();
+		if (p == null) {
+			return (currentSol.isSolved() ? currentSol : null);
 		}
+		ArrayList<Entity> possibleRooms = findPossibleRooms(p, 2, false);
+		if (possibleRooms == null) {
+			// I guess there's no rooms!
+			return null;
+		}
+		Entity r = possibleRooms.get(magic8ball.nextInt(possibleRooms.size()));
+		assigned.add(new Pair<Entity, Entity>(p, r));
+		currentSol.assign(p, r);
+		
+		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
+		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
+		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
+		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		for (OrTreeNode c : children) {
-			return c.search_h();
+			Solution possibility = c.search();
+			if (possibility != null) {
+				return possibility;
+			}
 		}
-		return null;
+		return currentSol;
 	}
 	
 	private Entity nextPersonToAssign() {
@@ -291,39 +293,6 @@ public class OrTreeNode {
 			}
 		}
 		return null;
-	}
-	
-	/**
-	 * Assign a person to a room 
-	 * TODO: should this be in the Solution/Involve the Solution? 
-	 * @return 1 if the person is a group head , 0 otherwise 
-	 * 			
-	 */
-	public int assign() {
-		ArrayList<Entity> groupHeads = env.getGroupHeads();
-		for (Entity p : groupHeads) {
-			if (!isAssigned(p)) {
-				assignGroupHead(p);
-				return 1;
-			}
-		}
-		return 0;
-	}
-
-	/**
-	 * Don't quite know what this is doing... We'll figure it out. 
-	 * @param p 
-	 */
-	// One per room, Should be a large room
-	// These are assigned first
-	private void assignGroupHead(Entity p) {
-		ArrayList<Entity> largeRooms = env.getLargeRooms();
-		for (Entity r : largeRooms) {
-			if (numAssigned(r) == 0) {
-				assigned.add(new Pair<Entity, Entity>(p, r));
-				return;
-			}
-		}
 	}
 	
 	// For testing purposes
