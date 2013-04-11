@@ -107,11 +107,6 @@ public class Solution {
 						}
 					}
 					
-					// Test 4: secretary shouldn't be with a non-secretary
-					if ((myEnv.e_secretary(person) && !myEnv.e_secretary(person2)) || (!myEnv.e_secretary(person) && myEnv.e_secretary(person2))) {
-						goodness -= 5;
-					}
-					
 					// Test 14: if not alone
 					goodness -= 4;
 					
@@ -360,7 +355,8 @@ public class Solution {
 				updateConstraint1(person, room); 
 				updateConstraint2(person, room); 
 				updateConstraint3(person, room); 
-								
+				updateConstraint4(person, room); 	
+				
 				return true; 
 			} else { 
 				return false; 
@@ -370,7 +366,7 @@ public class Solution {
 			return false; 
 		}
 	}
-	
+
 	public void writeFile() {
 		PrintWriter writer;
 		try {
@@ -510,6 +506,24 @@ public class Solution {
 								}
 							}
 						}
+					}
+				}
+			}
+		}
+	}
+	
+	private void updateConstraint4(Entity person, Entity room) {
+		// Constraint 4
+		// Secretaries should only be in rooms with
+		// other secretaries 
+		if(myEnv.e_secretary(person.toString())){
+			for(Predicate a : assignments){
+				String p = a.getStringParam(0);
+				String r = a.getStringParam(1); 
+				
+				if(room.toString().equals(r)){
+					if(!myEnv.e_secretary(p)){
+						constraints.get(3).addTick(); 
 					}
 				}
 			}
