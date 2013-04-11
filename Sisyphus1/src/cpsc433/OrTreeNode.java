@@ -1,7 +1,9 @@
 package cpsc433;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Class to represent the internal nodes of our or-tree 
@@ -35,6 +37,8 @@ public class OrTreeNode {
 	private ArrayList<Entity> people;
 	private ArrayList<Entity> largeRooms;
 	
+	private Random magic8ball;
+	
 	/**
 	 * Creates a new OrTreeNode with the current assignments
 	 * @param assigned The current assignments. Pass in 
@@ -64,11 +68,18 @@ public class OrTreeNode {
 		}
 		start_goodness = currentSol.getGoodness();
 		
+		magic8ball = new Random();
+		
 		groupHeads = env.getGroupHeads();
+		Collections.shuffle(groupHeads, magic8ball);
 		projectHeads = env.getProjectHeads();
+		Collections.shuffle(projectHeads, magic8ball);
 		managers = env.getManagers();
+		Collections.shuffle(managers, magic8ball);
 		people = env.getPeople();
+		Collections.shuffle(people, magic8ball);
 		largeRooms = env.getLargeRooms();
+		Collections.shuffle(largeRooms, magic8ball);
 	}
 	
 	/** 
@@ -130,8 +141,10 @@ public class OrTreeNode {
 			possibleRooms = findPossibleRooms(p, 2, false);
 		}
 		if (possibleRooms == null) {
+			// I guess there's no rooms!
 			return null;
 		}
+		
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		for (OrTreeNode c : children) {
 			Solution csoln = c.search();
@@ -156,7 +169,7 @@ public class OrTreeNode {
 				possibleRooms.remove(r);
 			}
 		}
-		return null;
+		return possibleRooms;
 	}
 
 	private Solution panic_mode() {
