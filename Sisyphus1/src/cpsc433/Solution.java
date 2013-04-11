@@ -310,4 +310,8 @@ public class Solution {
 	public String toString(){
 		return "Implement me!"; 
 	}
+
+	public void updateEnvironment(Environment env) {
+		this.myEnv = env; 
+	}
 }
