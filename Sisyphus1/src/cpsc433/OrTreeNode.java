@@ -41,6 +41,10 @@ public class OrTreeNode {
 		// this is NOT to spec! We need to change this up... 
 		// should we pass this as a parameter? or allow this to be set up...? - AM 
 		currentSol = new Solution("outfile.txt"); 
+		
+		for (Pair<Entity, Entity> p : assigned) {
+			currentSol.assign(p.getKey(), p.getValue());
+		}
 	}
 	
 	
@@ -75,8 +79,13 @@ public class OrTreeNode {
 	}
 	
 	public Solution search() {
-		
-		return currentSol;
+		if (assign() == 0) {
+			return currentSol;
+		}
+		children.add(new OrTreeNode(assigned));
+		for (OrTreeNode c : children) {
+			Solution csoln = c.search();
+		}
 	}
 	
 	/**
