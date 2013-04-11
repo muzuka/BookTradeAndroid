@@ -105,34 +105,21 @@ public class SolutionTest {
 	 */
 	@Test
 	public void testSoftConstraint1() {
+		// Good Case
 		env.a_person("Steve"); 
-		env.a_person("Susan");
 		env.a_room("Bedroom");
-		env.a_room("Living Room"); 
-		env.a_close("Bedroom", "Living Room");
 		env.a_group("Warcraft Guild");
 		env.a_in_group("Steve", "Warcraft Guild"); 
-		env.a_in_group("Susan", "Warcraft Guild"); 
 		env.a_heads_group("Steve", "Warcraft Guild"); 
 		env.a_large_room("Bedroom"); 
 		
-		// so that all group members are close to the head
 		Entity steve = new Entity("Steve");
-		Entity susan = new Entity("Susan"); 
-		Entity bedroom = new Entity("Bedroom");
-		Entity living = new Entity("Living Room"); 
+		Entity bedroom = new Entity("Bedroom");		
 		
-		
-		assertEquals(true, env.e_in_group("Steve", "Warcraft Guild"));
-		assertEquals(true, env.e_heads_group("Steve", "Warcraft Guild")); 
-		assertEquals(true, env.e_large_room("Bedroom")); 
-		
-		boolean myValue = mySol.assign(steve, bedroom); 
-		assertEquals(true, myValue); 
-		
-		// seems like -2 is the magic number... 
-		assertEquals(-2, mySol.getGoodness()); 
-		
+		assertEquals(true, mySol.assign(steve, bedroom)); 
+		assertEquals(0, mySol.getNumberViolations(0));
+				
+		// Bad Case 
 		env.a_person("Harry"); 
 		env.a_room("Broom Closet");
 		env.a_group("Hogwarts");
@@ -143,10 +130,10 @@ public class SolutionTest {
 		Entity harry = new Entity("Harry"); 
 		Entity closet = new Entity("Broom Closet"); 
 		
-		assertEquals(true, env.e_in_group("Harry", "Hogwarts")); 
-		mySol.assign(harry, closet); 
+		assertEquals(true, mySol.assign(harry, closet));
+		assertEquals(1, mySol.getNumberViolations(0)); 
 		
-		assertEquals(-40, mySol.getGoodness()); 
+		assertEquals(-40, mySol.getPenalty(0)); 
 	}
 	
 	/**

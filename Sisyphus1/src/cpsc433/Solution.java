@@ -33,11 +33,7 @@ public class Solution {
 		rooms = new ArrayList<Entity>(s.rooms);
 		
 		outfilename = new String(s.outfilename);
-		
-		// initializing the constraints; 
-		for(int p : PENALTIES){ 
-			constraints.add(new Constraint(p)); 
-		}
+		constraints = new ArrayList<Constraint>(s.constraints); 
 	}
 
 	/**
@@ -50,16 +46,14 @@ public class Solution {
 		this.myEnv = Environment.get(); 
 		people = myEnv.getPeople(); 
 		rooms = myEnv.getRooms(); 
-	}
-	
-	/**
-	 * Constructor used to parse out information
-	 * from the environment 
-	 */
-	
-	public Solution(Environment env){
 		
+		// initializing the constraints; 
+		constraints = new ArrayList<Constraint>(); 
+		for(int p : PENALTIES){ 
+			constraints.add(new Constraint(p)); 
+		}
 	}
+	
 
 	/**
 	 * Generate the goodness value as per the soft constraint definitions
@@ -68,10 +62,7 @@ public class Solution {
 	 * @return the goodness value of the current solution
 	 */
 	public int getGoodness() {
-		// place in the soft constraints and their corresponding
-		// penalties - requires knowledge of the environment... Hurm... 
-		// seems like this was what the Singleton pattern was designed for... 
-		// will this work well? - AM 
+		
 		int goodness = 0;
 		ArrayList<Entity> groups = myEnv.getGroups();
 		ArrayList<Entity> projects = myEnv.getProjects();
@@ -102,7 +93,8 @@ public class Solution {
 					if ((myEnv.e_smoker(person) && !myEnv.e_smoker(person2)) || (myEnv.e_smoker(person2) && !myEnv.e_smoker(person))) {
 						goodness -= 50;
 					}
-					
+		
+					/*
 					if (myEnv.getGroup(new Entity(person)) != null) {
 						// Test 1: group heads need large offices.
 						String group = myEnv.getGroup(new Entity(person)).getName();
@@ -110,6 +102,7 @@ public class Solution {
 							goodness -= 40;
 						}
 					}
+					*/ 
 					
 					// Test 16: no sharing a small room.
 					if (myEnv.e_small_room(room)) {
@@ -240,6 +233,8 @@ public class Solution {
 					}
 				}
 			}
+		
+		goodness += getConstraintsTotal(); 
 		
 		return goodness;
 	}
@@ -391,6 +386,16 @@ public class Solution {
 			if(myEnv.e_person(person.toString()) && myEnv.e_room(room.toString())){
 				Predicate assignment = new Predicate(workstring); 
 				assignments.add(assignment);
+				
+				// Constraint 1 
+				// if the current person is a group head, then they
+				// should get a large office.
+				if(myEnv.isGroupHead(person.toString())){
+					if(!myEnv.e_large_room(room.toString())){
+						constraints.get(0).addTick(); 
+					}
+				}
+								
 				return true; 
 			} else { 
 				return false; 
@@ -423,4 +428,33 @@ public class Solution {
 		return str; 
 	}
 
+	/**
+	 * Helper function for getGoodness. Returns the total 
+	 * value of the constraints. 
+	 * @return
+	 */
+	private int getConstraintsTotal(){
+		int value = 0; 
+		for(Constraint c : constraints){
+			value += c.getCost(); 
+		}
+		return value; 
+	}
+	
+	public int getNumberViolations(int constraintNum){
+		if(constraintNum >= constraints.size()){
+			return -1; 
+		} else {
+			return constraints.get(constraintNum).getCount(); 
+		}
+	}
+	
+	public int getPenalty(int constraintNum){
+		if(constraintNum >= constraints.size()){
+			return 0; 
+		} else {
+			return constraints.get(constraintNum).getPenalty(); 
+		}
+	}
+	
 }
