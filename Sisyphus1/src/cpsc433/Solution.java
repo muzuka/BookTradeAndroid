@@ -23,7 +23,7 @@ public class Solution {
 	
 	private ArrayList<Constraint> constraints; 
 	
-	// proper penalty values for each constrant
+	// proper penalty values for each constraint
 	private static final int[] PENALTIES = {-40, -2, -30, -5, -20, -20, -2, -5, -10, -10, -50, -7, -2, -4, -3, -25};
 	
 	public Solution(Solution s) {

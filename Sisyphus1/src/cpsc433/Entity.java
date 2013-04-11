@@ -57,7 +57,6 @@ public class Entity implements Comparable<Entity>{
 	 * @param newName the new name of this object.
 	 */
 	public void setName(String newName) {
-		String oldName = name;
 		name = newName;
 	}
 
