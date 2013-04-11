@@ -140,14 +140,6 @@ public class Solution {
 						if (myEnv.e_heads_group(person2, group)) {
 							isGroupHead = true;
 						}
-					
-						// if secretary is in the same group
-						if (myEnv.e_secretary(person2) && myEnv.e_in_group(person2, group)) {
-							break;
-						}
-						else {
-							goodness -= 20;
-						}
 					}
 					// Test: is group head close to the manager
 					if (!isGroupHead) {
@@ -356,6 +348,7 @@ public class Solution {
 				updateConstraint2(person, room); 
 				updateConstraint3(person, room); 
 				updateConstraint4(person, room); 	
+				updateConstraint5(person, room); 
 				
 				return true; 
 			} else { 
@@ -530,6 +523,36 @@ public class Solution {
 		}
 	}
 	
+	private void updateConstraint5(Entity person, Entity room) {
+		// Constraint 5
+		// Managers should be close to at least one secretary
+		// within their group
+		constraints.get(4).reset(); 
+		
+		for(Entity g : myEnv.getGroups()){
+			boolean secretaryClose = false; 
+			
+			for(Predicate a : assignments){
+				String p = a.getStringParam(0); 
+				String r = a.getStringParam(1); 
+				
+				Entity p_g = myEnv.getGroup(new Entity(p)); 
+				
+				if(g.equals(p_g)){
+					if(myEnv.e_secretary(p)){
+						if(myEnv.e_close(r, room.toString())){
+							secretaryClose = true; 
+						}
+					}
+				}
+			}
+			
+			if(!secretaryClose){
+				constraints.get(4).addTick(); 
+			}
+		}
+	}
+	
 	private boolean groupHeadAssigned(Entity group){
 		boolean headAssigned = false; 
 		for(Predicate a : assignments){
@@ -545,5 +568,22 @@ public class Solution {
 			}
 		}
 		return headAssigned;
+	}
+	
+	private boolean groupManagerAssigned(Entity group){
+		boolean managerAssigned = false; 
+		for(Predicate a : assignments){
+			String p = a.getStringParam(0); 
+			
+			Entity g = myEnv.getGroup(new Entity(p)); 
+			if(g != null){
+				if(g.equals(group)){
+					if(myEnv.e_manager(p)){
+						managerAssigned = true; 
+					}
+				}
+			}
+		}
+		return managerAssigned;
 	}
 }
