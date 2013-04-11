@@ -314,9 +314,25 @@ public class SolutionTest {
 		try {
 			env.a_assign_to("Vegeta", "Space Pod");
 			env.a_assign_to("Nappa", "Space Pod");
-			assertEquals(-25, mySol.getGoodness(env)); 
+			
+			Entity vegeta = new Entity("Vegeta"); 
+			Entity nappa = new Entity("Nappa"); 
+			Entity spacepod = new Entity("Space Pod"); 
+			
+			mySol.assign(vegeta, spacepod); 
+			mySol.assign(nappa, spacepod); 
+			
+			assertEquals(-25-4, mySol.getGoodness(env)); 
 		} catch (Exception e) {
-			fail("could not assign Saiyans to Space Pod"); 
+			if((!env.e_assign_to("Vegeta", "Space Pod")) && (!env.e_assign_to("Nappa", "Space Pod"))){
+				fail("could not assign Saiyans to Space Pod"); 
+			} else if (!env.e_assign_to("Vegeta", "Space Pod")) { 
+				fail("could not assign Vegeta to Space Pod"); 
+			} else if(!env.e_assign_to("Nappa", "Space Pod")) {
+				fail("could not assign Nappa to Space Pod"); 
+			} else {
+				fail("something else blew up!"); 
+			}
 		}
 	}
 }
