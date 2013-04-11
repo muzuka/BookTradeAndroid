@@ -28,6 +28,10 @@ public class Constraint {
 		return count; 
 	}
 	
+	public void reset(){
+		count = 0; 
+	}
+	
 	public int getCost(){
 		return (count * penalty); 
 	}
