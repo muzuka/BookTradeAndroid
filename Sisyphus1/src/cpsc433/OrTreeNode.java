@@ -1,5 +1,6 @@
 package cpsc433;
 
+import java.util.Date;
 import java.util.ArrayList;
 
 /**
@@ -22,13 +23,15 @@ public class OrTreeNode {
 	private Solution currentSol;
 	private ArrayList<Pair<Entity, Entity>> assigned;
 	private ArrayList<OrTreeNode> children;
+	private Date apocalypse;
+	private String outfilename;
 	
 	/**
 	 * Creates a new OrTreeNode with the current assignments
 	 * @param assigned The current assignments. Pass in 
 	 * <b><code>null</code></b> to create a root node. 
 	 */
-	public OrTreeNode(ArrayList<Pair<Entity, Entity>> assigned) {
+	public OrTreeNode(ArrayList<Pair<Entity, Entity>> assigned, Date endtimes, String outfilename) {
 		if (assigned == null) {
 			this.assigned = new ArrayList<Pair<Entity, Entity>>();
 		}
@@ -38,15 +41,16 @@ public class OrTreeNode {
 		children = new ArrayList<OrTreeNode>();
 		env = Environment.get();
 		
-		// this is NOT to spec! We need to change this up... 
-		// should we pass this as a parameter? or allow this to be set up...? - AM 
-		currentSol = new Solution("outfile.txt"); 
+		this.outfilename = outfilename;
+
+		currentSol = new Solution(outfilename);
+		
+		apocalypse = endtimes;
 		
 		for (Pair<Entity, Entity> p : assigned) {
 			currentSol.assign(p.getKey(), p.getValue());
 		}
 	}
-	
 	
 	/** 
 	 * Checks whether the given person is assigned. 
@@ -82,10 +86,11 @@ public class OrTreeNode {
 		if (assign() == 0) {
 			return currentSol;
 		}
-		children.add(new OrTreeNode(assigned));
+		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		for (OrTreeNode c : children) {
 			Solution csoln = c.search();
 		}
+		return currentSol;
 	}
 	
 	/**
@@ -101,9 +106,9 @@ public class OrTreeNode {
 			// We're done. This is a complete assignment.
 			return this;
 		}
-		children.add(new OrTreeNode(assigned));
+		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		for (OrTreeNode c : children) {
-			return c.search();
+			return c.search_h();
 		}
 		return null;
 	}
