@@ -152,11 +152,26 @@ public class OrTreeNode {
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
+		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
+		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
+		ArrayList<Solution> goodChildren = new ArrayList<Solution>();
 		for (OrTreeNode c : children) {
 			Solution possibility = c.search();
 			if (possibility != null) {
-				return possibility;
+				goodChildren.add(possibility);
 			}
+		}
+		int max = Integer.MIN_VALUE;
+		Solution maxs = null;
+		for (Solution s : goodChildren) {
+			int i = s.getGoodness();
+			if (i > max) {
+				max = i;
+				maxs = s;
+			}
+		}
+		if (maxs != null) {
+			return maxs;
 		}
 		return currentSol;
 	}
@@ -269,6 +284,7 @@ public class OrTreeNode {
 		env.a_large_room("GrandCanyon");
 		OrTreeNode root = new OrTreeNode(null, new Date(), "C:\\Users\\Todd\\Desktop\\outfile.txt");
 		Solution s = root.search();
+		System.out.println(s.getGoodness());
 		s.writeFile();
 	}
 }
