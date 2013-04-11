@@ -14,7 +14,7 @@ import cpsc433.Predicate.ParamType;
  */
 public class Environment extends PredicateReader implements SisyphusPredicates {
 
-	private static Environment getEnv;
+	private static Environment getEnv = new Environment("getEnv");
 	public Solution currentSolution;
 	public boolean fixedAssignments; // TODO: What is this used for? 
 
@@ -104,7 +104,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	}
 
 	public static Environment get() {
-		getEnv = new Environment("getEnv");
 		return getEnv;
 	}
 
