@@ -95,10 +95,9 @@ public class Solution {
 					}
 					
 					// Test 1: group heads need large offices.
-					for (int k = 0; k < groups.size(); k++) {
-						if((myEnv.e_heads_group(person, groups.get(k).getName()) && !myEnv.e_large_room(room)) || (myEnv.e_heads_group(person2, groups.get(k).getName()) && !myEnv.e_large_room(room))) {
-							goodness -= 40;
-						}
+					String group = myEnv.getGroup(new Entity(person)).getName();
+					if((myEnv.e_heads_group(person, group) && !myEnv.e_large_room(room))) {
+						goodness -= 40;
 					}
 					
 					// Test 16: no sharing a small room.
@@ -302,32 +301,65 @@ public class Solution {
 			if(!names.contains(new Entity(people.get(i).getName()))) {
 				return false;
 			}
-			// Test: people should only be assigned to one room
-			for (int j = 0; j < names.size(); j++) {
-				String person = names.get(j).getName();
-				for (int k = j+1; k < names.size(); k++) {
-					if (person.equals(names.get(k).getName())) {
-						return false;
+			try {
+				// Test: people should only be assigned to one room
+				for (int j = 0; j < names.size(); j++) {
+					String person = names.get(j).getName();
+					for (int k = j+1; k < names.size(); k++) {
+						if (person.equals(names.get(k).getName())) {
+							return false;
+						}
 					}
 				}
+			}
+			catch(IndexOutOfBoundsException e) {
+				e.printStackTrace();
 			}
 			// Test: no more than 2 people should be assigned to an office.
 			// for all rooms
 			for (int j = 0; j < rooms.size(); j++) {
-				String room = rooms.get(j).getName();
-				int rooms = 0;
+				try {
+					String room = rooms.get(j).getName();
+					int rooms = 0;
 			    
-				// for each assignment
-				for (int k = 0; k < assignments.size(); k++) {
-					if (room.equals(assignments.get(k).getStringParam(1))) {
-						rooms++;
+					// for each assignment
+					for (int k = 0; k < assignments.size(); k++) {
+						if (room.equals(assignments.get(k).getStringParam(1))) {
+							rooms++;
+						}
+						if (rooms >= 3) {
+							return false;
+						}	
 					}
-					if (rooms >= 3) {
-						return false;
-					}	
+				}
+				catch (IndexOutOfBoundsException e) {
+					e.printStackTrace();
 				}
 			}
-			
+			// for all assignments
+			for (int j = 0; j < assignments.size(); j++) {
+				try {
+					String room = assignments.get(j).getStringParam(1);
+					String person = assignments.get(j).getName();
+					String group = myEnv.getGroup(new Entity(person)).getName();
+					// if a group head, manager, or 
+					if (myEnv.e_heads_group(person, group) || myEnv.e_manager(person) || myEnv.e_heads_project(person, myEnv.getProject(new Entity(person)).getName())) {
+						for (int k = j+1; k < assignments.size(); k++) {
+							String person2 = assignments.get(k).getStringParam(0);
+							String group2 = myEnv.getGroup(new Entity(person2)).getName();
+						
+							if(room.equals(assignments.get(k).getStringParam(1))) {
+								if (myEnv.e_heads_group(person2, group) || myEnv.e_manager(person2) || myEnv.e_heads_project(person2, myEnv.getProject(new Entity(person2)).getName())) {
+									return false;
+								}
+							}
+						}
+					}
+				}
+				catch(IndexOutOfBoundsException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return true; 
 	}
@@ -354,13 +386,7 @@ public class Solution {
 	}
 	
 	public void writeFile() {
-		PrintWriter writer = null;
-		try {
-			writer = new PrintWriter(new File(outfilename));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		PrintWriter writer = new PrintWriter(new File(outfilename));
 		writer.println(assignments.toString());
 		writer.close();
 	}
