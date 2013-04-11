@@ -379,7 +379,7 @@ public class Solution {
 	public boolean assign(Entity person, Entity room){
 		String workstring = "assign-to(" + person + ", " + room + ")"; 
 		try{
-			if(myEnv.e_person(person.toString()) && myEnv.e_room(room.toString())){
+			if(people.contains(person) && rooms.contains(room)){
 				Predicate assignment = new Predicate(workstring); 
 				assignments.add(assignment);
 				return true; 
@@ -393,15 +393,9 @@ public class Solution {
 	}
 	
 	public void writeFile() {
-		PrintWriter writer;
-		try {
-			writer = new PrintWriter(new File(outfilename));
-			writer.println(assignments.toString());
-			writer.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		PrintWriter writer = new PrintWriter(new File(outfilename));
+		writer.println(assignments.toString());
+		writer.close();
 	}
 	
 	/**
@@ -411,7 +405,8 @@ public class Solution {
 	// I'm thinking this should go here for ease of access -AM 
 	public String toString(){
 		String str;
-		return "Implement me!"; 
+		str = assignments.toString();
+		return str; 
 	}
 
 	public void updateEnvironment(Environment env) {
