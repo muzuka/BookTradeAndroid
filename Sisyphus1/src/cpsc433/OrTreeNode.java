@@ -36,6 +36,7 @@ public class OrTreeNode {
 	private ArrayList<Entity> managers;
 	private ArrayList<Entity> people;
 	private ArrayList<Entity> largeRooms;
+	private ArrayList<Entity> secretaries;
 	
 	private Random magic8ball;
 	
@@ -80,6 +81,8 @@ public class OrTreeNode {
 		Collections.shuffle(people, magic8ball);
 		largeRooms = env.getLargeRooms();
 		Collections.shuffle(largeRooms, magic8ball);
+		secretaries = env.getSecretaries();
+		Collections.shuffle(secretaries, magic8ball);
 	}
 	
 	/** 
@@ -149,8 +152,6 @@ public class OrTreeNode {
 		assigned.add(new Pair<Entity, Entity>(p, r));
 		currentSol.assign(p, r);
 		
-		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
-		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
 		children.add(new OrTreeNode(assigned, apocalypse, outfilename));
@@ -227,6 +228,11 @@ public class OrTreeNode {
 				return p;
 			}
 		}
+		for (Entity p : secretaries) {
+			if (!isAssigned(p)) {
+				return p;
+			}
+		}
 		for (Entity p : projectHeads) {
 			if (!isAssigned(p)) {
 				return p;
@@ -284,6 +290,11 @@ public class OrTreeNode {
 		env.a_heads_group("Francis", "Vatican");
 		env.a_person("Kim Jong-un");
 		env.a_person("A-Mad");
+		env.a_smoker("NastySmoker");
+		env.a_smoker("NastierSmoker");
+		env.a_smoker("NastiestSmoker");
+		env.a_smoker("RastaSmoker");
+		env.a_smoker("SnoopDogg");
 		env.a_large_room("GrandCanyon");
 		env.a_medium_room("InsideJabuJabusBelly");
 		env.a_large_room("OuterSpace");

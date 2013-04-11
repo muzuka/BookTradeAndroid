@@ -933,5 +933,17 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public ArrayList<Entity> getRooms() {
 		return new ArrayList<Entity>(rooms); 
 	}
+
+	public ArrayList<Entity> getSecretaries() {
+		return new ArrayList<Entity>(secretaries);
+	}
 	
+	public Entity getGroup(Entity p) {
+		for (Entity g : groups) {
+			if (in_group.contains(new Pair<Entity, Entity>(p, g))) {
+				return g;
+			}
+		}
+		return null;
+	}
 }
