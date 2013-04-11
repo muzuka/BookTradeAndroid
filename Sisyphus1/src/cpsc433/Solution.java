@@ -93,17 +93,7 @@ public class Solution {
 					if ((myEnv.e_smoker(person) && !myEnv.e_smoker(person2)) || (myEnv.e_smoker(person2) && !myEnv.e_smoker(person))) {
 						goodness -= 50;
 					}
-		
-					/*
-					if (myEnv.getGroup(new Entity(person)) != null) {
-						// Test 1: group heads need large offices.
-						String group = myEnv.getGroup(new Entity(person)).getName();
-						if((myEnv.e_heads_group(person, group) && !myEnv.e_large_room(room))) {
-							goodness -= 40;
-						}
-					}
-					*/ 
-					
+							
 					// Test 16: no sharing a small room.
 					if (myEnv.e_small_room(room)) {
 						goodness -= 25;
@@ -147,6 +137,7 @@ public class Solution {
 				// Test 2: group head is close to at least one secretary in group
 				// if current person is head of the group
 				if (myEnv.e_heads_group(person, group)) {
+					
 					// search close rooms
 					for (int k = 0; k < closeAssignments.size(); k++) {
 						String person2 = closeAssignments.get(k).getStringParam(0);
@@ -159,10 +150,13 @@ public class Solution {
 							goodness -= 30;
 						}
 					}
+					
+					/*
 					// Test: are all members of group close
 					if (!areMembersClose(myEnv, group, closePeople)) {
 						goodness -= 2;
 					}
+					*/ 
 				}
 				// Test 5: manager is close to at least one secretary in group
 				// if current person is a manager of the group
@@ -387,14 +381,8 @@ public class Solution {
 				Predicate assignment = new Predicate(workstring); 
 				assignments.add(assignment);
 				
-				// Constraint 1 
-				// if the current person is a group head, then they
-				// should get a large office.
-				if(myEnv.isGroupHead(person.toString())){
-					if(!myEnv.e_large_room(room.toString())){
-						constraints.get(0).addTick(); 
-					}
-				}
+				updateConstraint1(person, room); 
+				updateConstraint2(person, room); 
 								
 				return true; 
 			} else { 
@@ -457,4 +445,73 @@ public class Solution {
 		}
 	}
 	
+	public void resetPenalty(int constraintNum){
+		if(constraintNum < constraints.size() && constraintNum >= 0){
+			constraints.get(constraintNum).reset(); 
+		}
+	}
+
+	private void updateConstraint1(Entity person, Entity room){
+		// Constraint 1 
+		// if the current person is a group head, then they
+		// should get a large office.
+		if(myEnv.isGroupHead(person.toString())){
+			if(!myEnv.e_large_room(room.toString())){
+				constraints.get(0).addTick(); 
+			}
+		}
+	}
+	
+	private void updateConstraint2(Entity person, Entity room){
+		// Constraint 2
+		// If the person is a group head, then they should be
+		// close to all members of their group
+		Entity group = myEnv.getGroup(person); 
+		if(group != null){
+			boolean headAssigned = false; 
+			for(Predicate a : assignments){
+				String p = a.getStringParam(0); 
+				String r = a.getStringParam(1); 
+				
+				Entity g = myEnv.getGroup(new Entity(p)); 
+				if(g != null){
+					if(g.equals(group)){
+						if(myEnv.e_heads_group(p, g.toString())){
+							headAssigned = true; 
+						}
+					}
+				}
+			}
+			
+			if(headAssigned){
+				constraints.get(1).reset(); 
+				for(Predicate a: assignments){
+					String p = a.getStringParam(0); 
+					String r = a.getStringParam(1); 
+
+					Entity g = myEnv.getGroup(new Entity(p)); 
+					if(g != null){	
+						if(myEnv.e_heads_group(p, g.toString())){
+							for(Predicate a2: assignments){
+								String p2 = a2.getStringParam(0);
+								String r2 = a2.getStringParam(1); 
+								
+								if(!p2.equals(p)){
+									Entity g2 = myEnv.getGroup(new Entity(p2)); 
+									if(g2 != null){
+										if(g2.equals(g)){
+											if(!myEnv.e_close(r, r2)){
+												constraints.get(1).addTick(); 
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+	}
 }
