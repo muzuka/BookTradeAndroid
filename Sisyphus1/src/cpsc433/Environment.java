@@ -1,5 +1,6 @@
 package cpsc433;
 
+import java.util.Collection;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -47,6 +48,16 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public static void reset() {
 		getEnv = new Environment("getEnv");
 	}
+	
+	public Collection<Person> getPeople() {
+		return people.values();
+	}
+	
+	public Collection<Room> getRooms() {
+		return rooms.values();
+	}
+	
+	// Don't bother looking past here.
 
 	public void a_person(String p) {
 		if (!people.containsKey(p)) {
@@ -157,7 +168,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 
 		Group oldGroup = person.getGroup();
-		if (!group.equals(oldGroup)) {
+		if (oldGroup != null && !group.equals(oldGroup)) {
 			oldGroup.removePerson(person);
 			person.setHeadsGroup(false);
 		}
@@ -200,7 +211,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 
 		Project oldProject = person.getProject();
-		if (!project.equals(oldProject)) {
+		if (oldProject != null && !project.equals(oldProject)) {
 			oldProject.removePerson(person);
 			person.setHeadsProject(false);
 		}
@@ -243,7 +254,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 
 		Group oldGroup = person.getGroup();
-		if (!group.equals(oldGroup)) {
+		if (oldGroup != null && !group.equals(oldGroup)) {
 			oldGroup.removePerson(person);
 		}
 
@@ -281,7 +292,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 
 		Project oldProject = person.getProject();
-		if (!project.equals(oldProject)) {
+		if (oldProject != null && !project.equals(oldProject)) {
 			oldProject.removePerson(person);
 		}
 
@@ -344,7 +355,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			rooms.put(r, room);
 		}
 		Room oldRoom = person.getAssignedTo();
-		if (!room.equals(oldRoom)) {
+		if (oldRoom != null && !room.equals(oldRoom)) {
 			oldRoom.removePerson(person);
 		}
 		person.setAssignedTo(room);
@@ -517,56 +528,4 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 		return true;
 	}
-
-	/*public String toString() {
-		StringBuffer s = new StringBuffer();
-		for (int i = 0; i < facts.size(); i++) {
-			s.append(facts.get(i).toString() + "\n");
-		}
-
-		*
-		 * for (int i = 0; i < people.size(); i++) { s.append("person(" +
-		 * people.get(i).getName() + ")\n"); } for (int i = 0; i <
-		 * smokers.size(); i++) { s.append("smoker(" + smokers.get(i).getName()
-		 * + ")\n"); } for (int i = 0; i < hackers.size(); i++) {
-		 * s.append("hacker(" + hackers.get(i).getName() + ")\n"); } for (int i
-		 * = 0; i < secretaries.size(); i++) { s.append("secretary(" +
-		 * secretaries.get(i).getName() + ")\n"); } for (int i = 0; i <
-		 * researchers.size(); i++) { s.append("researcher(" +
-		 * researchers.get(i).getName() + ")\n"); } for (int i = 0; i <
-		 * managers.size(); i++) { s.append("manager(" +
-		 * managers.get(i).getName() + ")\n"); } for (int i = 0; i <
-		 * works_with.size(); i++) { s.append("works-with(" +
-		 * works_with.get(i).getKey() + ", " + works_with.get(i).getValue() +
-		 * ")\n"); } for (int i = 0; i < in_group.size(); i++) {
-		 * s.append("in-group(" + in_group.get(i).getKey() + ", " +
-		 * in_group.get(i).getValue() + ")\n"); } for (int i = 0; i <
-		 * heads_group.size(); i++) { s.append("heads-group(" +
-		 * heads_group.get(i).getKey() + ", " + heads_group.get(i).getValue() +
-		 * ")\n"); } for (int i = 0; i < in_project.size(); i++) {
-		 * s.append("in-project(" + in_project.get(i).getKey() + ", " +
-		 * in_project.get(i).getValue() + ")\n"); } for (int i = 0; i <
-		 * heads_project.size(); i++) { s.append("heads-project(" +
-		 * heads_project.get(i).getKey() + ", " +
-		 * heads_project.get(i).getValue() + ")\n"); } for (int i = 0; i <
-		 * rooms.size(); i++) { s.append("room(" + rooms.get(i).getName() +
-		 * ")\n"); } for (int i = 0; i < large_rooms.size(); i++) {
-		 * s.append("large-room(" + large_rooms.get(i).getName() + ")\n"); } for
-		 * (int i = 0; i < medium_rooms.size(); i++) { s.append("medium-room(" +
-		 * medium_rooms.get(i).getName() + ")\n"); } for (int i = 0; i <
-		 * small_rooms.size(); i++) { s.append("small-room(" +
-		 * small_rooms.get(i).getName() + ")\n"); } for (int i = 0; i <
-		 * close.size(); i++) { s.append("close(" + close.get(i).getKey() + ", "
-		 * + close.get(i).getValue() + ")\n"); } for (int i = 0; i <
-		 * assigned_to.size(); i++) { s.append("assigned-to(" +
-		 * assigned_to.get(i).getKey() + ", " + assigned_to.get(i).getValue() +
-		 * ")\n"); } for (int i = 0; i < projects.size(); i++) {
-		 * s.append("project(" + projects.get(i).getName() + ")\n"); } for (int
-		 * i = 0; i < large_projects.size(); i++) { s.append("large-project(" +
-		 * large_projects.get(i).getName() + ")\n"); } for (int i = 0; i <
-		 * groups.size(); i++) { facts. s.append("group(" +
-		 * groups.get(i).getName() + ")\n"); }
-		 *
-		return s.toString();
-	}*/
 }

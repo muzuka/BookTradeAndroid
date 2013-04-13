@@ -53,4 +53,12 @@ public class Room implements Comparable<Room> {
 	public Size getSize() {
 		return size;
 	}
+	
+	public TreeSet<Person> getPeople() {
+		return assigned_to;
+	}
+	
+	public String toString() {
+		return name;
+	}
 }

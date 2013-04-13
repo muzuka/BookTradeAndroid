@@ -43,4 +43,11 @@ public class Group implements Comparable<Group> {
 		heads_group.remove(person);
 	}
 
+	public TreeSet<Person> getGroupMembers() {
+		return in_group;
+	}
+	
+	public TreeSet<Person> getGroupHeads() {
+		return heads_group;
+	}
 }

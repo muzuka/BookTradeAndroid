@@ -125,4 +125,8 @@ public class Person implements Comparable<Person> {
 	public Room getAssignedTo() {
 		return assigned_to;
 	}
+	
+	public String toString() {
+		return name;
+	}
 }

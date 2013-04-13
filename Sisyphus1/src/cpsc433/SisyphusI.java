@@ -15,7 +15,9 @@ public class SisyphusI {
 		Environment env = Environment.get();
 		env.fromFile(args[0]);
 		
-		OrTreeNode root = new OrTreeNode(null, endtimes, args[0] + ".out");
-		root.search();
+		Solution soln = new Solution(args[0] + ".out");
+		OrTreeNode root = new OrTreeNode(endtimes, soln);
+		soln = root.search();
+		soln.writeFile();
 	}
 }

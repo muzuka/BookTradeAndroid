@@ -51,5 +51,9 @@ public class Project implements Comparable<Project> {
 	public boolean getLargeProject() {
 		return large_project;
 	}
+	
+	public TreeSet<Person> getProjectMembers() {
+		return in_project;
+	}
 
 }
