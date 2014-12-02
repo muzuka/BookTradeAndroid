@@ -1,5 +1,5 @@
 package com.example.booktradeapp;
-// ok
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
