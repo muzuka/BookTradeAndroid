@@ -33,18 +33,16 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public static searchBar()
+    public static void searchBar()
     {
     		//needs to put a search bar on the screen
     		//needs to take user input
     		// call thing that returns books
     }
-    public static searchResults()
+    public static void searchResults()
     {
     	//takes input from searchBar
-    	<?php
-    		//quieries database	
-    	?>
+
     	//returns results, prefribly in a grid format.
     }
 }
