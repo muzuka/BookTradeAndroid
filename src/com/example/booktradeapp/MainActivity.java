@@ -4,14 +4,23 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
+
+    private SearchView search;
+    private TextView   textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        search = (SearchView)findViewById(R.id.searchView1);
+        search.setQueryHint("search");
+
+        textView = (TextView)findViewById(R.id.textView1);
     }
 
 
@@ -33,13 +42,14 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public static void searchBar()
+    public void searchBar()
     {
+        CharSequence searchTerm = search.getQuery();
     		//needs to put a search bar on the screen
     		//needs to take user input
     		// call thing that returns books
     }
-    public static void searchResults()
+    public void searchResults()
     {
     	//takes input from searchBar
 
