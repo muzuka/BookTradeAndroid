@@ -12,7 +12,7 @@
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="50dp"
         android:layout_above="@+id/searchView1"
         android:fontFamily="@string/app_name"
         android:maxHeight="16dp"
@@ -26,8 +26,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:inputType="text"
         android:queryHint="@string/query_hint"
         android:layout_marginTop="16dp"
         android:background="@style/AppBaseTheme" />
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchView1" />
 
 </RelativeLayout>
