@@ -8,6 +8,7 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import android.app.SearchManager;
 import android.os.AsyncTask;
@@ -15,6 +16,7 @@ import org.apache.http.*;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import android.content.Intent;
+import android.widget.ListView;
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -23,12 +25,14 @@ import android.os.Bundle;
  */
 public class SearchActivity extends Activity {
 
-    private String results;
+    private ListView listView;
+    private ArrayList<String> results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        listView = (ListView)findViewById(R.id.listView1);
 
         Intent intent = getIntent();
         if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
@@ -37,7 +41,7 @@ public class SearchActivity extends Activity {
         }
     }
 
-    protected String search(String q) {
+    protected ArrayList<String> search(String q) {
         try {
             String link = new String();
             String data = URLEncoder.encode("query", "UTF-8") + "=" + URLEncoder.encode(q, "UTF-8");
@@ -52,17 +56,18 @@ public class SearchActivity extends Activity {
             writer.flush();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String output = null;
+            ArrayList<String> output = null;
             String line = null;
 
             while((line = reader.readLine()) != null) {
-                output = output + line;
+                output.add(line);
             }
 
             return output;
         }
         catch(Exception e) {
-            return e.getMessage();
+            e.printStackTrace();
+            return null;
         }
     }
 
