@@ -48,11 +48,26 @@ public class SearchActivity extends AsyncTask<String, Void, ArrayList<String>> {
 
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             output = new ArrayList<String>();
+            String[] rows;
+            String[] rowElements;
             String line = null;
 
             while((line = reader.readLine()) != null) {
-                output.add(line);
+                if(line.charAt(0) == ':' && line.charAt(1) == ':') {
+                    rows = line.split("::");
+                    for(int i = 0; i < rows.length; i++) {
+                        if(rows[i].length() != 0) {
+                            rowElements = rows[i].split("/");
+
+                            output.add(rowElements[0] + " " + rowElements[1] + " " + rowElements[2]);
+                        }
+                    }
+                    break;
+                }
             }
+
+            reader.close();
+            writer.close();
 
             return output;
         }
