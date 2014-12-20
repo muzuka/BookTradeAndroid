@@ -1,3 +1,11 @@
+
+/*
+ *  Main activity of Book Trade app
+ *  Handles search and results
+ *
+ *  Author: Sean Brown, Laura Berry, Andrew Lata
+ */
+
 package com.example.booktradeapp;
 
 import android.util.Pair;
@@ -33,7 +41,7 @@ public class MainActivity extends Activity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                activity = new SearchActivity(thisContext).execute(query);
+                activity = new SearchActivity().execute(query);
 
                 if(results == null) {
                     results = new ArrayList<String>();

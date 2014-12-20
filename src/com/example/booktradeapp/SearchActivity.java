@@ -1,4 +1,11 @@
 
+/*
+ * Search Activity class
+ * Runs the search and returns results
+ *
+ * Author: Sean Brown, Laura Berry, Andrew Lata
+ */
+
 package com.example.booktradeapp;
 
 import android.os.AsyncTask;
