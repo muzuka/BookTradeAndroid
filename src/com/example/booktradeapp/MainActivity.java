@@ -1,8 +1,7 @@
 package com.example.booktradeapp;
 
+import android.util.Pair;
 import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.content.Context;
@@ -11,16 +10,6 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
-
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -31,7 +20,7 @@ public class MainActivity extends Activity {
     private SearchView searchView;
     private ArrayList<String> results;
     private Context thisContext = this;
-    private AsyncTask<String, Void, ArrayList<String>> activity;
+    private AsyncTask<String, Void, Pair<ArrayList<String>, ArrayList<String> > > activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +36,7 @@ public class MainActivity extends Activity {
                 activity = new SearchActivity(thisContext).execute(query);
 
                 try {
-                    results = activity.get();
+                    results = activity.get().first;
                 }
                 catch(InterruptedException e) {
                     e.printStackTrace();
@@ -62,7 +51,7 @@ public class MainActivity extends Activity {
                     results = new ArrayList<String>();
                 }
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(thisContext, R.layout.activity_main, results);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(thisContext, R.layout.list_text_view, results);
                 listView.setAdapter(adapter);
                 return false;
             }
@@ -94,7 +83,4 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
 }
