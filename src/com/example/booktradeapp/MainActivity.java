@@ -35,6 +35,11 @@ public class MainActivity extends Activity {
             public boolean onQueryTextSubmit(String query) {
                 activity = new SearchActivity(thisContext).execute(query);
 
+                if(results == null) {
+                    results = new ArrayList<String>();
+                }
+
+
                 try {
                     results = activity.get().first;
                 }
@@ -46,10 +51,12 @@ public class MainActivity extends Activity {
                     e.printStackTrace();
                     return false;
                 }
-
-                if(results == null) {
-                    results = new ArrayList<String>();
+                catch(NullPointerException e) {
+                    e.printStackTrace();
+                    return false;
                 }
+
+
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(thisContext, R.layout.list_text_view, results);
                 listView.setAdapter(adapter);
