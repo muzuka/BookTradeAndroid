@@ -21,7 +21,7 @@ public class GetBookActivity extends AsyncTask<String, Void, ArrayList<String>> 
     @Override
     protected ArrayList<String> doInBackground(String... args) {
 
-        String link = "http://10.0.2.2/BookTrade/appSearchPage.php";
+        String link = "http://10.0.2.2/BookTrade/appGetBookPage.php";
         String data;
 
         URL address;
@@ -31,7 +31,7 @@ public class GetBookActivity extends AsyncTask<String, Void, ArrayList<String>> 
         ArrayList<String> output;
 
         try {
-            data = URLEncoder.encode("query", "UTF-8") + "=" + URLEncoder.encode(args[0], "UTF-8");
+            data = URLEncoder.encode("bID", "UTF-8") + "=" + URLEncoder.encode(args[0], "UTF-8");
 
             address = new URL(link);
 
@@ -45,6 +45,22 @@ public class GetBookActivity extends AsyncTask<String, Void, ArrayList<String>> 
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
             output = new ArrayList<String>();
+            String[] info;
+            String line;
+
+            while((line = reader.readLine()) != null) {
+                if(line.length() == 0) {
+                    continue;
+                }
+                if(line.charAt(0) == ':' && line.charAt(1) == ':') {
+                    info = line.split(":");
+                    for(String i : info) {
+                        output.add(i);
+                    }
+                    break;
+                }
+            }
+
         }
         catch(Exception e) {
             e.printStackTrace();
