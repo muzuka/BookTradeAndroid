@@ -61,12 +61,14 @@ public class GetBookActivity extends AsyncTask<String, Void, ArrayList<String>> 
                 }
             }
 
+            reader.close();
+            writer.close();
+
         }
         catch(Exception e) {
             e.printStackTrace();
             return null;
         }
-
         return output;
     }
 
