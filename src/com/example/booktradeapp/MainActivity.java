@@ -13,8 +13,11 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -26,9 +29,12 @@ public class MainActivity extends Activity {
 
     private ListView listView;
     private SearchView searchView;
-    private ArrayList<String> results;
+    private Pair<ArrayList<String>, ArrayList<String> > results;
+    private ArrayList<String> info;
+    private ArrayList<String> bookIDs;
     private Context thisContext = this;
     private AsyncTask<String, Void, Pair<ArrayList<String>, ArrayList<String> > > activity;
+    private BookActivity book;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +49,10 @@ public class MainActivity extends Activity {
             public boolean onQueryTextSubmit(String query) {
                 activity = new SearchActivity().execute(query);
 
-                if(results == null) {
-                    results = new ArrayList<String>();
-                }
-
-
                 try {
-                    results = activity.get().first;
+                    results = activity.get();
+                    info = results.first;
+                    bookIDs = results.second;
                 }
                 catch(InterruptedException e) {
                     e.printStackTrace();
@@ -64,9 +67,7 @@ public class MainActivity extends Activity {
                     return false;
                 }
 
-
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(thisContext, R.layout.list_text_view, results);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(thisContext, R.layout.list_text_view, info);
                 listView.setAdapter(adapter);
                 return false;
             }
@@ -75,6 +76,18 @@ public class MainActivity extends Activity {
             public boolean onQueryTextChange(String newText) {
                 onQueryTextSubmit(newText);
                 return false;
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String bookID = bookIDs.get(position);
+
+                Intent intent = new Intent(thisContext, BookActivity.class);
+                intent.putExtra("com.example.booktradeapp.MESSAGE", bookID);
+
+                startActivity(intent);
             }
         });
     }
