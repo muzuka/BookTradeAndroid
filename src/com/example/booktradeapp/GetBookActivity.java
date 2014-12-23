@@ -52,7 +52,7 @@ public class GetBookActivity extends AsyncTask<String, Void, ArrayList<String>> 
                 if(line.length() == 0) {
                     continue;
                 }
-                if(line.charAt(0) == ':' && line.charAt(1) == ':') {
+                if(line.charAt(0) == ':') {
                     info = line.split(":");
                     for(String i : info) {
                         output.add(i);
@@ -69,4 +69,6 @@ public class GetBookActivity extends AsyncTask<String, Void, ArrayList<String>> 
 
         return output;
     }
+
+
 }
