@@ -24,6 +24,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".BookActivity"
+            android:label="BookTradeApp">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.OPENABLE"/>
+            </intent-filter>
+            </activity>
     </application>
 
 </manifest>
